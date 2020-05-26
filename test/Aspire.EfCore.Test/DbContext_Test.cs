@@ -1,0 +1,40 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+
+using System.Diagnostics.CodeAnalysis;
+
+namespace Aspire.EfCore.Test
+{
+    public class DbContext_Test : DbContext
+    {
+        public DbContext_Test([NotNull] DbContextOptions<DbContext_Test> options) : base(options)
+        {
+
+        }
+
+        public DbSet<EfCoreEntity_Long_Test> EfCoreEntityLongTest { get; set; }
+
+        public DbSet<EfCoreEntity_Guid_Test> EfCoreEntityGuidTest { get; set; }
+    }
+
+    public static class DbContextOptions_Test
+    {
+        public static DbContextOptions<DbContext_Test> Options
+        {
+            get
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<DbContext_Test>();
+                optionsBuilder.UseSqlite(@"Data Source = C:\Users\suncheng\Desktop\Aspire\test\Aspire.EfCore.Test\App_Data\aspire_efcore_test.db");
+                return optionsBuilder.Options;
+            }
+        }
+    }
+
+    public class DbContextFactory_Test : IDesignTimeDbContextFactory<DbContext_Test>
+    {
+        public DbContext_Test CreateDbContext(string[] args)
+        {
+            return new DbContext_Test(DbContextOptions_Test.Options);
+        }
+    }
+}
