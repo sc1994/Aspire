@@ -9,7 +9,7 @@ namespace Aspire.Application.AppServices
     public class CrudAppService<TEntity, TCommonDto> : CrudAppService<TEntity, TCommonDto, long>
         where TEntity : BaseEntity<long>
     {
-        public CrudAppService(IRepository<TEntity, long> repository, IMapper mapper) : base(repository, mapper)
+        public CrudAppService(IRepository<TEntity, long> repository, IAspireMapper mapper) : base(repository, mapper)
         {
 
         }
@@ -18,7 +18,7 @@ namespace Aspire.Application.AppServices
     public class CrudAppService<TEntity, TCommonDto, TId> : CrudAppService<TEntity, TCommonDto, TId, TCommonDto>
         where TEntity : BaseEntity<TId>
     {
-        public CrudAppService(IRepository<TEntity, TId> repository, IMapper mapper) : base(repository, mapper)
+        public CrudAppService(IRepository<TEntity, TId> repository, IAspireMapper mapper) : base(repository, mapper)
         {
         }
     }
@@ -26,7 +26,7 @@ namespace Aspire.Application.AppServices
     public class CrudAppService<TEntity, TOutputDto, TId, TInputDto> : CrudAppService<TEntity, TOutputDto, TId, TInputDto, TInputDto>
         where TEntity : BaseEntity<TId>
     {
-        public CrudAppService(IRepository<TEntity, TId> repository, IMapper mapper) : base(repository, mapper)
+        public CrudAppService(IRepository<TEntity, TId> repository, IAspireMapper mapper) : base(repository, mapper)
         {
         }
 
@@ -42,7 +42,7 @@ namespace Aspire.Application.AppServices
     public class CrudAppService<TEntity, TOutputDto, TId, TCreateDto, TUpdateDto, TSearchDto> : CrudAppService<TEntity, TOutputDto, TId, TCreateDto, TUpdateDto>
         where TEntity : BaseEntity<TId>
     {
-        public CrudAppService(IRepository<TEntity, TId> repository, IMapper mapper) : base(repository, mapper)
+        public CrudAppService(IRepository<TEntity, TId> repository, IAspireMapper mapper) : base(repository, mapper)
         {
         }
     }
@@ -51,9 +51,9 @@ namespace Aspire.Application.AppServices
         where TEntity : BaseEntity<TId>
     {
         private readonly IRepository<TEntity, TId> _repository;
-        private readonly IMapper _mapper;
+        private readonly IAspireMapper _mapper;
 
-        public CrudAppService(IRepository<TEntity, TId> repository, IMapper mapper)
+        public CrudAppService(IRepository<TEntity, TId> repository, IAspireMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
