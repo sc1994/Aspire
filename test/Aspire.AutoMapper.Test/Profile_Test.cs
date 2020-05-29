@@ -13,7 +13,7 @@ namespace Aspire.AutoMapper.Test
 
             CreateMap<MapEntity_Test, MapDto_Test>()
                 .ForMember(x => x.Birthday, x => x.MapFrom(o => o.DateOfBirth))
-                .ForMember(x => x.Age, x => x.Condition(o => o.Age == default));
+                .ForMember(x => x.Name, x => x.Condition(o => o.Name != default));
         }
     }
 }

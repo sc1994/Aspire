@@ -30,7 +30,7 @@ namespace Aspire.Application.AppServices
         {
         }
 
-        [HttpPost("/api/[controller]/{id?}")]
+        [HttpPost("/api/[controller]/create-or-update/{id?}")]
         public virtual async Task<TOutputDto> CreateOrUpdateAsync(TInputDto input, TId id = default)
         {
             if (id?.Equals(default) ?? true)
@@ -44,6 +44,12 @@ namespace Aspire.Application.AppServices
     {
         public CrudAppService(IRepository<TEntity, TId> repository, IAspireMapper mapper) : base(repository, mapper)
         {
+        }
+
+        [HttpPost("/api/[controller]/search")]
+        public virtual Task<TOutputDto> CreateOrUpdateAsync(TSearchDto input)
+        {
+            throw new System.Exception();
         }
     }
 

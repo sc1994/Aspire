@@ -36,15 +36,15 @@ namespace Aspire.Test.Map
                 Age = 10,
                 DateOfBirth = new DateTime(2020, 5, 1, 10, 0, 0), // 2020-05-01 10:00:00
                 Gender = 1,
-                Name = "swzoxa"
             };
             var b = new MapDto_Test()
             {
-                Age = 20
+                Age = 20,
+                Name = "swzoxa"
             };
             _mapper.To(a, b);
-            Assert.Equal(20, b.Age);
-            Assert.Equal(a.Name, b.Name);
+            Assert.Equal(10, b.Age);
+            Assert.Equal("swzoxa", b.Name);
         }
 
         public virtual void List_Map_To_New_Test()
