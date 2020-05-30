@@ -15,7 +15,7 @@ namespace Aspire.Swagger
                 s.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "TODO"
+                    Title = "TODO Title"
                 });
 
                 s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -55,7 +55,7 @@ namespace Aspire.Swagger
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "TODO");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "TODO Name");
             });
             return app;
         }
