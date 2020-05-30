@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.AutoMapper", "src\As
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.AutoMapper.Test", "test\Aspire.AutoMapper.Test\Aspire.AutoMapper.Test.csproj", "{5F2F146D-3FDA-4C39-B06B-09EB4CE408B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Identity", "src\Aspire.Identity\Aspire.Identity.csproj", "{AE4050AA-0A39-4B71-9F6A-4719A509ACD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Identity", "src\Aspire.Identity\Aspire.Identity.csproj", "{AE4050AA-0A39-4B71-9F6A-4719A509ACD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Swagger", "src\Aspire.Swagger\Aspire.Swagger.csproj", "{E0B47686-D314-4682-B9A5-80DF916C47D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{AE4050AA-0A39-4B71-9F6A-4719A509ACD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE4050AA-0A39-4B71-9F6A-4719A509ACD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE4050AA-0A39-4B71-9F6A-4719A509ACD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0B47686-D314-4682-B9A5-80DF916C47D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0B47686-D314-4682-B9A5-80DF916C47D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0B47686-D314-4682-B9A5-80DF916C47D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0B47686-D314-4682-B9A5-80DF916C47D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{76CDDDF9-8D48-490F-9783-3A5AF1637851} = {4754B24A-35AB-442E-8194-AEB586AA85CB}
 		{5F2F146D-3FDA-4C39-B06B-09EB4CE408B7} = {BA40CF00-BCF1-4F68-AE8E-76C4B1607CDE}
 		{AE4050AA-0A39-4B71-9F6A-4719A509ACD7} = {4754B24A-35AB-442E-8194-AEB586AA85CB}
+		{E0B47686-D314-4682-B9A5-80DF916C47D3} = {4754B24A-35AB-442E-8194-AEB586AA85CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F47DD982-EEE0-4114-AA4A-F186319C40DC}
