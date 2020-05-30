@@ -17,7 +17,7 @@ namespace Aspire.EfCore.Test
         public DbSet<EfCoreEntity_Guid_Test> EfCoreEntityGuidTest { get; set; }
     }
 
-    public static class DbContextOptions_Test
+    public class DbContextOptions_Test : DbContextOptions<DbContext_Test>
     {
         public static DbContextOptions<DbContext_Test> Options
         {

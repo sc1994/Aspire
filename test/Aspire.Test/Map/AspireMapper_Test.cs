@@ -1,6 +1,7 @@
 ﻿using Aspire.Map;
+
 using System;
-using System.Linq;
+
 using Xunit;
 
 namespace Aspire.Test.Map

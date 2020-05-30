@@ -1,5 +1,7 @@
 ﻿using Aspire.Test.Map;
+
 using AutoMapper;
+
 using System;
 
 namespace Aspire.AutoMapper.Test

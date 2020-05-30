@@ -1,5 +1,7 @@
 ﻿using Aspire.Map;
+
 using AutoMapper;
+
 using System.Collections.Generic;
 
 namespace Aspire.AutoMapper

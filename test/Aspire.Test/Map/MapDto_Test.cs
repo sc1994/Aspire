@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Aspire.Test.Map
+﻿namespace Aspire.Test.Map
 {
     public class MapDto_Test
     {

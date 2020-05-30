@@ -1,6 +1,7 @@
-using Aspire.Map;
 using Aspire.Test.Map;
+
 using AutoMapper;
+
 using Xunit;
 
 namespace Aspire.AutoMapper.Test

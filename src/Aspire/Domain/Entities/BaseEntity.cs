@@ -21,17 +21,17 @@ namespace Aspire.Domain.Entities
 
         public abstract DateTime DeleteAt { get; set; }
 
-        public static bool operator ==([NotNull]BaseEntity<TId> a, [NotNull]BaseEntity<TId> b)
+        public static bool operator ==([NotNull] BaseEntity<TId> a, [NotNull] BaseEntity<TId> b)
         {
             return a.Id.Equals(b.Id);
         }
 
-        public static bool operator !=([NotNull]BaseEntity<TId> a, [NotNull]BaseEntity<TId> b)
+        public static bool operator !=([NotNull] BaseEntity<TId> a, [NotNull] BaseEntity<TId> b)
         {
             return !(a == b);
         }
 
-        public override bool Equals([NotNull]object obj)
+        public override bool Equals([NotNull] object obj)
         {
             if (obj is BaseEntity<TId> baseEntity)
             {
@@ -41,10 +41,7 @@ namespace Aspire.Domain.Entities
             return false;
         }
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        public override int GetHashCode() => base.GetHashCode();
 
         public override string ToString()
         {
