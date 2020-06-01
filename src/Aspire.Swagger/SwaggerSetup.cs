@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 
 using System.Collections.Generic;
 
-namespace Aspire.Swagger
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class SwaggerSetup
     {
@@ -49,7 +47,13 @@ namespace Aspire.Swagger
 
             return services;
         }
+    }
+}
 
+namespace Microsoft.AspNetCore.Builder
+{
+    public static class SwaggerSetup
+    {
         public static IApplicationBuilder UseAspireSwagger(this IApplicationBuilder app)
         {
             app.UseSwagger();

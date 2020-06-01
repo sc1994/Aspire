@@ -2,11 +2,10 @@
 
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.Extensions.DependencyInjection;
 
 using System.Reflection;
 
-namespace Aspire
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class AspireSetup
     {

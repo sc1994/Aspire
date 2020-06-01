@@ -1,12 +1,11 @@
-﻿using Aspire.Map;
+﻿using Aspire.AutoMapper;
+using Aspire.Map;
 
 using AutoMapper;
 
-using Microsoft.Extensions.DependencyInjection;
-
 using System.Reflection;
 
-namespace Aspire.AutoMapper
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class AutoMapperSetup
     {

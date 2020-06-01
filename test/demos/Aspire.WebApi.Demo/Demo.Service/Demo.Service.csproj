@@ -1,8 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\Aspire.AutoMapper\Aspire.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\..\..\src\Aspire.EfCore\Aspire.EfCore.csproj" />
+    <ProjectReference Include="..\..\..\..\src\Aspire.Swagger\Aspire.Swagger.csproj" />    <ProjectReference Include="..\Demo.Application\Demo.Application.csproj" />
+  </ItemGroup>
 
 
 </Project>

@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Aspire.EfCore;
 
+using Microsoft.EntityFrameworkCore;
+
+using System;
 using System.Linq;
 using System.Reflection;
 
-namespace Aspire.EfCore
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class EfCoreSetup
     {
@@ -12,11 +14,22 @@ namespace Aspire.EfCore
         {
             var allTypes = assembly.GetTypes();
 
-            // 数据库上下文设置
-            var options = allTypes.Where(x => x.BaseType == typeof(DbContextOptions<>));
-            foreach (var item in options) services.AddTransient(item);
 
-            // 数据库上下文
+            // 上下文设置
+            var builds = allTypes.Where(x => x.BaseType == typeof(DbContextOptionsBuilder<>));
+            foreach (var item in builds)
+            {
+                var instance = Activator.CreateInstance(item);
+
+                // 注入单例构建
+                services.AddSingleton(instance);
+
+                // 注入单例设置
+                var option = item.GetProperty("Options").GetValue(instance);
+                services.AddSingleton(option);
+            }
+
+            // 上下文
             var contexts = allTypes.Where(x => x.BaseType == typeof(DbContext));
             foreach (var item in contexts) services.AddTransient(item);
 

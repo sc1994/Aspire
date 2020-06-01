@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using System;
+
 namespace Demo.Service
 {
     public class Startup
@@ -19,7 +21,14 @@ namespace Demo.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            var application = typeof(Application.Blogs.BolgAppService).Assembly;
+            var core = typeof(Core.Blogs.BlogEntity).Assembly;
+
+            services.AddAspireEfCore(core);
+            services.AddAspireSwagger();
+            services.AddAspireAutoMapper(application);
+
+            services.AddControllers().AddAspire(application);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,6 +42,8 @@ namespace Demo.Service
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAspireSwagger();
 
             app.UseEndpoints(endpoints =>
             {
