@@ -8,7 +8,7 @@ namespace Demo.Application.Blogs
 {
     public class BolgAppService : CrudAppService<BlogEntity, BlogDto>
     {
-        public BolgAppService(IRepository<BlogEntity, long> repository, IAspireMapper mapper) : base(repository, mapper)
+        public BolgAppService(IRepositoryEfCore<BlogEntity, long> repository, IAspireMapper mapper) : base(repository, mapper)
         {
         }
     }

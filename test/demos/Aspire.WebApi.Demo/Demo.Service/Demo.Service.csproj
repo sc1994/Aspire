@@ -7,7 +7,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\src\Aspire.AutoMapper\Aspire.AutoMapper.csproj" />
     <ProjectReference Include="..\..\..\..\src\Aspire.EfCore\Aspire.EfCore.csproj" />
-    <ProjectReference Include="..\..\..\..\src\Aspire.Swagger\Aspire.Swagger.csproj" />    <ProjectReference Include="..\Demo.Application\Demo.Application.csproj" />    <ProjectReference Include="..\Demo.Database\Demo.Database.csproj" />
+    <ProjectReference Include="..\..\..\..\src\Aspire.Swagger\Aspire.Swagger.csproj" />
+    <ProjectReference Include="..\Demo.Application\Demo.Application.csproj" />
+    <ProjectReference Include="..\Demo.Database\Demo.Database.csproj" />
   </ItemGroup>
 
 

@@ -1,4 +1,7 @@
-﻿using Demo.Core.Blogs;
+﻿using Aspire.Domain;
+using Aspire.EfCore;
+
+using Demo.Core.Blogs;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -9,7 +12,7 @@ namespace Demo.Database.MainDb
 {
     public class MainDbContext : DbContext
     {
-        public MainDbContext([NotNull] DbContextOptions options) : base(options)
+        public MainDbContext([NotNull] DbContextOptions<MainDbContext> options) : base(options)
         {
         }
 

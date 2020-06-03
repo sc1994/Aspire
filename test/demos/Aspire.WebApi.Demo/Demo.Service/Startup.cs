@@ -25,9 +25,8 @@ namespace Demo.Service
         public void ConfigureServices(IServiceCollection services)
         {
             var application = typeof(BolgAppService).Assembly;
-            var database = typeof(MainDbContext).Assembly;
 
-            services.AddAspireEfCore(database);
+            services.AddAspireEfCore<MainDbContext>();
             services.AddAspireSwagger();
             services.AddAspireAutoMapper(application);
 
