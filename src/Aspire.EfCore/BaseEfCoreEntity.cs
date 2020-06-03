@@ -18,7 +18,6 @@ namespace Aspire.Domain.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override DateTime CreatedAt { get; set; } = DateTime.Now;
 
-
         public override DateTime UpdatedAt { get; set; } = DateTime.MaxValue;
 
         public override bool IsDelete { get; set; } = false;

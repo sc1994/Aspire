@@ -5,6 +5,5 @@ namespace Demo.Core.Blogs
 {
     public class BlogEntity : BaseEfCoreEntity
     {
-
     }
 }

@@ -13,7 +13,7 @@ namespace Demo.Database.MainDb
         {
         }
 
-        public DbSet<BlogEntity> BlogEntities { get; set; }
+        public DbSet<BlogEntity> Blogs { get; set; }
     }
 
     public class MainDbContextOptionsBuilder : DbContextOptionsBuilder<MainDbContext>
