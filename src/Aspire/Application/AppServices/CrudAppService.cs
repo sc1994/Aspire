@@ -35,7 +35,7 @@ namespace Aspire.Application.AppServices
         [HttpPost("/api/[controller]/create-or-update/{id?}")]
         public virtual async Task<TOutputDto> CreateOrUpdateAsync(TInputDto input, TId id = default)
         {
-            if (id?.Equals(default) ?? true)
+            if (id?.Equals(default(TId)) ?? true)
                 return await base.CreateAsync(input);
             return await base.UpdateAsync(id, input);
         }

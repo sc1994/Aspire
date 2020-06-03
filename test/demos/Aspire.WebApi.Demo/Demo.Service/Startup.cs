@@ -1,4 +1,7 @@
 
+using Demo.Application.Blogs;
+using Demo.Database.MainDb;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,14 +24,14 @@ namespace Demo.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var application = typeof(Application.Blogs.BolgAppService).Assembly;
-            var core = typeof(Core.Blogs.BlogEntity).Assembly;
+            var application = typeof(BolgAppService).Assembly;
+            var database = typeof(MainDbContext).Assembly;
 
-            services.AddAspireEfCore(core);
+            services.AddAspireEfCore(database);
             services.AddAspireSwagger();
             services.AddAspireAutoMapper(application);
 
-            services.AddControllers().AddAspire(application);
+            services.AddAspireController(application);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

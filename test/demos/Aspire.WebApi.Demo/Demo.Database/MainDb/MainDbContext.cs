@@ -9,7 +9,7 @@ namespace Demo.Database.MainDb
 {
     public class MainDbContext : DbContext
     {
-        public MainDbContext([NotNull] DbContextOptions<MainDbContext> options) : base(options)
+        public MainDbContext([NotNull] DbContextOptions options) : base(options)
         {
         }
 
@@ -23,7 +23,7 @@ namespace Demo.Database.MainDb
             get
             {
                 var optionsBuilder = new DbContextOptionsBuilder<MainDbContext>();
-                optionsBuilder.UseSqlite(@"Data Source = C:\Users\suncheng\Desktop\Aspire\test\demos\Aspire.WebApi.Demo\Demo.Application\App_Data\aspire_main_db.db");
+                optionsBuilder.UseSqlite(@"Data Source = C:\Users\suncheng\Desktop\Aspire\test\demos\Aspire.WebApi.Demo\Demo.Service\App_Data\aspire_main_db.db");
                 return optionsBuilder.Options;
             }
         }
@@ -33,7 +33,7 @@ namespace Demo.Database.MainDb
     {
         public MainDbContext CreateDbContext(string[] args)
         {
-            return new MainDbContext(MainDbContextOptionsBuilder.Instance);
+            return new MainDbContext(new MainDbContextOptionsBuilder().Options);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Aspire.Utils;
+﻿using Aspire.Domain.Repositories;
+using Aspire.Utils;
 
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
@@ -9,9 +10,11 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class AspireSetup
     {
-        public static IMvcBuilder AddAspire(this IMvcBuilder mvc, Assembly controllersAssembly)
+        public static IServiceCollection AddAspireController(this IServiceCollection services, Assembly controllersAssembly)
         {
-            return mvc.AddMvcOptions(configure =>
+            services
+                .AddControllers()
+                .AddMvcOptions(configure =>
                 {
                     configure.AllowEmptyInputInBodyModelBinding = false;
                     configure.Conventions.Add(new RouteTokenTransformerConvention(new CustomTransformerConvention()));
@@ -22,6 +25,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 })
                 .AddControllersAsServices()
                 .AddNewtonsoftJson();
+
+            return services;
         }
     }
 }
