@@ -351,3 +351,4 @@ MigrationBackup/
 *.db
 /test/demos/Aspire.WebApi.Demo/Demo.Database/Migrations
 /test/demos/Aspire.WebApi.Demo/Demo.Service/App_Data
+/test/Aspire.EfCore.Test/Migrations
