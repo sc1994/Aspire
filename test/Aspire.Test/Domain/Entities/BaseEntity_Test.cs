@@ -27,7 +27,7 @@ namespace Aspire.Test.Domain.Entities
         public override long Id { get; set; }
         public override DateTime CreatedAt { get; set; }
         public override DateTime UpdatedAt { get; set; }
-        public override bool IsDelete { get; set; }
-        public override DateTime DeleteAt { get; set; }
+        public override bool IsDeleted { get; set; }
+        public override DateTime DeletedAt { get; set; }
     }
 }

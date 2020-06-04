@@ -1,15 +1,11 @@
 ﻿using System;
 
+using Aspire.Application.AppServices.Dtos;
+
 namespace Demo.Application.Blogs
 {
-    public class BlogDto
+    public class BlogDto : CommonDto
     {
-        public long Id { get; set; }
 
-        public DateTime CreateAt { get; set; }
-
-        public DateTime UpdateAt { get; set; }
-
-        public DateTime DeleteAt { get; set; }
     }
 }

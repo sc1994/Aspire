@@ -58,14 +58,14 @@ namespace Aspire.Test.Domain.Repositories
         public virtual async void UpdateAsync()
         {
             var e = await Repository.AddThenEntityAsync(CreateEntity());
-            e.IsDelete = true;
+            e.IsDeleted = true;
             Assert.True(await Repository.UpdateAsync(e));
         }
 
         public virtual async void UpdateRangeAsync_Test()
         {
             var e = await Repository.AddRangeThenEntitiesAsync(CreateEntity(), CreateEntity(), CreateEntity());
-            e = e.Select(x => { x.IsDelete = true; return x; }).ToArray();
+            e = e.Select(x => { x.IsDeleted = true; return x; }).ToArray();
             Assert.Equal(3, await Repository.UpdateRangeAsync(e));
         }
 
@@ -73,18 +73,18 @@ namespace Aspire.Test.Domain.Repositories
         {
             var ids = await Repository.AddRangeThenIdsAsync(CreateEntity(), CreateEntity(), CreateEntity());
             var e = await Repository.GetByIdsAsync(ids);
-            e = e.Select(x => { x.IsDelete = true; return x; }).ToArray();
+            e = e.Select(x => { x.IsDeleted = true; return x; }).ToArray();
             var r = await Repository.UpdateRangeThenEntitiesAsync(e);
             Assert.True(r.All(x => e.Contains(x)));
-            Assert.True(e.All(x => x.IsDelete));
+            Assert.True(e.All(x => x.IsDeleted));
         }
 
         public virtual async void UpdateThenEntityAsync_Test()
         {
             var e = await Repository.AddThenEntityAsync(CreateEntity());
-            e.IsDelete = true;
+            e.IsDeleted = true;
             Assert.Equal(e, await Repository.UpdateThenEntityAsync(e));
-            Assert.True((await Repository.UpdateThenEntityAsync(e)).IsDelete);
+            Assert.True((await Repository.UpdateThenEntityAsync(e)).IsDeleted);
         }
 
         public virtual async void GetByIdAsync_Test()

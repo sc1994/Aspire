@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 
+using Aspire.Application.AppServices.Dtos;
 using Aspire.Domain.Entities;
 using Aspire.Domain.Repositories;
 using Aspire.Map;
@@ -10,6 +11,7 @@ namespace Aspire.Application.AppServices
 {
     public class CrudAppService<TEntity, TCommonDto> : CrudAppService<TEntity, TCommonDto, long>
         where TEntity : BaseEntity<long>
+        where TCommonDto : CommonDto
     {
         public CrudAppService(IRepository<TEntity, long> repository, IAspireMapper mapper) : base(repository, mapper)
         {
@@ -19,6 +21,7 @@ namespace Aspire.Application.AppServices
 
     public class CrudAppService<TEntity, TCommonDto, TId> : CrudAppService<TEntity, TCommonDto, TId, TCommonDto>
         where TEntity : BaseEntity<TId>
+        where TCommonDto : CommonDto<TId>
     {
         public CrudAppService(IRepository<TEntity, TId> repository, IAspireMapper mapper) : base(repository, mapper)
         {
@@ -27,6 +30,8 @@ namespace Aspire.Application.AppServices
 
     public class CrudAppService<TEntity, TOutputDto, TId, TInputDto> : CrudAppService<TEntity, TOutputDto, TId, TInputDto, TInputDto>
         where TEntity : BaseEntity<TId>
+        where TOutputDto : OutputDto<TId>
+        where TInputDto : InputDto<TId>
     {
         public CrudAppService(IRepository<TEntity, TId> repository, IAspireMapper mapper) : base(repository, mapper)
         {
@@ -43,6 +48,9 @@ namespace Aspire.Application.AppServices
 
     public class CrudAppService<TEntity, TOutputDto, TId, TCreateDto, TUpdateDto, TSearchDto> : CrudAppService<TEntity, TOutputDto, TId, TCreateDto, TUpdateDto>
         where TEntity : BaseEntity<TId>
+        where TOutputDto : OutputDto<TId>
+        where TUpdateDto : UpdateDto<TId>
+
     {
         public CrudAppService(IRepository<TEntity, TId> repository, IAspireMapper mapper) : base(repository, mapper)
         {
@@ -57,6 +65,8 @@ namespace Aspire.Application.AppServices
 
     public class CrudAppService<TEntity, TOutputDto, TId, TCreateDto, TUpdateDto> : AppService
         where TEntity : BaseEntity<TId>
+        where TOutputDto : OutputDto<TId>
+        where TUpdateDto : UpdateDto<TId>
     {
         private readonly IRepository<TEntity, TId> _repository;
         private readonly IAspireMapper _mapper;

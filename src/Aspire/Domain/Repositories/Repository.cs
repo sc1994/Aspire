@@ -42,8 +42,8 @@ namespace Aspire.Domain.Repositories
             => await UpdateRangeAsync(entities.Select(SoftDelete)); // 软删除
         private TEntity SoftDelete(TEntity entity)
         {
-            entity.IsDelete = true;
-            entity.DeleteAt = DateTime.Now;
+            entity.IsDeleted = true;
+            entity.DeletedAt = DateTime.Now;
             return entity;
         }
 

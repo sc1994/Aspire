@@ -9,17 +9,13 @@ namespace Aspire.Domain.Entities
     {
     }
 
-    public abstract class BaseEntity<TId>
+    public abstract class BaseEntity<TId> : IBaseEntity
     {
         public abstract TId Id { get; set; }
-
         public abstract DateTime CreatedAt { get; set; }
-
         public abstract DateTime UpdatedAt { get; set; }
-
-        public abstract bool IsDelete { get; set; }
-
-        public abstract DateTime DeleteAt { get; set; }
+        public abstract bool IsDeleted { get; set; }
+        public abstract DateTime DeletedAt { get; set; }
 
         public static bool operator ==([NotNull] BaseEntity<TId> a, [NotNull] BaseEntity<TId> b)
         {
@@ -47,5 +43,16 @@ namespace Aspire.Domain.Entities
         {
             return this.ToJson();
         }
+    }
+
+    public interface IBaseEntity
+    {
+        public abstract DateTime CreatedAt { get; set; }
+
+        public abstract DateTime UpdatedAt { get; set; }
+
+        public abstract bool IsDeleted { get; set; }
+
+        public abstract DateTime DeletedAt { get; set; }
     }
 }

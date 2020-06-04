@@ -20,8 +20,8 @@ namespace Aspire.Domain.Entities
 
         public override DateTime UpdatedAt { get; set; } = DateTime.MaxValue;
 
-        public override bool IsDelete { get; set; } = false;
+        public override bool IsDeleted { get; set; } = false;
 
-        public override DateTime DeleteAt { get; set; } = DateTime.MaxValue;
+        public override DateTime DeletedAt { get; set; } = DateTime.MaxValue;
     }
 }

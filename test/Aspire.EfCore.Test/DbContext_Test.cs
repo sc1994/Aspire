@@ -9,7 +9,6 @@ namespace Aspire.EfCore.Test
     {
         public DbContext_Test([NotNull] DbContextOptions<DbContext_Test> options) : base(options)
         {
-
         }
 
         public DbSet<EfCoreEntity_Long_Test> EfCoreEntityLongTest { get; set; }
@@ -24,7 +23,7 @@ namespace Aspire.EfCore.Test
             get
             {
                 var optionsBuilder = new DbContextOptionsBuilder<DbContext_Test>();
-                optionsBuilder.UseSqlite(@"Data Source = C:\Users\suncheng\Desktop\Aspire\test\Aspire.EfCore.Test\App_Data\aspire_efcore_test.db");
+                optionsBuilder.UseSqlite("Data Source = D:/SqliteDbs/aspire_efcore_test.db");
                 return optionsBuilder.Options;
             }
         }

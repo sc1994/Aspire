@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 
+using Aspire.Application.AppServices.Dtos;
 using Aspire.AutoMapper;
 using Aspire.Map;
 
@@ -14,6 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection
             var mapper = new MapperConfiguration(cfg =>
             {
                 cfg.AddMaps(assembly);
+
             }).CreateMapper();
 
             return services.AddSingleton<IAspireMapper>(new AspireMapper(mapper)); // 注入 map 实例
