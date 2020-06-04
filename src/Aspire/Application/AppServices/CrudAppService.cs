@@ -1,10 +1,10 @@
-﻿using Aspire.Domain.Entities;
+﻿using System.Threading.Tasks;
+
+using Aspire.Domain.Entities;
 using Aspire.Domain.Repositories;
 using Aspire.Map;
 
 using Microsoft.AspNetCore.Mvc;
-
-using System.Threading.Tasks;
 
 namespace Aspire.Application.AppServices
 {
@@ -83,6 +83,7 @@ namespace Aspire.Application.AppServices
         {
             var e = await _repository.GetByIdAsync(id);
             _mapper.To(input, e);
+            e.Id = id;
             var r = await _repository.UpdateThenEntityAsync(e);
             return _mapper.To<TOutputDto>(r);
         }

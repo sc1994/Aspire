@@ -1,7 +1,7 @@
-﻿using Aspire.Json;
-
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
+
+using Aspire.Json;
 
 namespace Aspire.Domain.Entities
 {

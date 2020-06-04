@@ -1,9 +1,9 @@
-﻿using Aspire.AutoMapper;
+﻿using System.Reflection;
+
+using Aspire.AutoMapper;
 using Aspire.Map;
 
 using AutoMapper;
-
-using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

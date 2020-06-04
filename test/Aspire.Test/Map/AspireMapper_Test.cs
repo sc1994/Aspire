@@ -1,6 +1,6 @@
-﻿using Aspire.Map;
+﻿using System;
 
-using System;
+using Aspire.Map;
 
 using Xunit;
 

@@ -1,34 +1,19 @@
-﻿using Aspire.Domain;
-using Aspire.EfCore;
-
-using Demo.Core.Blogs;
+﻿using Demo.Core.Blogs;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Database.MainDb
 {
     public class MainDbContext : DbContext
     {
-        public MainDbContext([NotNull] DbContextOptions<MainDbContext> options) : base(options)
-        {
-        }
-
         public DbSet<BlogEntity> Blogs { get; set; }
-    }
 
-    public class MainDbContextOptionsBuilder : DbContextOptionsBuilder<MainDbContext>
-    {
-        public override DbContextOptions<MainDbContext> Options
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            get
-            {
-                var optionsBuilder = new DbContextOptionsBuilder<MainDbContext>();
-                optionsBuilder.UseSqlite(@"Data Source = C:\Users\suncheng\Desktop\Aspire\test\demos\Aspire.WebApi.Demo\Demo.Service\App_Data\aspire_main_db.db");
-                return optionsBuilder.Options;
-            }
+            optionsBuilder.UseSqlite("Data Source = D:/SqliteDbs/aspire_main_db.db");
+            base.OnConfiguring(optionsBuilder);
         }
     }
 
@@ -36,7 +21,7 @@ namespace Demo.Database.MainDb
     {
         public MainDbContext CreateDbContext(string[] args)
         {
-            return new MainDbContext(new MainDbContextOptionsBuilder().Options);
+            return new MainDbContext();
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿using Aspire.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using Aspire.Domain.Entities;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Aspire.Domain.Repositories
 {

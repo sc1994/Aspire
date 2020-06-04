@@ -1,6 +1,6 @@
-﻿using Aspire.Domain.Entities;
+﻿using System;
 
-using System;
+using Aspire.Domain.Entities;
 
 namespace Aspire.EfCore.Test
 {

@@ -1,10 +1,9 @@
-﻿using Aspire.Domain.Repositories;
+﻿using System.Reflection;
+
 using Aspire.Utils;
 
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
-
-using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

@@ -1,12 +1,12 @@
-﻿using Aspire.Domain.Entities;
-
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Aspire.Domain.Entities;
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Aspire.Domain.Repositories
 {
@@ -36,7 +36,7 @@ namespace Aspire.Domain.Repositories
         [Obsolete("暂未实现", true)]
         public override string[] IdentityNames => throw new NotImplementedException();
 
-        private static DbSet<TEntity> _query;
+        private DbSet<TEntity> _query;
         public DbSet<TEntity> Query
             => GetOrSet(ref _query, () => _dbContext.Set<TEntity>());
 
@@ -47,7 +47,12 @@ namespace Aspire.Domain.Repositories
         private T GetOrSet<T>(ref T value, Func<T> geter)
         {
             if (value != null) return value;
-            return value = geter();
+            lock (this)
+            {
+                if (value != null) return value;
+                return value = geter();
+            }
+
         }
 
         public override async Task<int> AddRangeAsync(IEnumerable<TEntity> entities)

@@ -1,7 +1,7 @@
-﻿using Aspire.Domain.Entities;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using Aspire.Domain.Entities;
 
 namespace Aspire.Domain.Repositories
 {

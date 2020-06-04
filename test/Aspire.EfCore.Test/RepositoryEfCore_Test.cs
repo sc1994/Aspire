@@ -1,8 +1,8 @@
-﻿using Aspire.Domain.Repositories;
-using Aspire.Test.Domain.Repositories;
-
-using System;
+﻿using System;
 using System.Linq;
+
+using Aspire.Domain.Repositories;
+using Aspire.Test.Domain.Repositories;
 
 using Xunit;
 

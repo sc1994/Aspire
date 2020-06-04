@@ -8,8 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using System;
-
 namespace Demo.Service
 {
     public class Startup
@@ -26,7 +24,9 @@ namespace Demo.Service
         {
             var application = typeof(BolgAppService).Assembly;
 
-            services.AddAspireEfCore<MainDbContext>();
+            var database = typeof(MainDbContext).Assembly;
+            services.AddAspireEfCore(database);
+
             services.AddAspireSwagger();
             services.AddAspireAutoMapper(application);
 

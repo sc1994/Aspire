@@ -1,7 +1,7 @@
-﻿using Aspire.Domain.Entities;
-using Aspire.Domain.Repositories;
+﻿using System.Linq;
 
-using System.Linq;
+using Aspire.Domain.Entities;
+using Aspire.Domain.Repositories;
 
 using Xunit;
 

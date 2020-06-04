@@ -1,9 +1,9 @@
-﻿using Aspire.Domain.Repositories;
+﻿using System.Linq;
+using System.Reflection;
+
+using Aspire.Domain.Repositories;
 
 using Microsoft.EntityFrameworkCore;
-
-using System;
-using System.Linq;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -11,8 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         private static bool _isCanCommon = true;
 
-        public static IServiceCollection AddAspireEfCore<TDbContext>(this IServiceCollection services)
-            where TDbContext : DbContext
+        public static IServiceCollection AddAspireEfCore(this IServiceCollection services, Assembly dbAssembly)
         {
             if (_isCanCommon && !(_isCanCommon = false))
             {
@@ -27,21 +26,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddScoped(typeof(IRepositoryEfCore<,>), typeof(RepositoryEfCore<,>));
             }
 
-            var allTypes = typeof(TDbContext).Assembly.GetTypes();
-
-            // 设置构建项
-            var build = allTypes.FirstOrDefault(x => x.BaseType == typeof(DbContextOptionsBuilder<TDbContext>));
-            var instance = Activator.CreateInstance(build);
-
-            // 注入单例 DbContextOptionsBuilder
-            services.AddSingleton(instance);
-
-            // 注入单例 DbContextOptions
-            var option = build.GetProperties().First(x => x.Name == "Options").GetValue(instance);
-            services.AddSingleton(typeof(DbContextOptions<TDbContext>), option);
-
             // 上下文
-            var contexts = allTypes.Where(x => x.BaseType == typeof(DbContext));
+            var contexts = dbAssembly.GetTypes().Where(x => x.BaseType == typeof(DbContext));
             foreach (var item in contexts) services.AddScoped(typeof(DbContext), item);
 
             return services;
