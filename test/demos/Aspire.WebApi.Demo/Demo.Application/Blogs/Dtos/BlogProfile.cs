@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using Aspire.Json;
+
+using AutoMapper;
 
 using Demo.Core.Blogs;
 
@@ -10,7 +12,9 @@ namespace Demo.Application.Blogs.Dtos
         {
             CreateMap<BlogDto, BlogEntity>()
                 .IgnoreCommonDto()
-                .ReverseMap();
+                .ForMember(x => x.Directories, x => x.MapFrom(m => m.Directories.Serialize()))
+                .ReverseMap()
+                .ForMember(x => x.Directories, x => x.MapFrom(m => m.Directories.Deserialize<string[]>()));
         }
     }
 }

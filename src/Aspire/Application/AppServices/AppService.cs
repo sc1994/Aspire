@@ -4,7 +4,7 @@ namespace Aspire.Application.AppServices
 {
     [ApiController]
     [Route("/api/[controller]/[action]")]
-    public class AppService : ControllerBase
+    public abstract class AppService : ControllerBase
     {
 
     }

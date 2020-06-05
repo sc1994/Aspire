@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -14,22 +16,40 @@ namespace Aspire.Identity
 {
     public static class IdentitySetup
     {
-        public static IServiceCollection AddAspireIdentity<TIdentityDbContext>(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddAspireIdentity<TIdentityDbContext>(
+            this IServiceCollection services,
+            IConfiguration configuration,
+            Action<DbContextOptionsBuilder> optionsAction,
+            ServiceLifetime contextLifetime = ServiceLifetime.Scoped,
+            ServiceLifetime optionsLifetime = ServiceLifetime.Scoped)
             where TIdentityDbContext : IdentityDbContext
-            => services.AddAspireIdentity<TIdentityDbContext, IdentityUser>(configuration);
+            => services.AddAspireIdentity<TIdentityDbContext, IdentityUser>(configuration, optionsAction, contextLifetime, optionsLifetime);
 
-        public static IServiceCollection AddAspireIdentity<TIdentityDbContext, TIdentityUser>(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddAspireIdentity<TIdentityDbContext, TIdentityUser>(
+            this IServiceCollection services,
+            IConfiguration configuration,
+            Action<DbContextOptionsBuilder> optionsAction,
+            ServiceLifetime contextLifetime = ServiceLifetime.Scoped,
+            ServiceLifetime optionsLifetime = ServiceLifetime.Scoped)
             where TIdentityDbContext : IdentityDbContext
             where TIdentityUser : IdentityUser
-            => services.AddAspireIdentity<TIdentityDbContext, IdentityUser, IdentityRole>(configuration);
+            => services.AddAspireIdentity<TIdentityDbContext, IdentityUser, IdentityRole>(configuration, optionsAction, contextLifetime, optionsLifetime);
 
-        public static IServiceCollection AddAspireIdentity<TIdentityDbContext, TIdentityUser, TIdentityRole>(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddAspireIdentity<TIdentityDbContext, TIdentityUser, TIdentityRole>(
+            this IServiceCollection services,
+            IConfiguration configuration,
+            Action<DbContextOptionsBuilder> optionsAction,
+            ServiceLifetime contextLifetime = ServiceLifetime.Scoped,
+            ServiceLifetime optionsLifetime = ServiceLifetime.Scoped)
             where TIdentityDbContext : IdentityDbContext
             where TIdentityUser : IdentityUser
             where TIdentityRole : IdentityRole
         {
+            services.AddDbContext<TIdentityDbContext>(optionsAction, contextLifetime, optionsLifetime);
+
             services.AddDefaultIdentity<TIdentityUser>()
                 .AddRoles<TIdentityRole>()
+                .AddEntityFrameworkStores<TIdentityDbContext>()
                 .AddDefaultTokenProviders();
 
             var appSettingsSection = configuration.GetSection("IdentitySettings");
@@ -39,10 +59,10 @@ namespace Aspire.Identity
             var key = Encoding.ASCII.GetBytes(settings.Secret);
 
             var authentication = services.AddAuthentication(x =>
-             {
-                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-             });
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            });
 
             authentication.AddJwtBearer(x =>
             {
@@ -75,7 +95,7 @@ namespace Aspire.Identity
             return services;
         }
 
-        public static IApplicationBuilder UseAspireIdentity(IApplicationBuilder app)
+        public static IApplicationBuilder UseAspireIdentity(this IApplicationBuilder app)
         {
             app.UseAuthorization();
             app.UseAuthentication();
@@ -83,25 +103,7 @@ namespace Aspire.Identity
             app.UseEndpoints(endpoints =>
             {
                 // 登入
-                endpoints.MapPost("/api/identity/sign-in", async (context) =>
-                {
-                    await context.Response.WriteAsync("TODO Sign In");
-                });
-                // 注册
-                endpoints.MapPost("/api/identity/sign-up", async (context) =>
-                {
-                    await context.Response.WriteAsync("TODO Sign Up");
-                });
-                // 登出
-                endpoints.MapPost("/api/identity/sign-out", async (context) =>
-                {
-                    await context.Response.WriteAsync("TODO Sign Out");
-                });
-                // 忘记密码
-                endpoints.MapPost("/api/identity/forget-password", async (context) =>
-                {
-                    await context.Response.WriteAsync("TODO Forget Password");
-                });
+                
             });
 
             return app;

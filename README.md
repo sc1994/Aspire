@@ -8,6 +8,3 @@
 - 丰富的可扩展的仓储
 
 ## TODO
-
-> [!TIP]
-> Optional information to help a user be more successful

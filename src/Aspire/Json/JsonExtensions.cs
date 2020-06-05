@@ -1,11 +1,19 @@
-﻿namespace Aspire.Json
+﻿using static Newtonsoft.Json.JsonConvert;
+
+namespace Aspire.Json
 {
     public static class JsonExtensions
     {
-        public static string ToJson<T>(this T @class)
+        public static string Serialize<T>(this T @class)
             where T : class
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(@class);
+            return SerializeObject(@class);
+        }
+
+        public static T Deserialize<T>(this string json)
+            where T : class
+        {
+            return DeserializeObject<T>(json);
         }
     }
 }

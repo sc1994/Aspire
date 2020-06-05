@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Aspire.Application.AppServices
 {
-    public class CrudAppService<TEntity, TCommonDto> : CrudAppService<TEntity, TCommonDto, long>
+    public abstract class CrudAppService<TEntity, TCommonDto> : CrudAppService<TEntity, TCommonDto, long>
         where TEntity : BaseEntity<long>
         where TCommonDto : CommonDto
     {
@@ -19,7 +19,7 @@ namespace Aspire.Application.AppServices
         }
     }
 
-    public class CrudAppService<TEntity, TCommonDto, TId> : CrudAppService<TEntity, TCommonDto, TId, TCommonDto>
+    public abstract class CrudAppService<TEntity, TCommonDto, TId> : CrudAppService<TEntity, TCommonDto, TId, TCommonDto>
         where TEntity : BaseEntity<TId>
         where TCommonDto : CommonDto<TId>
     {
@@ -28,7 +28,7 @@ namespace Aspire.Application.AppServices
         }
     }
 
-    public class CrudAppService<TEntity, TOutputDto, TId, TInputDto> : CrudAppService<TEntity, TOutputDto, TId, TInputDto, TInputDto>
+    public abstract class CrudAppService<TEntity, TOutputDto, TId, TInputDto> : CrudAppService<TEntity, TOutputDto, TId, TInputDto, TInputDto>
         where TEntity : BaseEntity<TId>
         where TOutputDto : OutputDto<TId>
         where TInputDto : InputDto<TId>
@@ -38,7 +38,7 @@ namespace Aspire.Application.AppServices
         }
 
         [HttpPost("/api/[controller]/create-or-update/{id?}")]
-        public virtual async Task<TOutputDto> CreateOrUpdateAsync(TInputDto input, TId id = default)
+        public virtual async Task<TOutputDto> CreateOrUpdateAsync(TInputDto input, TId id = default(TId))
         {
             if (id?.Equals(default(TId)) ?? true)
                 return await base.CreateAsync(input);
@@ -46,7 +46,7 @@ namespace Aspire.Application.AppServices
         }
     }
 
-    public class CrudAppService<TEntity, TOutputDto, TId, TCreateDto, TUpdateDto, TSearchDto> : CrudAppService<TEntity, TOutputDto, TId, TCreateDto, TUpdateDto>
+    public abstract class CrudAppService<TEntity, TOutputDto, TId, TCreateDto, TUpdateDto, TSearchDto> : CrudAppService<TEntity, TOutputDto, TId, TCreateDto, TUpdateDto>
         where TEntity : BaseEntity<TId>
         where TOutputDto : OutputDto<TId>
         where TUpdateDto : UpdateDto<TId>
@@ -55,15 +55,9 @@ namespace Aspire.Application.AppServices
         public CrudAppService(IRepository<TEntity, TId> repository, IAspireMapper mapper) : base(repository, mapper)
         {
         }
-
-        [HttpPost("/api/[controller]/search")]
-        public virtual Task<TOutputDto> CreateOrUpdateAsync(TSearchDto input)
-        {
-            throw new System.Exception();
-        }
     }
 
-    public class CrudAppService<TEntity, TOutputDto, TId, TCreateDto, TUpdateDto> : AppService
+    public abstract class CrudAppService<TEntity, TOutputDto, TId, TCreateDto, TUpdateDto> : AppService
         where TEntity : BaseEntity<TId>
         where TOutputDto : OutputDto<TId>
         where TUpdateDto : UpdateDto<TId>

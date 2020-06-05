@@ -17,7 +17,7 @@ namespace Demo.Database.MainDb
         }
     }
 
-    public class MainDbDbContextFactory : IDesignTimeDbContextFactory<MainDbContext>
+    public class MainDbContextFactory : IDesignTimeDbContextFactory<MainDbContext>
     {
         public MainDbContext CreateDbContext(string[] args)
         {

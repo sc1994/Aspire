@@ -2,6 +2,7 @@
 
 using Aspire.Utils;
 
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 
@@ -26,6 +27,12 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddNewtonsoftJson();
 
             return services;
+        }
+
+        public static IApplicationBuilder UseAspireController(this IApplicationBuilder app)
+        {
+            app.UseExceptionHandler("/error");
+            return app;
         }
     }
 }

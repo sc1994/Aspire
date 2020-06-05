@@ -41,7 +41,7 @@ namespace Aspire.Domain.Entities
 
         public override string ToString()
         {
-            return this.ToJson();
+            return this.Serialize();
         }
     }
 

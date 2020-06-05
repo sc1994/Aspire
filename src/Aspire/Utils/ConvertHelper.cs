@@ -11,7 +11,7 @@ namespace Aspire.Utils
 
         public static string ToSlugifyNamingStyle(string name)
         {
-            return _slugifyNamingStyleDic.GetOrAdd(name, Regex.Replace(name, "([a-z])([A-Z])", "$1_$2")).ToLower();
+            return _slugifyNamingStyleDic.GetOrAdd(name, Regex.Replace(name, "([a-z])([A-Z])", "$1-$2")).ToLower();
         }
 
         public static string ToMd5(string input, string salt)
