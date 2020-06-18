@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 using Aspire.Application.AppServices.Dtos;
 using Aspire.Domain.Entities;
@@ -15,7 +18,13 @@ namespace Aspire.Application.AppServices
     {
         public CrudAppService(IRepository<TEntity, long> repository, IAspireMapper mapper) : base(repository, mapper)
         {
+            int[] a = { 1, 2, 3 };
 
+            int[] b = new int[] { 1, 2, 3 };
+
+            string c = "c";
+
+            string d = new String("d");
         }
     }
 

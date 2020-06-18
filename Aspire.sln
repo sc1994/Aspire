@@ -21,19 +21,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.AutoMapper.Test", "t
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Identity", "src\Aspire.Identity\Aspire.Identity.csproj", "{AE4050AA-0A39-4B71-9F6A-4719A509ACD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Swagger", "src\Aspire.Swagger\Aspire.Swagger.csproj", "{E0B47686-D314-4682-B9A5-80DF916C47D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Swagger", "src\Aspire.Swagger\Aspire.Swagger.csproj", "{E0B47686-D314-4682-B9A5-80DF916C47D3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demos", "demos", "{3AB2C386-DE47-40F3-B132-7A76159B97DA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aspire.WebApi.Demo", "Aspire.WebApi.Demo", "{545209AD-1CCB-4677-8AF0-46B6565BD3B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Service", "test\demos\Aspire.WebApi.Demo\Demo.Service\Demo.Service.csproj", "{288C1704-7C0F-46ED-83E3-E75832FFECA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Service", "test\demos\Aspire.WebApi.Demo\Demo.Service\Demo.Service.csproj", "{288C1704-7C0F-46ED-83E3-E75832FFECA2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Core", "test\demos\Aspire.WebApi.Demo\Demo.Core\Demo.Core.csproj", "{972B0926-0610-47E0-8C8A-85F25B5CC9EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Database", "test\demos\Aspire.WebApi.Demo\Demo.Database\Demo.Database.csproj", "{B65E6025-A815-447D-A276-4721C5BC9B70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Database", "test\demos\Aspire.WebApi.Demo\Demo.Database\Demo.Database.csproj", "{B65E6025-A815-447D-A276-4721C5BC9B70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Application", "test\demos\Aspire.WebApi.Demo\Demo.Application\Demo.Application.csproj", "{1A338B79-E2B2-4967-9432-713CAB4D9264}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Application", "test\demos\Aspire.WebApi.Demo\Demo.Application\Demo.Application.csproj", "{1A338B79-E2B2-4967-9432-713CAB4D9264}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
