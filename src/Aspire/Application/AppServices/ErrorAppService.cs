@@ -1,7 +1,4 @@
-﻿using System;
-
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Aspire.Application.AppServices
 {

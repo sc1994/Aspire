@@ -1,10 +1,6 @@
-﻿using System;
-
-using Aspire.Application.AppServices.Dtos;
-
-namespace Demo.Application.Blogs
+﻿namespace Demo.Application.Blogs
 {
-    public class BlogDto : CommonDto
+    public interface IBlogDto
     {
         /// <summary>
         /// 标题
@@ -15,11 +11,6 @@ namespace Demo.Application.Blogs
         /// 副标题
         /// </summary>
         public string Subtitle { get; set; }
-
-        /// <summary>
-        /// 目录
-        /// </summary>
-        public string[] Directories { get; set; }
 
         /// <summary>
         /// 文本

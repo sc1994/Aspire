@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Aspire.Application.AppServices.Dtos
+﻿namespace Aspire.Application.AppServices.Dtos
 {
     public class CommonDto : CommonDto<long>
     {

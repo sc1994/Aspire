@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\src\Aspire.AutoMapper\Aspire.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\..\..\src\Aspire.DynamicForm\Aspire.DynamicForm.csproj" />
     <ProjectReference Include="..\Demo.Core\Demo.Core.csproj" />
   </ItemGroup>
 

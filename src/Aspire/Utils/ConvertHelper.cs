@@ -32,5 +32,8 @@ namespace Aspire.Utils
             }
             return sBuilder.ToString();
         }
+
+        public static string ToLowercaseFirstCharacter(string source)
+            => source[0].ToString().ToLower() + source.Substring(1);
     }
 }

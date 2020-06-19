@@ -12,4 +12,8 @@ namespace Aspire.Application.AppServices.Dtos
 
         public DateTime DeletedAt { get; set; }
     }
+
+    public class OutputDto : OutputDto<long>
+    {
+    }
 }

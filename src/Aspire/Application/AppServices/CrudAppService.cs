@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 using Aspire.Application.AppServices.Dtos;
@@ -18,13 +18,6 @@ namespace Aspire.Application.AppServices
     {
         public CrudAppService(IRepository<TEntity, long> repository, IAspireMapper mapper) : base(repository, mapper)
         {
-            int[] a = { 1, 2, 3 };
-
-            int[] b = new int[] { 1, 2, 3 };
-
-            string c = "c";
-
-            string d = new String("d");
         }
     }
 
@@ -107,5 +100,39 @@ namespace Aspire.Application.AppServices
             var r = await _repository.GetByIdAsync(id);
             return _mapper.To<TOutputDto>(r);
         }
+
+        [HttpGet("/api/[controller]/form-params/{form}")]
+        public virtual object GetFormParams(string form)
+        {
+            switch (form)
+            {
+                case "create":
+                    var instance = Activator.CreateInstance(typeof(TCreateDto));
+                    return typeof(TCreateDto).GetProperties().Select(x =>
+                    {
+                        var attribute = x.GetCustomAttributes().FirstOrDefault(x => x.GetType().BaseType == typeof(AspireFormAttribute));
+                        if (attribute == null) return null;
+
+                        return ((AspireFormAttribute)attribute).Format(x, instance);
+                    }).Where(x => x != null);
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+    }
+
+    public abstract class AspireFormAttribute : Attribute
+    {
+        public AspireFormAttribute(string title)
+        {
+            Title = title;
+        }
+
+        /// <summary>
+        /// 标题
+        /// </summary>
+        public string Title { get; }
+
+        public abstract object Format(PropertyInfo property, object dtoInstance = null);
     }
 }

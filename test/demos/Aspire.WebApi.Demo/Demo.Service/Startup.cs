@@ -1,13 +1,9 @@
 
-using Aspire.Identity;
-
 using Demo.Application.Blogs;
 using Demo.Database.MainDb;
-using Demo.Database.UserIdentity;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,10 +29,6 @@ namespace Demo.Service
 
             services.AddAspireSwagger();
             services.AddAspireAutoMapper(application);
-            services.AddAspireIdentity<UserIdentityDbContext>(Configuration, optionsAction =>
-            {
-                optionsAction.UseSqlite("Data Source = D:/SqliteDbs/aspire_user_identity_db.db");
-            });
 
             services.AddAspireController(application);
         }
@@ -52,8 +44,6 @@ namespace Demo.Service
             app.UseRouting();
 
             app.UseAspireSwagger();
-
-            app.UseAspireIdentity();
 
             app.UseEndpoints(endpoints =>
             {

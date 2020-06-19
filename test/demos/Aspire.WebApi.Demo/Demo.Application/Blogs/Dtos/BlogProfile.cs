@@ -10,8 +10,7 @@ namespace Demo.Application.Blogs.Dtos
     {
         public BlogProfile()
         {
-            CreateMap<BlogDto, BlogEntity>()
-                .IgnoreCommonDto()
+            CreateMap<BlogOutputDto, BlogEntity>()
                 .ForMember(x => x.Directories, x => x.MapFrom(m => m.Directories.Serialize()))
                 .ReverseMap()
                 .ForMember(x => x.Directories, x => x.MapFrom(m => m.Directories.Deserialize<string[]>()));
