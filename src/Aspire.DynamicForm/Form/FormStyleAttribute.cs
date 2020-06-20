@@ -8,6 +8,7 @@ namespace Aspire.DynamicForm
     /// <summary>
     /// 表单样式
     /// </summary>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class FormStyleAttribute : AspireFormAttribute
     {
         public FormStyleAttribute(string title) : base(title)

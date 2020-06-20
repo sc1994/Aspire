@@ -2,6 +2,7 @@
 
 namespace Aspire.DynamicForm
 {
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class InputTextareaAutosizeAttribute : Attribute
     {
         public InputTextareaAutosizeAttribute(int minRows, int maxRows)

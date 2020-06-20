@@ -5,10 +5,7 @@ using Aspire.Application.AppServices;
 
 namespace Aspire.DynamicForm
 {
-    public class SelectOptionAttribute : Attribute 
-    {
-    }
-
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class SelectPropsAttribute : AspireFormAttribute
     {
         public SelectPropsAttribute(string title) : base(title)
@@ -139,7 +136,7 @@ namespace Aspire.DynamicForm
 
         public override object Format(PropertyInfo property, object dtoInstance = null)
         {
-            throw new NotImplementedException();
+            return Util.DefaultFormat(property, dtoInstance, this);
         }
     }
 }

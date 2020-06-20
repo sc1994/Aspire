@@ -18,7 +18,7 @@
                     return value.Equals(null) || value.Equals(string.Empty);
                 case bool _:
                     return value.Equals(false);
-                default: return true;
+                default: return false;
             }
         }
     }

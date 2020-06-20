@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Reflection;
 
 using Aspire.Application.AppServices;
-using Aspire.Utils;
 
 namespace Aspire.DynamicForm
 {
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class InputPropsAttribute : AspireFormAttribute
     {
         public InputPropsAttribute(string title) : base(title)
@@ -126,40 +125,7 @@ namespace Aspire.DynamicForm
 
         public override object Format(PropertyInfo property, object dtoInstance = null)
         {
-            // 首字符小写
-            var field = ConvertHelper.ToLowercaseFirstCharacter(property.Name);
-
-            var props = this.GetType().GetProperties()
-                .ToDictionary(x => ConvertHelper.ToLowercaseFirstCharacter(x.Name), x => x.GetValue(this))
-                .Where(x => !VerifyHelper.IsDefaultValue(x.Value) && x.Key != "typeId")
-                .ToDictionary(x => x.Key, x => x.Value);
-
-            if (props.TryGetValue("type", out var type) && type.Equals("textarea"))
-            {
-                var autosize = property.GetCustomAttribute<InputTextareaAutosizeAttribute>();
-                if (autosize != null)
-                    props.Add("autosize",
-                        autosize.GetType()
-                                .GetProperties()
-                                .Where(x => x.Name != "TypeId")
-                                .ToDictionary(x => ConvertHelper.ToLowercaseFirstCharacter(x.Name), x => x.GetValue(autosize)));
-            }
-
-            var result = new Dictionary<string, object>
-            {
-                { "type", "input" }, // 表单类型
-                { "field", field }, // 表单字段
-                { "title", props["title"]}, // 标题属性移植到这
-                { "props", props }, // 表单属性
-            };
-
-            var value = property.GetValue(dtoInstance);
-            if (!VerifyHelper.IsDefaultValue(value))
-            {
-                result.Add("value", value);
-            }
-
-            return result;
+            return Util.DefaultFormat(property, dtoInstance, this);
         }
     }
 }
