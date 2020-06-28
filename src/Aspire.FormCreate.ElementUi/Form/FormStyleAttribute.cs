@@ -3,7 +3,7 @@ using System.Reflection;
 
 using Aspire.Application.AppServices;
 
-namespace Aspire.DynamicForm
+namespace Aspire.FormCreate.ElementUi
 {
     /// <summary>
     /// 表单样式

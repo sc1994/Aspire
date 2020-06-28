@@ -6,7 +6,7 @@ using System.Reflection;
 using Aspire.Application.AppServices;
 using Aspire.Utils;
 
-namespace Aspire.DynamicForm
+namespace Aspire.FormCreate.ElementUi
 {
     internal class Util
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Aspire.DynamicForm
+namespace Aspire.FormCreate.ElementUi
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class InputTextareaAutosizeAttribute : Attribute

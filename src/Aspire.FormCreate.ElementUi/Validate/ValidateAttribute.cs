@@ -1,10 +1,17 @@
 ﻿using System;
 
-namespace Aspire.DynamicForm
+namespace Aspire.FormCreate.ElementUi
 {
+    /// <summary>
+    /// 更多高级用法可研究 https://github.com/yiminghe/async-validator
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public class ValidateAttribute : Attribute
     {
+        /// <summary>
+        /// 枚举类型 指定选中值必须在指定枚举中
+        /// </summary>
+        public Type Enum { get; set; }
         /// <summary>
         /// 字段长度
         /// <para> 默认值: </para>

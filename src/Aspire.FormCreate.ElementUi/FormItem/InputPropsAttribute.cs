@@ -3,7 +3,7 @@ using System.Reflection;
 
 using Aspire.Application.AppServices;
 
-namespace Aspire.DynamicForm
+namespace Aspire.FormCreate.ElementUi
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class InputPropsAttribute : AspireFormAttribute

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Aspire.DynamicForm
+namespace Aspire.FormCreate.ElementUi
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public class SelectOptionAttribute : Attribute

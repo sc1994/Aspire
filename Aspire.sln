@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Database", "test\demos
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Application", "test\demos\Aspire.WebApi.Demo\Demo.Application\Demo.Application.csproj", "{1A338B79-E2B2-4967-9432-713CAB4D9264}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.DynamicForm", "src\Aspire.DynamicForm\Aspire.DynamicForm.csproj", "{61F0CE13-6EE0-4F12-8E03-2C483C14A2F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.FormCreate.ElementUi", "src\Aspire.FormCreate.ElementUi\Aspire.FormCreate.ElementUi.csproj", "{61F0CE13-6EE0-4F12-8E03-2C483C14A2F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
