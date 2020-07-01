@@ -1,23 +1,10 @@
 ﻿using System;
-using System.Reflection;
-
-using Aspire.Application.AppServices;
 
 namespace Aspire.FormCreate.ElementUi
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class InputPropsAttribute : AspireFormAttribute
+    public class FormInputPropsAttribute : Attribute
     {
-        public InputPropsAttribute(string title) : base(title)
-        {
-        }
-
-        /// <summary>
-        /// 类型
-        /// <para>默认值: text</para>
-        /// <para>可选值: text，textarea 和其他 原生 input 的 type 值 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types</para>
-        /// </summary>
-        public string Type { get; set; }
         /// <summary>
         /// 原生属性，最大输入长度
         /// <para>默认值: null</para>
@@ -46,9 +33,8 @@ namespace Aspire.FormCreate.ElementUi
         /// <summary>
         /// 输入框尺寸，只在 type!="textarea" 时有效
         /// <para>默认值: null</para>
-        /// <para>可选值: medium / small / mini</para>
         /// </summary>
-        public string Size { get; set; }
+        public SizeEnum Size { get; set; }
         /// <summary>
         /// 输入框头部图标
         /// <para>默认值: null</para>
@@ -57,7 +43,6 @@ namespace Aspire.FormCreate.ElementUi
         /// <summary>
         /// 输入框尾部图标
         /// <para>默认值: null</para>
-        /// <para>可选值: </para>
         /// </summary>
         public string SuffixIcon { get; set; }
         /// <summary>
@@ -68,9 +53,8 @@ namespace Aspire.FormCreate.ElementUi
         /// <summary>
         /// 自动补全
         /// <para>默认值: off</para>
-        /// <para>可选值: on / off</para>
         /// </summary>
-        public string Autocomplete { get; set; }
+        public OnOffEnum Autocomplete { get; set; }
         /// <summary>
         /// Name
         /// <para>默认值: null</para>
@@ -122,10 +106,5 @@ namespace Aspire.FormCreate.ElementUi
         /// <para>默认值: true</para>
         /// </summary>
         public bool ValidateEvent { get; set; }
-
-        public override object Format(PropertyInfo property, object dtoInstance = null)
-        {
-            return Util.DefaultFormat(property, dtoInstance, this);
-        }
     }
 }

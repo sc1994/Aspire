@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-using Aspire.Application.AppServices;
 using Aspire.Utils;
 
 namespace Aspire.FormCreate.ElementUi
 {
     internal class Util
     {
-        public static Dictionary<string, object> DefaultFormat(PropertyInfo property, object dtoInstance, AspireFormAttribute formInstance)
+        public static Dictionary<string, object> DefaultFormat(PropertyInfo property, object dtoInstance, FormDynamicAttribute formInstance)
         {
             // 首字符小写
             var field = ConvertHelper.ToLowercaseFirstCharacter(property.Name);
@@ -29,15 +28,15 @@ namespace Aspire.FormCreate.ElementUi
             // 移除多余的标题
             props.Remove("title");
             // 表单类型
-            switch (formInstance)
-            {
-                case InputPropsAttribute _:
-                    result.Add("type", "input"); break;
-                case SelectPropsAttribute _:
-                    result.Add("type", "select"); break;
-                default:
-                    throw new NotImplementedException();
-            }
+            //switch (formInstance)
+            //{
+            //    case FormInputPropsAttribute _:
+            //        result.Add("type", "input"); break;
+            //    case FormSelectPropsAttribute _:
+            //        result.Add("type", "select"); break;
+            //    default:
+            //        throw new NotImplementedException();
+            //}
             // 默认值
             var value = property.GetValue(dtoInstance);
             if (!VerifyHelper.IsDefaultValue(value))
@@ -45,7 +44,7 @@ namespace Aspire.FormCreate.ElementUi
                 result.Add("value", value);
             }
             // 验证规则
-            var validatas = property.GetCustomAttributes<ValidateAttribute>();
+            var validatas = property.GetCustomAttributes<FormValidateAttribute>();
             if (validatas?.Any() == true)
             {
 
@@ -57,9 +56,9 @@ namespace Aspire.FormCreate.ElementUi
             }
 
             //  输入框多行文本 的 大小设置
-            if (props.TryGetValue("type", out var input) && input.Equals("textarea") && formInstance is InputPropsAttribute)
+            if (props.TryGetValue("type", out var input) && input.Equals("textarea") && formInstance is FormInputPropsAttribute)
             {
-                var autosize = property.GetCustomAttribute<InputTextareaAutosizeAttribute>();
+                var autosize = property.GetCustomAttribute<FormInputTextareaAutosizeAttribute>();
                 if (autosize != null)
                     props.Add("autosize",
                         autosize.GetType()
@@ -67,23 +66,23 @@ namespace Aspire.FormCreate.ElementUi
                                 .Where(x => x.Name != "TypeId" && !VerifyHelper.IsDefaultValue(x.GetValue(autosize)))
                                 .ToDictionary(x => ConvertHelper.ToLowercaseFirstCharacter(x.Name), x => x.GetValue(autosize)));
             }
-            // 下拉选项处理
-            else if (formInstance is SelectPropsAttribute)
-            {
-                var selectOptions = new List<SelectOption>();
+            //// 下拉选项处理
+            //else if (formInstance is FormSelectPropsAttribute)
+            //{
+            //    var selectOptions = new List<SelectOption>();
 
-                var tmp = property.GetCustomAttributes<SelectOptionAttribute>()
-                    ?.SelectMany(x =>
-                    {
-                        if (x.Enum == null)
-                            return new List<SelectOption> { new SelectOption(x.Label, VerifyHelper.IsDefaultValue(x.Value) ? x.Label : x.Value) };
-                        return GetSelectOptionsByEnum(x.Enum);
-                    });
-                if (tmp != null) selectOptions.AddRange(tmp);
+            //    var tmp = property.GetCustomAttributes<FormSelectOptionAttribute>()
+            //        ?.SelectMany(x =>
+            //        {
+            //            if (x.Enum == null)
+            //                return new List<SelectOption> { new SelectOption(x.Label, VerifyHelper.IsDefaultValue(x.Value) ? x.Label : x.Value) };
+            //            return GetSelectOptionsByEnum(x.Enum);
+            //        });
+            //    if (tmp != null) selectOptions.AddRange(tmp);
 
-                if (selectOptions.Any())
-                    result.Add("options", selectOptions);
-            }
+            //    if (selectOptions.Any())
+            //        result.Add("options", selectOptions);
+            //}
 
             if (props.Count > 0) // 表单属性
                 result.Add("props", props);
@@ -99,6 +98,10 @@ namespace Aspire.FormCreate.ElementUi
             while (enumerator.MoveNext())
                 yield return new SelectOption(enumerator.Current.ToString(), enumerator.Current.GetHashCode());
         }
+    }
+
+    public class FormDynamicAttribute
+    {
     }
 
     class SelectOption

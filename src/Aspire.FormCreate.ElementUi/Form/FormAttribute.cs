@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Reflection;
-
-using Aspire.Application.AppServices;
 
 namespace Aspire.FormCreate.ElementUi
 {
@@ -9,9 +6,9 @@ namespace Aspire.FormCreate.ElementUi
     /// 表单样式
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public class FormStyleAttribute : AspireFormAttribute
+    public class FormAttribute : Attribute
     {
-        public FormStyleAttribute(string title) : base(title)
+        public FormAttribute(string title)
         {
         }
 
@@ -72,10 +69,5 @@ namespace Aspire.FormCreate.ElementUi
         /// <para>可选值: medium / small / mini</para>
         /// </summary>
         public string Size { get; set; }
-
-        public override object Format(PropertyInfo property, object dtoInstance = null)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

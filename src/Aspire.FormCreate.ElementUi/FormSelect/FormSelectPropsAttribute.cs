@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Reflection;
-
-using Aspire.Application.AppServices;
 
 namespace Aspire.FormCreate.ElementUi
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class SelectPropsAttribute : AspireFormAttribute
+    public class FormSelectPropsAttribute : Attribute
     {
-        public SelectPropsAttribute(string title) : base(title)
-        {
-        }
-
         /// <summary>
         /// 是否多选
         /// <para> 默认值: false</para>
@@ -133,10 +126,5 @@ namespace Aspire.FormCreate.ElementUi
         /// <para> 默认值: false</para>
         /// </summary>
         public bool AutomaticDropdown { get; set; }
-
-        public override object Format(PropertyInfo property, object dtoInstance = null)
-        {
-            return Util.DefaultFormat(property, dtoInstance, this);
-        }
     }
 }

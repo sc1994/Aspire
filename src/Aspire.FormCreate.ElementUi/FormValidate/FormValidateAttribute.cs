@@ -6,7 +6,7 @@ namespace Aspire.FormCreate.ElementUi
     /// 更多高级用法可研究 https://github.com/yiminghe/async-validator
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
-    public class ValidateAttribute : Attribute
+    public class FormValidateAttribute : Attribute
     {
         /// <summary>
         /// 枚举类型 指定选中值必须在指定枚举中
