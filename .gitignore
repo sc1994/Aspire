@@ -348,7 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-*.db
-/test/demos/Aspire.WebApi.Demo/Demo.Database/Migrations
-/test/demos/Aspire.WebApi.Demo/Demo.Service/App_Data
-/test/Aspire.EfCore.Test/Migrations
+/asp.net/src/AspireAdmin.Application/AspireAdmin.Application.xml
+/asp.net/source/Aspire/Aspire.xml
+/asp.net/src/AspireAdmin.Host/App_Data/DbMain.db
