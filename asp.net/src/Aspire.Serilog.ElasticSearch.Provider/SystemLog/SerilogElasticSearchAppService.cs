@@ -177,10 +177,17 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
                     continue;
                 }
 
+                var list = GetRoutersTree(item, index + 1);
+                if (!list.Any())
+                {
+                    list = null;
+                }
+
                 result.Add(new TreeNodeDto
                 {
                     Label = item.Key,
-                    Children = GetRoutersTree(item, index + 1),
+                    Children = list,
+                    Value = item.Key,
                 });
             }
 
