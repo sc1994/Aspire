@@ -65,8 +65,8 @@ namespace AspireAdmin.Host
                         Version = "v1"
                     });
 
-                    var xmlPath = applicationAssembly.Location.TrimEnd('d', 'l') + "xml";
-                    setup.IncludeXmlComments(xmlPath);
+                    //var xmlPath = applicationAssembly.Location.TrimEnd('d', 'l') + "xml";
+                    //setup.IncludeXmlComments(xmlPath);
                 };
 
                 options.MapperOptions = new AutoMapperOptionsSetup(applicationAssembly);
