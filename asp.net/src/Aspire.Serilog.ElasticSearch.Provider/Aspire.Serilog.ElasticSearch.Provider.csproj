@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>Aspire.Serilog.ElasticSearch.Provider\Aspire.Serilog.ElasticSearch.Provider.xml</DocumentationFile>
+		<DocumentationFile>Aspire.Serilog.ElasticSearch.Provider.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup>

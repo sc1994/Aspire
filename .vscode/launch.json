@@ -13,9 +13,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             "OS-COMMENT4": "If you have changed target frameworks, make sure to update the program path.",
-            "program": "${workspaceFolder}/asp.net/src/AspireAdmin.Host/bin/Debug/net5.0/AspireAdmin.Host.dll",
+            "program": "${workspaceFolder}/asp.net/template/AspireAdmin.Host/bin/Debug/net5.0/AspireAdmin.Host.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/asp.net/src/AspireAdmin.Host",
+            "cwd": "${workspaceFolder}/asp.net/template/AspireAdmin.Host",
             "stopAtEntry": false,
             "OS-COMMENT5": "Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser",
             "serverReadyAction": {

@@ -39,8 +39,8 @@ namespace Aspire
                         var friendlyExceptionResult = new OkObjectResult(new GlobalResponse
                         {
                             Code = friendlyException.Code,
-                            Title = friendlyException.Messages.FirstOrDefault(),
-                            Messages = friendlyException.Messages.Skip(1).ToArray(),
+                            Title = friendlyException.Title,
+                            Messages = friendlyException.Messages,
 #if DEBUG
                             StackTrace = friendlyException,
 #endif

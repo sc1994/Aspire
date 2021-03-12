@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>Aspire.FreeSql.Provider\Aspire.FreeSql.Provider.xml</DocumentationFile>
+		<DocumentationFile>Aspire.FreeSql.Provider.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -49,7 +49,7 @@ namespace Aspire.Authorization
         TRegisterDto>
         where TUserEntity : class, IUserEntity, new()
         where TLoginDto : LoginDto
-        where TCurrentUserDto : CurrentUserDto
+        where TCurrentUserDto : CurrentUserDto, new()
         where TRegisterDto : RegisterDto
     {
     }
@@ -71,7 +71,7 @@ namespace Aspire.Authorization
         TRegisterDto> : Application
         where TUserEntity : class, IUserEntity<TPrimaryKey>, new()
         where TLoginDto : LoginDto
-        where TCurrentUserDto : CurrentUserDto
+        where TCurrentUserDto : CurrentUserDto, new()
         where TRegisterDto : RegisterDto
     {
         private readonly AspireAppSettings aspireAppSettings;
@@ -114,6 +114,15 @@ namespace Aspire.Authorization
         /// <returns>当前用户.</returns>
         public virtual async Task<TCurrentUserDto> GetCurrentUserAsync([FromServices] ICurrentUser currentUser)
         {
+            if (currentUser.Account == this.aspireAppSettings.Administrator.Account)
+            {
+                return new TCurrentUserDto
+                {
+                    Name = currentUser.Name,
+                    Roles = currentUser.Roles.Split(',')
+                };
+            }
+
             var user = await this.userRepository
                 .GetBatchAsync(x => x.Account == currentUser.Account, 1)
                 .FirstOrDefaultAsync();

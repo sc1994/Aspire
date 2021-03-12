@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>Aspire.CSRedis.Provider\Aspire.CSRedis.Provider.xml</DocumentationFile>
+		<DocumentationFile>Aspire.CSRedis.Provider.xml</DocumentationFile>
 	</PropertyGroup>
 
 

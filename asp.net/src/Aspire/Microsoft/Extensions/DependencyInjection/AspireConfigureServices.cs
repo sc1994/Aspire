@@ -158,8 +158,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
                 x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = $"set header: {aspireConfigure.Jwt.HeaderKey}",
-                    Name = aspireConfigure.Jwt.HeaderKey, // 自定义 header key
+                    Description = "set header: Authorization",
+                    Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer",
@@ -211,7 +211,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 var httpContext = x.GetService<IHttpContextAccessor>().HttpContext;
                 var configureOptions = x.GetService<IOptions<AspireAppSettings>>().Value;
-                if (httpContext != null && httpContext.Request.Headers.TryGetValue(configureOptions.Jwt.HeaderKey, out var token))
+                if (httpContext != null && httpContext.Request.Headers.TryGetValue("Authorization", out var token))
                 {
                     return new JwtManage(configureOptions.Jwt)
                         .DeconstructionJwtToken<TUserEntity>(token.ToString());

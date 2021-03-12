@@ -348,13 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-/asp.net/src/AspireAdmin.Application/AspireAdmin.Application.xml
-/asp.net/source/Aspire/Aspire.xml
-/asp.net/src/AspireAdmin.Host/App_Data/DbMain.db
-/asp.net/src/Aspire/Aspire/Aspire.xml
-/asp.net/src/Aspire.AutoMapper.Provider/Aspire.AutoMapper.Provider/Aspire.AutoMapper.Provider.xml
-/asp.net/src/Aspire.CSRedis.Provider/Aspire.CSRedis.Provider/Aspire.CSRedis.Provider.xml
-/asp.net/src/Aspire.FreeSql.Provider/Aspire.FreeSql.Provider/Aspire.FreeSql.Provider.xml
-/asp.net/src/Aspire.Serilog.ElasticSearch.Provider/Aspire.Serilog.ElasticSearch.Provider/Aspire.Serilog.ElasticSearch.Provider.xml
-/asp.net/template/AspireAdmin.Application/AspireAdmin.Application/AspireAdmin.Application.xml
-/asp.net/template/AspireAdmin.Host/AspireAdmin.Host/AspireAdmin.Host.xml
+/asp.net/src/Aspire/Aspire.xml
+/asp.net/template/AspireAdmin.Application/AspireAdmin.Application.xml
+/asp.net/template/AspireAdmin.Host/AspireAdmin.Host.xml

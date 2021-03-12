@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>AspireAdmin.Application\AspireAdmin.Application.xml</DocumentationFile>
+		<DocumentationFile>AspireAdmin.Application.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -4,7 +4,6 @@
 
 namespace Aspire
 {
-    using System.Linq;
     using System.Threading.Tasks;
     using Aspire.Authenticate;
     using Microsoft.AspNetCore.Http;
@@ -38,9 +37,7 @@ namespace Aspire
         /// <returns>Task.</returns>
         public async Task Invoke(HttpContext context)
         {
-            var token = context.Request.Headers[this.aspireSetupOptions.Jwt.HeaderKey].FirstOrDefault()?.Split(" ").Last();
-
-            if (token != null)
+            if (context.Request.Headers.TryGetValue("Authorization", out var token))
             {
                 try
                 {
@@ -55,7 +52,6 @@ namespace Aspire
                     // user is not attached to context so request won't have access to secure routes
                 }
             }
-
             await this.next(context);
         }
     }

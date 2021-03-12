@@ -12,9 +12,9 @@ namespace Aspire.Authorization
     public class TokenDto
     {
         /// <summary>
-        /// Gets or sets BearerToken.
+        /// Gets or sets Token.
         /// </summary>
-        public string BearerToken { get; set; }
+        public string Token { get; set; }
 
         /// <summary>
         /// Gets or sets 到期时间.

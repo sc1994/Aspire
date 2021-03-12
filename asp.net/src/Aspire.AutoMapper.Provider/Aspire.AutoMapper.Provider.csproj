@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>Aspire.AutoMapper.Provider\Aspire.AutoMapper.Provider.xml</DocumentationFile>
+		<DocumentationFile>Aspire.AutoMapper.Provider.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

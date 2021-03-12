@@ -28,10 +28,5 @@ namespace Aspire
         /// Gets or sets 到期秒.
         /// </summary>
         public int ExpireSeconds { get; set; }
-
-        /// <summary>
-        /// Gets or sets Header Key.
-        /// </summary>
-        public string HeaderKey { get; set; }
     }
 }

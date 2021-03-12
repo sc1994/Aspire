@@ -1,0 +1,6 @@
+{
+    "vue3snippets.singleQuote": true,
+    "vue3snippets.semi": false,
+    "vue3snippets.trailingComma": "none",
+    "vue3snippets.arrowParens": "avoid"
+}

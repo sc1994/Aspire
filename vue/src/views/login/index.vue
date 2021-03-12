@@ -12,15 +12,15 @@
         <h3 class="title">Login Form</h3>
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="account">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          ref="username"
-          v-model="loginForm.username"
+          ref="account"
+          v-model="loginForm.account"
           placeholder="Username"
-          name="username"
+          name="account"
           type="text"
           tabindex="1"
           auto-complete="on"
@@ -57,7 +57,7 @@
       </el-button>
 
       <div class="tips">
-        <span style="margin-right: 20px">username: admin</span>
+        <span style="margin-right: 20px">account: admin</span>
         <span> password: any</span>
       </div>
     </el-form>
@@ -72,11 +72,11 @@ export default {
   data() {
     return {
       loginForm: {
-        username: 'admin',
+        account: 'admin',
         password: '111111'
       },
       loginRules: {
-        username: [
+        account: [
           {
             required: true,
             trigger: 'blur',
@@ -110,7 +110,7 @@ export default {
   },
   watch: {
     $route: {
-      handler: (route) => {
+      handler(route) {
         this.redirect = route.query && route.query.redirect
       },
       immediate: true
@@ -127,24 +127,23 @@ export default {
         this.$refs.password.focus()
       })
     },
-    handleLogin() {
-      this.$refs.loginForm.validate((valid) => {
-        if (valid) {
-          this.loading = true
-          this.$store
-            .dispatch('user/login', this.loginForm)
-            .then(() => {
-              this.$router.push({ path: this.redirect || '/' })
-              this.loading = false
-            })
-            .catch(() => {
-              this.loading = false
-            })
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
+    async handleLogin() {
+      var valid = await this.$refs.loginForm.validate()
+      if (valid) {
+        this.loading = true
+        this.$store
+          .dispatch('user/login', this.loginForm)
+          .then(() => {
+            this.$router.push({ path: this.redirect || '/' })
+            this.loading = false
+          })
+          .catch(() => {
+            this.loading = false
+          })
+      } else {
+        console.log('error submit!!')
+        return false
+      }
     }
   }
 }

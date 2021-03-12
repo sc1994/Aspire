@@ -52,10 +52,9 @@ namespace Aspire.Authenticate
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return new TokenDto
             {
-                BearerToken = $"Bearer {tokenHandler.WriteToken(token)}",
+                Token = $"Bearer {tokenHandler.WriteToken(token)}",
                 ExpiryTime = expiryTime,
                 Ttl = this.jwtAppSettings.ExpireSeconds,
-                HeaderKey = this.jwtAppSettings.HeaderKey,
             };
         }
 
