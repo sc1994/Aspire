@@ -4,7 +4,7 @@
 
 namespace Aspire.SystemLog
 {
-    using System;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// 系统日志 过滤 输出.
@@ -15,21 +15,19 @@ namespace Aspire.SystemLog
         /// <summary>
         /// Gets or sets 创建时间.
         /// </summary>
-        DateTime CreatedAt { get; set; }
-
-        /// <summary>
-        /// Gets or sets 对于请求开始消逝的毫秒数.
-        /// </summary>
-        double TickForRequest { get; set; }
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        string CreatedAt { get; set; }
 
         /// <summary>
         /// Gets or sets Messages.
         /// </summary>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         string Message { get; set; }
 
         /// <summary>
         /// Gets or sets Id.
         /// </summary>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         TPrimaryKey Id { get; set; }
     }
 }

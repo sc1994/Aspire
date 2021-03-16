@@ -141,9 +141,6 @@
         <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogFilterOutputDto.CreatedAt">
             <inheritdoc/>
         </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogFilterOutputDto.TickForRequest">
-            <inheritdoc/>
-        </member>
         <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogFilterOutputDto.Message">
             <inheritdoc/>
         </member>
@@ -155,23 +152,27 @@
             SerilogElastic Search AppService.
             </summary>
         </member>
-        <member name="M:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Aspire.Serilog.ElasticSearch.Provider.LogItemsStore)">
+        <member name="M:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Aspire.Serilog.ElasticSearch.Provider.LogItemsStore,Aspire.ILogWriter)">
             <summary>
             Initializes a new instance of the <see cref="T:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService"/> class.
             </summary>
             <param name="config">Configuration.</param>
             <param name="itemsStore">Items Store.</param>
+            <param name="logWriter">Log Writer.</param>
         </member>
         <member name="M:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService.FilterAsync(Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogFilterInputDto)">
             <inheritdoc />
         </member>
-        <member name="M:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService.GetDetailAsync(System.String)">
+        <member name="M:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService.GetAsync(System.String)">
             <inheritdoc />
         </member>
         <member name="M:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService.GetSelectItems">
             <inheritdoc />
         </member>
         <member name="M:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService.DeleteAllSelectItems">
+            <inheritdoc />
+        </member>
+        <member name="M:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService.GetPageConfig">
             <inheritdoc />
         </member>
     </members>

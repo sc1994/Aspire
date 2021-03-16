@@ -51,5 +51,10 @@ namespace Aspire
         /// Gets 消息.
         /// </summary>
         public string[] Messages { get; }
+
+        /// <summary>
+        /// Gets or sets Result.
+        /// </summary>
+        public object Result { get; set; }
     }
 }

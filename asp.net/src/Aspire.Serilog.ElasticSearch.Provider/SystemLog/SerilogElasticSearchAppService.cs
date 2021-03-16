@@ -6,6 +6,7 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Net.Http;
     using System.Net.Http.Json;
@@ -24,6 +25,7 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
         SystemLogDetailOutputDto>
     {
         private readonly LogItemsStore itemsStore;
+        private readonly ILogWriter logWriter;
         private readonly string node;
         private readonly string index;
 
@@ -32,11 +34,14 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
         /// </summary>
         /// <param name="config">Configuration.</param>
         /// <param name="itemsStore">Items Store.</param>
+        /// <param name="logWriter">Log Writer.</param>
         public SerilogElasticSearchAppService(
             IConfiguration config,
-            LogItemsStore itemsStore)
+            LogItemsStore itemsStore,
+            ILogWriter logWriter)
         {
             this.itemsStore = itemsStore;
+            this.logWriter = logWriter;
             this.node = config.GetConnectionString("ElasticSearch");
             this.index = config.GetConnectionString("ElasticSearchIndex");
         }
@@ -64,7 +69,7 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
 
             if (!string.IsNullOrWhiteSpace(filterInput.Title))
             {
-                items.Add(GetQueryItem("fields.apiRouter.title", filterInput.Title, OperatorEnum.Term));
+                items.Add(GetQueryItem("fields.title.keyword", filterInput.Title, OperatorEnum.Term));
             }
 
             if (!string.IsNullOrWhiteSpace(filterInput.Filter1))
@@ -85,7 +90,7 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
 
             if (!string.IsNullOrWhiteSpace(filterInput.TraceId))
             {
-                items.Add(GetQueryItem("fields.traceId", filterInput.TraceId, OperatorEnum.Term));
+                items.Add(GetQueryItem("fields.traceId.keyword", filterInput.TraceId, OperatorEnum.Term));
             }
 
             if (!string.IsNullOrWhiteSpace(filterInput.ClientAddress))
@@ -98,9 +103,9 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
                 items.Add(GetQueryItem("fields.serverAddress.keyword", filterInput.ServerAddress, OperatorEnum.Term));
             }
 
-            if (filterInput.Level is not null)
+            if (!string.IsNullOrWhiteSpace(filterInput.Level))
             {
-                items.Add(GetQueryItem("level.keyword", filterInput.Level.ToString(), OperatorEnum.Term));
+                items.Add(GetQueryItem("level.keyword", filterInput.Level, OperatorEnum.Term));
             }
 
             var dsl = new
@@ -114,25 +119,34 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
                         filter = items,
                     },
                 },
+                sort = new List<Dictionary<string, object>>
+                {
+                    new Dictionary<string, object>
+                    {
+                        { "@timestamp", new { order = "DESC" } },
+                    },
+                },
             };
             var uri = $"/{this.index}*/_search";
+            this.logWriter.Information("Serilog ElasticSearch Dsl", new { uri, dsl });
 
             using var client = new HttpClient { BaseAddress = new Uri(this.node) };
             var res = await client.PostAsJsonAsync(uri, dsl);
             var data = await res.Content
                 .ReadAsStringAsync()
                 .DeserializeObjectAsync<JObject>();
+
             return new PagedResultDto<SystemLogFilterOutputDto>(
-                data["hits"]["hits"].Select(ToLogModel<SystemLogFilterOutputDto>),
+                data["hits"]["hits"].Select(x => ToLogModel<SystemLogFilterOutputDto>(x, 200)),
                 data["hits"]["total"]["value"].ToObject<int>());
         }
 
         /// <inheritdoc />
-        public override async Task<SystemLogDetailOutputDto> GetDetailAsync(string id)
+        public override async Task<SystemLogDetailOutputDto> GetAsync(string id)
         {
             using var client = new HttpClient { BaseAddress = new Uri(this.node) };
             var data = await client.GetStringAsync(id).DeserializeObjectAsync<JObject>();
-            return ToLogModel<SystemLogDetailOutputDto>(data);
+            return ToLogModel<SystemLogDetailOutputDto>(data, int.MaxValue);
         }
 
         /// <inheritdoc />
@@ -141,10 +155,10 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
             var items = LogItemsStore.GetItems().Select(x => x.DeserializeObject());
             return await Task.FromResult(new SystemLogSelectItemsDto
             {
-                ApiMethods = items.Select(x => x["apiMethod"]?.ToString()).Where(x => !x.IsNullOrWhiteSpace()).Distinct().ToArray(),
+                ApiMethod = items.Select(x => x["apiMethod"]?.ToString()).Where(x => !x.IsNullOrWhiteSpace()).Distinct().ToArray(),
                 ServerAddress = items.Select(x => x["serverAddress"]?.ToString()).Where(x => !x.IsNullOrWhiteSpace()).Distinct().ToArray(),
-                ApiRouters = items.Select(x => x["apiRouter"]?.ToString()).Where(x => !x.IsNullOrWhiteSpace()).Distinct().ToArray(),
-                Titles = items.Select(x => x["title"]?.ToString()).Where(x => !x.IsNullOrWhiteSpace()).Distinct().ToArray(),
+                ApiRouter = items.Select(x => x["apiRouter"]?.ToString()).Where(x => !x.IsNullOrWhiteSpace()).Distinct().ToArray(),
+                Title = items.Select(x => x["title"]?.ToString()).Where(x => !x.IsNullOrWhiteSpace()).Distinct().ToArray(),
             });
         }
 
@@ -153,6 +167,14 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
         {
             this.itemsStore.ClearItemsStore();
             return await Task.FromResult(true);
+        }
+
+        /// <inheritdoc />
+        public override async Task<JObject> GetPageConfig()
+        {
+            // TODO 响应具体的实体
+            var config = await File.ReadAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data/PageConfig.json"));
+            return config.DeserializeObject();
         }
 
         private static object GetQueryItem(string field, object value, OperatorEnum operatorEnum)
@@ -190,30 +212,22 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
             };
         }
 
-        private static TOutput ToLogModel<TOutput>(JToken x)
+        private static TOutput ToLogModel<TOutput>(JToken x, int substringCount)
             where TOutput : SystemLogFilterOutputDto, new()
         {
             return new TOutput
             {
                 TraceId = x["_source"]["fields"]["traceId"]?.ToString() ?? string.Empty,
-                ApiRouter = x["_source"]["fields"]["className"]?.ToString() ?? string.Empty,
+                ApiRouter = $"[{x["_source"]["fields"]["apiMethod"]}] {x["_source"]["fields"]["apiRouter"]}",
                 Title = x["_source"]["fields"]["title"]?.ToString() ?? string.Empty,
-                ApiMethod = x["_source"]["fields"]["className"]?.ToString() ?? string.Empty,
-                Message = x["_source"]["fields"]["message"]?.ToString() ?? string.Empty,
-                CreatedAt = x["_source"]["@timestamp"].ToObject<DateTime>(),
+                Message = x["_source"]["fields"]["message"]?.ToString()?.SubstringSafe(substringCount) ?? string.Empty,
+                CreatedAt = x["_source"]["@timestamp"].ToObject<DateTime>().ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                 Filter1 = x["_source"]["fields"]["f1"]?.ToString() ?? string.Empty,
                 Filter2 = x["_source"]["fields"]["f2"]?.ToString() ?? string.Empty,
                 Id = $"/{x["_index"]}/{x["_type"]}/{x["_id"]}",
-                Level = x["_source"]["level"].ToString() switch
-                {
-                    "Information" => LogLevelEnum.Information,
-                    "Error" => LogLevelEnum.Error,
-                    "Warning" => LogLevelEnum.Warning,
-                    _ => throw new NotSupportedException("not supported log level " + x["_source"]["level"])
-                },
+                Level = x["_source"]["level"].ToString() ?? string.Empty,
                 ServerAddress = x["_source"]["fields"]["serverAddress"]?.ToString() ?? string.Empty,
                 ClientAddress = x["_source"]["fields"]["clientAddress"]?.ToString() ?? string.Empty,
-                TickForRequest = x["_source"]["fields"]["tickForRequest"]?.ToString()?.TryToDouble() ?? 0,
             };
         }
     }

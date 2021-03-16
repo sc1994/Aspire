@@ -22,4 +22,10 @@
 		<ProjectReference Include="..\Aspire\Aspire.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="App_Data\PageConfig.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>

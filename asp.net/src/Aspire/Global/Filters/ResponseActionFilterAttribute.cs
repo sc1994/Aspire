@@ -4,8 +4,6 @@
 
 namespace Aspire
 {
-    using System;
-    using System.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -23,11 +21,7 @@ namespace Aspire
             object logMessage = default;
             if (context.Exception is null && context.Result is ObjectResult objectResult)
             {
-                var result = new OkObjectResult(new GlobalResponse
-                {
-                    Code = ResponseCode.Ok.GetHashCode(),
-                    Result = objectResult.Value,
-                });
+                var result = new OkObjectResult(new GlobalResponse(ResponseCode.Ok, objectResult.Value));
                 logMessage = result.Value;
                 context.Result = result;
             }
@@ -37,27 +31,12 @@ namespace Aspire
                 {
                     // 鉴定异常类型
                     case FriendlyException friendlyException:
-                        var friendlyExceptionResult = new OkObjectResult(new GlobalResponse
-                        {
-                            Code = friendlyException.Code,
-                            Title = friendlyException.Title,
-                            Messages = friendlyException.Messages,
-#if DEBUG
-                            StackTrace = friendlyException,
-#endif
-                        });
+                        var friendlyExceptionResult = new OkObjectResult(new GlobalResponse(friendlyException));
                         logMessage = friendlyExceptionResult.Value;
                         context.Result = friendlyExceptionResult;
                         break;
                     case { } exception:
-                        var exceptionResult = new OkObjectResult(new GlobalResponse
-                        {
-                            Code = ResponseCode.InternalServerError.GetHashCode(),
-                            Title = exception.Message,
-#if DEBUG
-                            StackTrace = exception,
-#endif
-                        });
+                        var exceptionResult = new OkObjectResult(new GlobalResponse(exception));
                         logMessage = exceptionResult.Value;
                         context.Result = exceptionResult;
                         break;

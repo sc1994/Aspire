@@ -12,30 +12,30 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
     public class SystemLogCommonDto : ISystemLogCommonDto
     {
         /// <inheritdoc/>
-        public string ApiMethod { get; set; }
+        public virtual string ApiMethod { get; set; }
 
         /// <inheritdoc/>
-        public string ApiRouter { get; set; }
+        public virtual string ApiRouter { get; set; }
 
         /// <inheritdoc/>
-        public string Title { get; set; }
+        public virtual string Title { get; set; }
 
         /// <inheritdoc/>
-        public string TraceId { get; set; }
+        public virtual string TraceId { get; set; }
 
         /// <inheritdoc/>
-        public string Filter1 { get; set; }
+        public virtual string Filter1 { get; set; }
 
         /// <inheritdoc/>
-        public string Filter2 { get; set; }
+        public virtual string Filter2 { get; set; }
 
         /// <inheritdoc/>
-        public string ClientAddress { get; set; }
+        public virtual string ClientAddress { get; set; }
 
         /// <inheritdoc/>
-        public string ServerAddress { get; set; }
+        public virtual string ServerAddress { get; set; }
 
         /// <inheritdoc/>
-        public LogLevelEnum? Level { get; set; }
+        public virtual string Level { get; set; }
     }
 }

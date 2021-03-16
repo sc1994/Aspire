@@ -4,7 +4,6 @@
 
 namespace Aspire
 {
-    using System;
     using Microsoft.AspNetCore.Mvc.Filters;
 
     /// <summary>

@@ -1,332 +1,96 @@
 <template>
   <div class="app-container">
-    <parser v-if="formConf" :form-conf="formConf" @submit="query" />
+    <parser v-if="formConfig" :form-conf="formConfig" @submit="query" />
+    <el-table v-if="tableConfig" :data="tableData" border style="width: 100%">
+      <el-table-column
+        v-for="item in tableConfig.cols"
+        :key="item.prop"
+        :prop="item.prop"
+        :label="item.label"
+        :min-width="item.minWidth || undefined"
+        :show-overflow-tooltip="true"
+      >
+        <template slot-scope="scope">
+          <span v-if="item.prop === 'level'">
+            <el-tag v-if="scope.row[item.prop] === 'Information'"> Information </el-tag>
+            <el-tag v-else-if="scope.row[item.prop] === 'Warning'" type="warning">
+              Warning
+            </el-tag>
+            <el-tag v-else-if="scope.row[item.prop] === 'Error'" type="danger">
+              Error
+            </el-tag>
+            <el-tag v-else type="info"> {{ scope.row[item.prop] }} </el-tag>
+          </span>
+          <span v-else>{{ scope.row[item.prop] }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" :width="100" fixed="right">
+        <template slot-scope="scope">
+          <el-button type="text" style="margin-right: 4px" @click="detail(scope.row)">
+            详情
+          </el-button>
+          /<el-button type="text" style="margin-left: 6px" @click="trace(scope.row)">
+            追踪
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-pagination
+      @size-change="query"
+      @current-change="query"
+      :current-page.sync="pageIndex"
+      :page-sizes="[20, 50, 100, 200]"
+      :page-size.sync="pageSize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total.sync="totalCount"
+    >
+    </el-pagination>
+
+    <el-dialog title="详情" :visible.sync="detailDialog" width="70%">
+      <json-view v-if="detailJson" :data="detailJson" />
+    </el-dialog>
+    <el-dialog title="追踪" :visible.sync="traceDialog" fullscreen> </el-dialog>
   </div>
 </template>
 
 <script>
 import parser from 'form-gen-parser'
 import request from '@/utils/request'
+import jsonView from 'vue-json-views'
 
 export default {
   components: {
-    parser
+    parser,
+    jsonView
   },
   data() {
     return {
-      formConf: {
-        fields: [
-          {
-            __config__: {
-              label: '',
-              tag: 'el-date-picker',
-              tagIcon: 'date-range',
-              defaultValue: null,
-              span: 9,
-              showLabel: true,
-              labelWidth: null,
-              layout: 'colFormItem',
-              regList: [],
-              changeTag: true,
-              document: 'https://element.eleme.cn/#/zh-CN/component/date-picker',
-              formId: 101,
-              renderKey: 1615800770197
-            },
-            style: {
-              width: '100%'
-            },
-            type: 'datetimerange',
-            'range-separator': '至',
-            'start-placeholder': '开始日期',
-            'end-placeholder': '结束日期',
-            disabled: false,
-            clearable: true,
-            format: 'yyyy-MM-dd HH:mm:ss',
-            'value-format': 'yyyy-MM-dd HH:mm:ss',
-            readonly: false,
-            __vModel__: 'createdAtRange'
-          },
-          {
-            __config__: {
-              label: '',
-              showLabel: true,
-              labelWidth: null,
-              tag: 'el-select',
-              tagIcon: 'select',
-              layout: 'colFormItem',
-              span: 6,
-              regList: [],
-              changeTag: true,
-              document: 'https://element.eleme.cn/#/zh-CN/component/select',
-              formId: 104,
-              renderKey: 1615802005945
-            },
-            __slot__: {
-              options: []
-            },
-            placeholder: '请求方法',
-            style: {
-              width: '100%'
-            },
-            clearable: true,
-            disabled: false,
-            filterable: false,
-            multiple: false,
-            __vModel__: 'apiMethod'
-          },
-          {
-            __config__: {
-              label: '',
-              url: '/api/SerilogElasticSearch/SelectItems',
-              method: 'get',
-              dataKey: 'list',
-              showLabel: true,
-              labelWidth: null,
-              tag: 'el-select',
-              tagIcon: 'select',
-              layout: 'colFormItem',
-              defaultValue: '',
-              dataType: 'dynamic',
-              span: 9,
-              regList: [],
-              changeTag: true,
-              document: 'https://element.eleme.cn/#/zh-CN/component/select',
-              formId: 102,
-              renderKey: 1615800839631
-            },
-            __slot__: {
-              options: []
-            },
-            placeholder: '请求路由',
-            style: {
-              width: '100%'
-            },
-            clearable: true,
-            disabled: false,
-            filterable: false,
-            multiple: false,
-            __vModel__: 'apiRouter'
-          },
-          {
-            __config__: {
-              label: '',
-              showLabel: true,
-              labelWidth: null,
-              tag: 'el-select',
-              tagIcon: 'select',
-              layout: 'colFormItem',
-              span: 6,
-              regList: [],
-              changeTag: true,
-              document: 'https://element.eleme.cn/#/zh-CN/component/select',
-              formId: 111,
-              renderKey: 1615802230148
-            },
-            __slot__: {
-              options: [
-                {
-                  label: 'Information',
-                  value: 0
-                },
-                {
-                  label: 'Warning',
-                  value: 1
-                },
-                {
-                  label: 'Error',
-                  value: 2
-                }
-              ]
-            },
-            placeholder: '日志等级',
-            style: {
-              width: '100%'
-            },
-            clearable: true,
-            disabled: false,
-            filterable: false,
-            multiple: false,
-            __vModel__: 'level'
-          },
-          {
-            __config__: {
-              label: '',
-              showLabel: true,
-              labelWidth: null,
-              tag: 'el-select',
-              tagIcon: 'select',
-              layout: 'colFormItem',
-              span: 6,
-              regList: [],
-              changeTag: true,
-              document: 'https://element.eleme.cn/#/zh-CN/component/select',
-              formId: 103,
-              renderKey: 1615801984165
-            },
-            __slot__: {
-              options: []
-            },
-            placeholder: '标题',
-            style: {
-              width: '100%'
-            },
-            clearable: true,
-            disabled: false,
-            filterable: false,
-            multiple: false,
-            __vModel__: 'title'
-          },
-          {
-            __config__: {
-              label: '',
-              labelWidth: null,
-              showLabel: true,
-              changeTag: true,
-              tag: 'el-input',
-              tagIcon: 'input',
-              layout: 'colFormItem',
-              span: 6,
-              document: 'https://element.eleme.cn/#/zh-CN/component/input',
-              regList: [],
-              formId: 110,
-              renderKey: 1615802152405
-            },
-            __slot__: {
-              prepend: '',
-              append: ''
-            },
-            placeholder: '客户端地址',
-            style: {
-              width: '100%'
-            },
-            clearable: true,
-            'prefix-icon': '',
-            'suffix-icon': '',
-            maxlength: null,
-            'show-word-limit': false,
-            readonly: false,
-            disabled: false,
-            __vModel__: 'clientAddress'
-          },
-          {
-            __config__: {
-              label: '',
-              showLabel: true,
-              labelWidth: null,
-              tag: 'el-select',
-              tagIcon: 'select',
-              layout: 'colFormItem',
-              span: 6,
-              regList: [],
-              changeTag: true,
-              document: 'https://element.eleme.cn/#/zh-CN/component/select',
-              formId: 108,
-              renderKey: 1615802133983
-            },
-            __slot__: {
-              options: []
-            },
-            placeholder: '服务端地址',
-            style: {
-              width: '100%'
-            },
-            clearable: true,
-            disabled: false,
-            filterable: false,
-            multiple: false,
-            __vModel__: 'serverAddress'
-          },
-          {
-            __config__: {
-              label: '',
-              labelWidth: null,
-              showLabel: true,
-              changeTag: true,
-              tag: 'el-input',
-              tagIcon: 'input',
-              layout: 'colFormItem',
-              span: 6,
-              document: 'https://element.eleme.cn/#/zh-CN/component/input',
-              regList: [],
-              formId: 105,
-              renderKey: 1615802099428
-            },
-            __slot__: {
-              prepend: '',
-              append: ''
-            },
-            placeholder: '过滤1',
-            style: {
-              width: '100%'
-            },
-            clearable: true,
-            'prefix-icon': '',
-            'suffix-icon': '',
-            maxlength: null,
-            'show-word-limit': false,
-            readonly: false,
-            disabled: false,
-            __vModel__: 'filter1'
-          },
-          {
-            __config__: {
-              label: '',
-              labelWidth: null,
-              showLabel: true,
-              changeTag: true,
-              tag: 'el-input',
-              tagIcon: 'input',
-              layout: 'colFormItem',
-              span: 6,
-              document: 'https://element.eleme.cn/#/zh-CN/component/input',
-              regList: [],
-              formId: 106,
-              renderKey: 1615802103063
-            },
-            __slot__: {
-              prepend: '',
-              append: ''
-            },
-            placeholder: '过滤2',
-            style: {
-              width: '100%'
-            },
-            clearable: true,
-            'prefix-icon': '',
-            'suffix-icon': '',
-            maxlength: null,
-            'show-word-limit': false,
-            readonly: false,
-            disabled: false,
-            __vModel__: 'filter2'
-          }
-        ],
-        formRef: 'elForm',
-        formModel: 'formData',
-        size: 'medium',
-        labelPosition: 'right',
-        labelWidth: 0,
-        formRules: 'rules',
-        gutter: 5,
-        disabled: false,
-        span: 9,
-        formBtns: true
-      }
+      pageIndex: 1,
+      pageSize: 20,
+      totalCount: 0,
+      tableData: [],
+      formConfig: undefined,
+      tableConfig: undefined,
+      detailJson: undefined,
+      detailDialog: false,
+      traceDialog: false,
+      traceList: []
     }
   },
+  watch: {},
   async mounted() {
-    // TODO parser 好像有BUG, 不能设置这个title
-    window.document.getElementsByClassName(
-      'el-button el-button--primary el-button--large'
-    )[0].innerText = '查询'
+    // 调整配置中的内容让其动态加载
+    var { formConfig, tableConfig } = await request.get(
+      '/api/SerilogElasticSearch/PageConfig'
+    )
 
     var res = await request.get('/api/SerilogElasticSearch/SelectItems')
     Object.keys(res).forEach(x => {
       var value = res[x]
       if (!(value && value.length)) return
-
-      var item = this.formConf.fields.find(f => f.__vModel__ === x)
-      console.log('查找配置的项设置, 下拉内容', item)
+      var item = formConfig.fields.find(f => f.__vModel__ === x)
+      console.log('查找配置的项设置, 下拉内容', item, value)
+      if (!item) return
       item.__slot__ = {
         ...item.__slot__,
         options: value.map(m => {
@@ -337,11 +101,53 @@ export default {
         })
       }
     })
+
+    this.tableConfig = tableConfig
+    this.formConfig = formConfig
+    this.$forceUpdate()
+
+    this.$nextTick(() => {
+      // parser 似乎不能设置这个title
+      var formBtu = window.document.getElementsByClassName(
+        'el-button el-button--primary el-button--large'
+      )[0]
+      formBtu.innerText = '查询'
+    })
+
+    await this.query()
   },
   methods: {
     async query(formData) {
-      var res = await request.post('/api/SerilogElasticSearch/Filter', formData)
+      var res = await request.post('/api/SerilogElasticSearch/Filter', {
+        ...formData,
+        pageIndex: this.pageIndex,
+        pageSize: this.pageSize
+      })
       console.log(res)
+      this.tableData = res.items
+      this.totalCount = res.totalCount
+    },
+    async detail(row) {
+      var res = await request.get('/api/SerilogElasticSearch?id=' + row.id)
+
+      var jsonMessage
+      try {
+        jsonMessage = JSON.parse(res.message)
+      } catch {}
+
+      if (jsonMessage) res.message = jsonMessage
+      this.detailJson = res
+      this.detailDialog = true
+    },
+    async trace(row) {
+      var { items } = await request.post('/api/SerilogElasticSearch/Filter', {
+        traceId: row.traceId,
+        pageIndex: 1,
+        pageSize: 9999
+      })
+      this.traceList = items
+      console.log(items)
+      this.traceDialog = true
     }
   }
 }

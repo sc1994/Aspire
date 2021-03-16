@@ -7,17 +7,85 @@ namespace Aspire
     using System;
     using System.Diagnostics;
     using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Http;
     using Newtonsoft.Json;
 
     /// <summary>
     /// Global Response.
     /// </summary>
-    internal class GlobalResponse
+    public class GlobalResponse
     {
         /// <summary>
-        /// Gets or sets Code.
+        /// Initializes a new instance of the <see cref="GlobalResponse"/> class.
         /// </summary>
-        public int Code { get; set; }
+        /// <param name="code">Code.</param>
+        public GlobalResponse(int code)
+        {
+            this.Code = code;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GlobalResponse"/> class.
+        /// </summary>
+        /// <param name="code">Code.</param>
+        public GlobalResponse(ResponseCode code)
+            : this((int)code)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GlobalResponse"/> class.
+        /// </summary>
+        /// <param name="code">Code.</param>
+        /// <param name="result">Result.</param>
+        public GlobalResponse(int code, object result)
+            : this(code)
+        {
+            this.Result = result;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GlobalResponse"/> class.
+        /// </summary>
+        /// <param name="code">Code.</param>
+        /// <param name="result">Result.</param>
+        public GlobalResponse(ResponseCode code, object result)
+            : this((int)code, result)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GlobalResponse"/> class.
+        /// </summary>
+        /// <param name="ex">Friendly Exception.</param>
+        public GlobalResponse(Exception ex)
+            : this(ResponseCode.InternalServerError)
+        {
+#if DEBUG
+            this.StackTrace = ex.StackTrace;
+#endif
+            this.Title = ex.Message;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GlobalResponse"/> class.
+        /// </summary>
+        /// <param name="ex">Friendly Exception.</param>
+        public GlobalResponse(FriendlyException ex)
+            : this(ex.Code, ex.Result)
+        {
+            this.Messages = ex.Messages;
+#if DEBUG
+            this.StackTrace = ex.StackTrace;
+#endif
+            this.Title = ex.Title;
+        }
+
+        /// <summary>
+        /// Gets Code.
+        /// </summary>
+        public int Code { get; }
 
         /// <summary>
         /// Gets or sets Messages.
@@ -32,9 +100,10 @@ namespace Aspire
         public string Title { get; set; }
 
         /// <summary>
-        /// Gets or sets Result.
+        /// Gets Result.
         /// </summary>
-        public object Result { get; set; } = new { };
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public object Result { get; }
 
 #if DEBUG
         /// <summary>
@@ -81,5 +150,17 @@ namespace Aspire
             }
         }
 #endif
+
+        /// <summary>
+        /// Async Write To Http Response.
+        /// </summary>
+        /// <param name="context">Http Context.</param>
+        /// <returns>Task.</returns>
+        public async Task WriteToHttpResponseAsync(HttpContext context)
+        {
+            context.Response.StatusCode = 200;
+            context.Response.ContentType = "application/json; charset=utf-8";
+            await context.Response.WriteAsync(this.SerializeObject());
+        }
     }
 }

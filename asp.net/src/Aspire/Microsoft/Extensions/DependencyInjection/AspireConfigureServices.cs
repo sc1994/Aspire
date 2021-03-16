@@ -15,7 +15,6 @@ namespace Microsoft.Extensions.DependencyInjection
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.Options;
     using Microsoft.OpenApi.Models;
     using Panda.DynamicWebApi;
     using Swashbuckle.AspNetCore.SwaggerGen;

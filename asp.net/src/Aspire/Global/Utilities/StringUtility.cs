@@ -18,5 +18,18 @@ namespace Aspire
         {
             return string.IsNullOrWhiteSpace(str);
         }
+
+        /// <summary>
+        /// 安全的 Substring.
+        /// </summary>
+        /// <param name="str">string.</param>
+        /// <param name="count">count.</param>
+        /// <returns>Substring.</returns>
+        public static string SubstringSafe(this string str, int count)
+        {
+            return str.Length > count
+                ? str.Substring(0, count)
+                : str;
+        }
     }
 }

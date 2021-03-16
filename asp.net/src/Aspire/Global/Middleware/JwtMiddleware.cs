@@ -4,8 +4,6 @@
 
 namespace Aspire
 {
-    using System;
-    using System.Text;
     using System.Threading.Tasks;
     using Aspire.Authenticate;
     using Microsoft.AspNetCore.Http;
@@ -50,29 +48,12 @@ namespace Aspire
                 }
                 catch (FriendlyException ex)
                 {
-                    await AuthorizationExpired(context, ex);
+                    await new GlobalResponse(ex).WriteToHttpResponseAsync(context);
                     return;
                 }
             }
 
             await this.next(context);
-        }
-
-        private static async Task AuthorizationExpired(HttpContext context, FriendlyException ex)
-        {
-            context.Response.StatusCode = 200;
-            context.Response.ContentType = "application/json; charset=utf-8";
-            await context.Response.WriteAsync(
-                new GlobalResponse
-                {
-                    Code = ex.Code,
-                    Messages = ex.Messages,
-                    Result = null,
-#if DEBUG
-                    StackTrace = ex.StackTrace,
-#endif
-                    Title = ex.Title,
-                }.SerializeObject());
         }
     }
 }

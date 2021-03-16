@@ -5,6 +5,7 @@
 namespace Aspire.SystemLog
 {
     using System.Threading.Tasks;
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// System Log.
@@ -34,7 +35,7 @@ namespace Aspire.SystemLog
         /// </summary>
         /// <param name="id">Primary Key.</param>
         /// <returns>详情输出.</returns>
-        public abstract Task<TDetailOutputDto> GetDetailAsync(TPrimaryKey id);
+        public abstract Task<TDetailOutputDto> GetAsync(TPrimaryKey id);
 
         /// <summary>
         /// 获取选择项.
@@ -47,5 +48,11 @@ namespace Aspire.SystemLog
         /// </summary>
         /// <returns>Is Success.</returns>
         public abstract Task<bool> DeleteAllSelectItems();
+
+        /// <summary>
+        /// Get Page Config.
+        /// </summary>
+        /// <returns>Config.</returns>
+        public abstract Task<JObject> GetPageConfig();
     }
 }
