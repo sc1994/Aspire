@@ -91,7 +91,7 @@ namespace Aspire
             }
 
             // 类型错误
-            if (!(context.HttpContext.Items[ICurrentUser.HttpItemsKey] is ICurrentUser user))
+            if (!(context.HttpContext.Items[AppConst.CurrentUserHttpItemKey] is ICurrentUser user))
             {
                 return;
             }

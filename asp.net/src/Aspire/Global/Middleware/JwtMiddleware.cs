@@ -4,6 +4,8 @@
 
 namespace Aspire
 {
+    using System;
+    using System.Text;
     using System.Threading.Tasks;
     using Aspire.Authenticate;
     using Microsoft.AspNetCore.Http;
@@ -44,15 +46,33 @@ namespace Aspire
                     var current = new JwtManage(this.aspireSetupOptions.Jwt).DeconstructionJwtToken<TCurrentUser>(token);
 
                     // attach user to context on successful jwt validation
-                    context.Items[ICurrentUser.HttpItemsKey] = current;
+                    context.Items[AppConst.CurrentUserHttpItemKey] = current;
                 }
-                catch
+                catch (FriendlyException ex)
                 {
-                    // do nothing if jwt validation fails
-                    // user is not attached to context so request won't have access to secure routes
+                    await AuthorizationExpired(context, ex);
+                    return;
                 }
             }
+
             await this.next(context);
+        }
+
+        private static async Task AuthorizationExpired(HttpContext context, FriendlyException ex)
+        {
+            context.Response.StatusCode = 200;
+            context.Response.ContentType = "application/json; charset=utf-8";
+            await context.Response.WriteAsync(
+                new GlobalResponse
+                {
+                    Code = ex.Code,
+                    Messages = ex.Messages,
+                    Result = null,
+#if DEBUG
+                    StackTrace = ex.StackTrace,
+#endif
+                    Title = ex.Title,
+                }.SerializeObject());
         }
     }
 }

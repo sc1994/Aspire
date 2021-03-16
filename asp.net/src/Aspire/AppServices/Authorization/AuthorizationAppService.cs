@@ -101,7 +101,7 @@ namespace Aspire.Authorization
 
             if (user is null)
             {
-                return Failure<TokenDto>(ResponseCode.UnauthorizedAccountOrPassword, "用户名或者密码错误");
+                throw Failure(ResponseCode.UnauthorizedAccountOrPassword, "用户名或者密码错误");
             }
 
             return new JwtManage(this.aspireAppSettings.Jwt).GenerateJwtToken(user);
@@ -119,7 +119,7 @@ namespace Aspire.Authorization
                 return new TCurrentUserDto
                 {
                     Name = currentUser.Name,
-                    Roles = currentUser.Roles.Split(',')
+                    Roles = currentUser.Roles.Split(','),
                 };
             }
 

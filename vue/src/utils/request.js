@@ -54,10 +54,17 @@ service.interceptors.response.use(
         duration: 8 * 1000
       })
 
-      // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
+      var msg = "";
+      if (res.code == 40101) {
+        msg = "当前用户未被授权访问本数据, 是否跳转登录?"
+      }
+      if (res.code == 40103 || res.code == 40104) {
+        msg = "授权无效或者授权过期, 是否重新登入?"
+      }
+
+      if (msg) {
         // to re-login
-        MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
+        MessageBox.confirm(msg, {
           confirmButtonText: 'Re-Login',
           cancelButtonText: 'Cancel',
           type: 'warning'

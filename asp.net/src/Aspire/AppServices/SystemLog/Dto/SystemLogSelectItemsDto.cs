@@ -19,7 +19,7 @@ namespace Aspire.SystemLog
         /// <summary>
         /// Gets or sets API方法.
         /// </summary>
-        public TreeNodeDto[] ApiRouters { get; set; } = Array.Empty<TreeNodeDto>();
+        public string[] ApiRouters { get; set; } = Array.Empty<string>();
 
         /// <summary>
         /// Gets or sets 过滤1.

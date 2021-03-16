@@ -30,6 +30,18 @@ namespace Aspire
         UnauthorizedAccountOrPassword = 40102,
 
         /// <summary>
+        /// 鉴权过期.
+        /// </summary>
+        [Description("授权过期")]
+        AuthorizeExpired = 40103,
+
+        /// <summary>
+        /// 授权无效.
+        /// </summary>
+        [Description("授权无效")]
+        AuthorizeInvalid = 40104,
+
+        /// <summary>
         /// 内部服务异常.
         /// </summary>
         [Description("内部服务异常")]

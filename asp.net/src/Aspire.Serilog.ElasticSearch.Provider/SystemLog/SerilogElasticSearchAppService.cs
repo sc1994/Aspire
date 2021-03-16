@@ -139,17 +139,11 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
         public override async Task<SystemLogSelectItemsDto> GetSelectItems()
         {
             var items = LogItemsStore.GetItems().Select(x => x.DeserializeObject());
-            var routers = items
-                .Select(x => x["apiRouter"]?.ToString())
-                .Select(x => x?.Trim('/'))
-                .Where(x => !x.IsNullOrWhiteSpace())
-                .OrderBy(x => x)
-                .Distinct();
             return await Task.FromResult(new SystemLogSelectItemsDto
             {
                 ApiMethods = items.Select(x => x["apiMethod"]?.ToString()).Where(x => !x.IsNullOrWhiteSpace()).Distinct().ToArray(),
                 ServerAddress = items.Select(x => x["serverAddress"]?.ToString()).Where(x => !x.IsNullOrWhiteSpace()).Distinct().ToArray(),
-                ApiRouters = GetRoutersTree(routers, 0).ToArray(),
+                ApiRouters = items.Select(x => x["apiRouter"]?.ToString()).Where(x => !x.IsNullOrWhiteSpace()).Distinct().ToArray(),
                 Titles = items.Select(x => x["title"]?.ToString()).Where(x => !x.IsNullOrWhiteSpace()).Distinct().ToArray(),
             });
         }
@@ -159,39 +153,6 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
         {
             this.itemsStore.ClearItemsStore();
             return await Task.FromResult(true);
-        }
-
-        private static string GetSplitItemByIndex(string str, int index)
-        {
-            return str.Split('/', StringSplitOptions.RemoveEmptyEntries).Skip(index).FirstOrDefault();
-        }
-
-        private static IEnumerable<TreeNodeDto> GetRoutersTree(IEnumerable<string> routers, int index)
-        {
-            var result = new List<TreeNodeDto>();
-
-            foreach (var item in routers.GroupBy(x => GetSplitItemByIndex(x, index)))
-            {
-                if (item.Key.IsNullOrWhiteSpace())
-                {
-                    continue;
-                }
-
-                var list = GetRoutersTree(item, index + 1);
-                if (!list.Any())
-                {
-                    list = null;
-                }
-
-                result.Add(new TreeNodeDto
-                {
-                    Label = item.Key,
-                    Children = list,
-                    Value = item.Key,
-                });
-            }
-
-            return result;
         }
 
         private static object GetQueryItem(string field, object value, OperatorEnum operatorEnum)
