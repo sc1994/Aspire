@@ -46,22 +46,24 @@ service.interceptors.response.use(
 
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 20000) {
-      Notification({
-        title: res.title,
-        dangerouslyUseHTMLString: true,
-        message: res.messages || res.messages.join('<br/>'),
-        type: 'error',
-        duration: 8 * 1000
-      })
-
       var msg
       if (res.code === 40101) {
         msg = '当前用户未被授权访问本数据, 是否跳转登录?'
       }
-      if (res.code === 40103 || res.code === 40104) {
+      else if (res.code === 40103 || res.code === 40104) {
         msg = '授权无效或者授权过期, 是否重新登入?'
+      } else {
+        if (!res.messages) {
+          res.messages = [];
+        }
+        Notification({
+          title: res.title,
+          dangerouslyUseHTMLString: true,
+          message: res.messages || res.messages.join('<br/>'),
+          type: 'error',
+          duration: 8 * 1000
+        })
       }
-
       if (msg) {
         // to re-login
         MessageBox.confirm(msg, {
