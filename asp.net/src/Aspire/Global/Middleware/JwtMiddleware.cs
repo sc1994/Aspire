@@ -4,7 +4,6 @@
 
 namespace Aspire
 {
-    using System.Linq;
     using System.Threading.Tasks;
     using Aspire.Authenticate;
     using Microsoft.AspNetCore.Http;
@@ -38,21 +37,19 @@ namespace Aspire
         /// <returns>Task.</returns>
         public async Task Invoke(HttpContext context)
         {
-            var token = context.Request.Headers[this.aspireSetupOptions.Jwt.HeaderKey].FirstOrDefault()?.Split(" ").Last();
-
-            if (token != null)
+            if (context.Request.Headers.TryGetValue("Authorization", out var token))
             {
                 try
                 {
                     var current = new JwtManage(this.aspireSetupOptions.Jwt).DeconstructionJwtToken<TCurrentUser>(token);
 
                     // attach user to context on successful jwt validation
-                    context.Items[ICurrentUser.HttpItemsKey] = current;
+                    context.Items[AppConst.CurrentUserHttpItemKey] = current;
                 }
-                catch
+                catch (FriendlyException ex)
                 {
-                    // do nothing if jwt validation fails
-                    // user is not attached to context so request won't have access to secure routes
+                    await new GlobalResponse(ex).WriteToHttpResponseAsync(context);
+                    return;
                 }
             }
 

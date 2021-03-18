@@ -181,7 +181,7 @@ namespace Aspire
                 return await this.GetAsync(input.Id);
             }
 
-            return Failure<TOutputDto>(ResponseCode.InternalServerDatabaseError, $"执行 {nameof(TAuditEntity)} 实体更新失败");
+            throw Failure(ResponseCode.InternalServerDatabaseError, $"执行 {nameof(TAuditEntity)} 实体更新失败");
         }
 
         /// <summary>

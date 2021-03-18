@@ -91,7 +91,7 @@ namespace Aspire
             }
 
             // 类型错误
-            if (!(context.HttpContext.Items[ICurrentUser.HttpItemsKey] is ICurrentUser user))
+            if (!(context.HttpContext.Items[AppConst.CurrentUserHttpItemKey] is ICurrentUser user))
             {
                 return;
             }
@@ -102,11 +102,9 @@ namespace Aspire
                 return;
             }
 
-            var preResponse = new GlobalResponse
-            {
-                Messages = new[] { $"接口需要指定[{authorize.CurrentRoles.Join(",")}]的角色权限" },
-                Code = ResponseCode.UnauthorizedRoles.GetHashCode(),
-            };
+            var preResponse = new GlobalResponse(FriendlyThrowException.ThrowException(
+                ResponseCode.UnauthorizedRoles,
+                $"接口需要指定[{authorize.CurrentRoles.Join(",")}]的角色权限"));
 
             // 配置了指定角色
             if (authorize.CurrentRoles.Any())

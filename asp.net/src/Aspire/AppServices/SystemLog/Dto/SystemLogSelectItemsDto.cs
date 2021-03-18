@@ -14,22 +14,22 @@ namespace Aspire.SystemLog
         /// <summary>
         /// Gets or sets API路由.
         /// </summary>
-        public string[] ApiMethods { get; set; } = Array.Empty<string>();
+        public string[] ApiMethod { get; set; } = Array.Empty<string>();
 
         /// <summary>
         /// Gets or sets API方法.
         /// </summary>
-        public TreeNodeDto[] ApiRouters { get; set; } = Array.Empty<TreeNodeDto>();
+        public string[] ApiRouter { get; set; } = Array.Empty<string>();
 
         /// <summary>
         /// Gets or sets 过滤1.
         /// </summary>
-        public string[] Filters1 { get; set; } = Array.Empty<string>();
+        public string[] Filter1 { get; set; } = Array.Empty<string>();
 
         /// <summary>
         /// Gets or sets 过滤2.
         /// </summary>
-        public string[] Filters2 { get; set; } = Array.Empty<string>();
+        public string[] Filter2 { get; set; } = Array.Empty<string>();
 
         /// <summary>
         /// Gets or sets 客户端地址.
@@ -42,8 +42,8 @@ namespace Aspire.SystemLog
         public string[] ServerAddress { get; set; } = Array.Empty<string>();
 
         /// <summary>
-        /// Gets or sets Titles.
+        /// Gets or sets Title.
         /// </summary>
-        public string[] Titles { get; set; }
+        public string[] Title { get; set; }
     }
 }

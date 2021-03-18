@@ -35,40 +35,34 @@ namespace Aspire
         /// <summary>
         /// 失败.
         /// </summary>
-        /// <typeparam name="T">T.</typeparam>
         /// <param name="messages">错误编码.</param>
-        /// <returns>Return T.</returns>
-        protected static T Failure<T>(params string[] messages)
+        /// <returns>Friendly Exception.</returns>
+        protected static FriendlyException Failure(params string[] messages)
         {
-            FriendlyThrowException.ThrowException(messages);
-            return default;
+            return FriendlyThrowException.ThrowException(messages);
         }
 
         /// <summary>
         /// Failure.
         /// </summary>
-        /// <typeparam name="T">T.</typeparam>
         /// <param name="code">错误编码.</param>
         /// <param name="messages">消息.</param>
         /// <returns>Return T.</returns>
-        protected static T Failure<T>(ResponseCode code, params string[] messages)
+        protected static FriendlyException Failure(ResponseCode code, params string[] messages)
         {
-            FriendlyThrowException.ThrowException(code, messages);
-            return default;
+            return FriendlyThrowException.ThrowException(code, messages);
         }
 
         /// <summary>
         /// Failure.
         /// </summary>
-        /// <typeparam name="T">T.</typeparam>
         /// <param name="code">错误编码.</param>
         /// <param name="title">Title.</param>
         /// <param name="messages">消息.</param>
         /// <returns>Return T.</returns>
-        protected static T Failure<T>(int code, string title, params string[] messages)
+        protected static FriendlyException Failure(int code, string title, params string[] messages)
         {
-            FriendlyThrowException.ThrowException(code, title, messages);
-            return default;
+            return FriendlyThrowException.ThrowException(code, title, messages);
         }
 
         /// <summary>

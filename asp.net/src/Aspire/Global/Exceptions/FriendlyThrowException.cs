@@ -15,9 +15,10 @@ namespace Aspire
         /// 抛出异常.
         /// </summary>
         /// <param name="messages">Messages.</param>
-        public static void ThrowException(params string[] messages)
+        /// <returns>Friendly Exception.</returns>
+        public static FriendlyException ThrowException(params string[] messages)
         {
-            ThrowException(ResponseCode.InternalServerError, messages);
+            return ThrowException(ResponseCode.InternalServerError, messages);
         }
 
         /// <summary>
@@ -26,9 +27,10 @@ namespace Aspire
         /// <param name="code">Code.</param>
         /// <param name="title">Title.</param>
         /// <param name="messages">Messages.</param>
-        public static void ThrowException(int code, string title, params string[] messages)
+        /// <returns>Friendly Exception.</returns>
+        public static FriendlyException ThrowException(int code, string title, params string[] messages)
         {
-            throw new FriendlyException(code, EnhancedStackTrace.Current(), title, messages);
+            return new FriendlyException(code, EnhancedStackTrace.Current(), title, messages);
         }
 
         /// <summary>
@@ -36,9 +38,10 @@ namespace Aspire
         /// </summary>
         /// <param name="code">Code.</param>
         /// <param name="messages">Messages.</param>
-        public static void ThrowException(ResponseCode code, params string[] messages)
+        /// <returns>Friendly Exception.</returns>
+        public static FriendlyException ThrowException(ResponseCode code, params string[] messages)
         {
-            ThrowException(code.GetHashCode(), code.GetDescription(), messages);
+            return ThrowException(code.GetHashCode(), code.GetDescription(), messages);
         }
     }
 }

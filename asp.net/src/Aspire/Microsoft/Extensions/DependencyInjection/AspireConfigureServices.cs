@@ -15,7 +15,6 @@ namespace Microsoft.Extensions.DependencyInjection
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.Options;
     using Microsoft.OpenApi.Models;
     using Panda.DynamicWebApi;
     using Swashbuckle.AspNetCore.SwaggerGen;
@@ -124,12 +123,6 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             var options = new AspireSetupOptions();
             setupAction(options);
-            if (options.Configuration is null)
-            {
-                throw new NoNullAllowedException(nameof(AspireSetupOptions) + "." + nameof(AspireSetupOptions.Configuration));
-            }
-
-            var aspireConfigure = GetAspireConfigureOptions(options.Configuration);
 
             // di服务代理 旨在以一个静态类获取 di中内容
             services
@@ -158,8 +151,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
                 x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = $"set header: {aspireConfigure.Jwt.HeaderKey}",
-                    Name = aspireConfigure.Jwt.HeaderKey, // 自定义 header key
+                    Description = "set header: Authorization",
+                    Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer",
@@ -204,17 +197,20 @@ namespace Microsoft.Extensions.DependencyInjection
             options.AuditRepositoryOptions.AddAuditRepository(services);
 
             // aspire configure options
+            if (options.Configuration is null)
+            {
+                throw new NoNullAllowedException(nameof(AspireSetupOptions) + "." + nameof(AspireSetupOptions.Configuration));
+            }
+
             services.Configure<AspireAppSettings>(options.Configuration.GetSection("Aspire"));
 
             // current user
             services.AddScoped(x =>
             {
                 var httpContext = x.GetService<IHttpContextAccessor>().HttpContext;
-                var configureOptions = x.GetService<IOptions<AspireAppSettings>>().Value;
-                if (httpContext != null && httpContext.Request.Headers.TryGetValue(configureOptions.Jwt.HeaderKey, out var token))
+                if (httpContext != null && httpContext.Items[AppConst.CurrentUserHttpItemKey] is ICurrentUser user)
                 {
-                    return new JwtManage(configureOptions.Jwt)
-                        .DeconstructionJwtToken<TUserEntity>(token.ToString());
+                    return user;
                 }
 
                 return new TUserEntity
@@ -277,14 +273,6 @@ namespace Microsoft.Extensions.DependencyInjection
             options.CacheOptionsSetup.AddAspireRedis(services);
 
             return services;
-        }
-
-        private static AspireAppSettings GetAspireConfigureOptions(IConfiguration configuration)
-        {
-            var aspireConfigureOptions = new AspireAppSettings();
-            configuration.GetSection("Aspire")
-                .Bind(aspireConfigureOptions);
-            return aspireConfigureOptions;
         }
     }
 }

@@ -16,12 +16,12 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
         public DateTime CreatedAt { get; set; }
 
         /// <inheritdoc/>
-        public double TickForRequest { get; set; }
-
-        /// <inheritdoc/>
         public string Message { get; set; }
 
         /// <inheritdoc/>
         public string Id { get; set; }
+
+        /// <inheritdoc/>
+        public long CreatedAtTicks => CreatedAt.Ticks;
     }
 }

@@ -18,7 +18,7 @@ service.interceptors.request.use(
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
-      config.headers['X-Token'] = getToken()
+      config.headers['Authorization'] = getToken()
     }
     return config
   },
@@ -43,21 +43,29 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
-
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 20000) {
-      Notification({
-        title: res.title,
-        dangerouslyUseHTMLString: true,
-        message: res.messages.join('<br/>'),
-        type: 'error',
-        duration: 8 * 1000
-      })
-
-      // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
+      var msg
+      if (res.code === 40101) {
+        msg = '当前用户未被授权访问本数据, 是否跳转登录?'
+      }
+      else if (res.code === 40103 || res.code === 40104) {
+        msg = '授权无效或者授权过期, 是否重新登入?'
+      } else {
+        if (!res.messages) {
+          res.messages = [];
+        }
+        Notification({
+          title: res.title,
+          dangerouslyUseHTMLString: true,
+          message: res.messages || res.messages.join('<br/>'),
+          type: 'error',
+          duration: 8 * 1000
+        })
+      }
+      if (msg) {
         // to re-login
-        MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
+        MessageBox.confirm(msg, {
           confirmButtonText: 'Re-Login',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -69,7 +77,7 @@ service.interceptors.response.use(
       }
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
-      return res
+      return res.result
     }
   },
   error => {

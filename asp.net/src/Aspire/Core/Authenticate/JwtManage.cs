@@ -23,7 +23,7 @@ namespace Aspire.Authenticate
         /// Initializes a new instance of the <see cref="JwtManage"/> class.
         /// </summary>
         /// <param name="jwtAppSettings">jwt app settings.</param>
-        public JwtManage(JwtAppSettings jwtAppSettings)
+        internal JwtManage(JwtAppSettings jwtAppSettings)
         {
             this.jwtAppSettings = jwtAppSettings;
         }
@@ -33,7 +33,7 @@ namespace Aspire.Authenticate
         /// </summary>
         /// <param name="user">user.</param>
         /// <returns>TokenDto.</returns>
-        public TokenDto GenerateJwtToken(ICurrentUser user)
+        internal TokenDto GenerateJwtToken(ICurrentUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(this.jwtAppSettings.Secret);
@@ -52,10 +52,9 @@ namespace Aspire.Authenticate
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return new TokenDto
             {
-                BearerToken = $"Bearer {tokenHandler.WriteToken(token)}",
+                Token = $"Bearer {tokenHandler.WriteToken(token)}",
                 ExpiryTime = expiryTime,
                 Ttl = this.jwtAppSettings.ExpireSeconds,
-                HeaderKey = this.jwtAppSettings.HeaderKey,
             };
         }
 
@@ -65,33 +64,48 @@ namespace Aspire.Authenticate
         /// <typeparam name="TCurrentUser">Current User.</typeparam>
         /// <param name="jwtToken">jwt token value.</param>
         /// <returns>Current User .</returns>
-        public ICurrentUser DeconstructionJwtToken<TCurrentUser>(string jwtToken)
+        internal ICurrentUser DeconstructionJwtToken<TCurrentUser>(string jwtToken)
             where TCurrentUser : ICurrentUser, new()
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(this.jwtAppSettings.Secret);
-            _ = tokenHandler.ValidateToken(
-                jwtToken.Split(' ').LastOrDefault(),
-                new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-
-                    // set clocks kew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
-                    // TODO what?
-                    ClockSkew = TimeSpan.Zero,
-                },
-                out var validatedToken);
-
-            var token = (JwtSecurityToken)validatedToken;
-            return new TCurrentUser
+            try
             {
-                Account = token.Claims.First(x => x.Type == nameof(ICurrentUser.Account)).Value,
-                Name = token.Claims.First(x => x.Type == nameof(ICurrentUser.Name)).Value,
-                Roles = token.Claims.First(x => x.Type == nameof(ICurrentUser.Roles)).Value,
-            };
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes(this.jwtAppSettings.Secret);
+                _ = tokenHandler.ValidateToken(
+                    jwtToken.Split(' ').LastOrDefault(),
+                    new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+
+                        // set clocks kew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
+                        // TODO what?
+                        ClockSkew = TimeSpan.Zero,
+                    },
+                    out var validatedToken);
+
+                var token = (JwtSecurityToken)validatedToken;
+                return new TCurrentUser
+                {
+                    Account = token.Claims.First(x => x.Type == nameof(ICurrentUser.Account)).Value,
+                    Name = token.Claims.First(x => x.Type == nameof(ICurrentUser.Name)).Value,
+                    Roles = token.Claims.First(x => x.Type == nameof(ICurrentUser.Roles)).Value,
+                };
+            }
+            catch (Exception ex)
+            {
+                if (ex is not SecurityTokenExpiredException)
+                {
+                    ServiceLocator.ServiceProvider
+                        .GetService<ILogWriter>()
+                        .Error(ex, "Jwt Token Exception");
+                    throw FriendlyThrowException.ThrowException(ResponseCode.AuthorizeInvalid);
+                }
+
+                throw FriendlyThrowException.ThrowException(ResponseCode.AuthorizeExpired);
+            }
         }
     }
 }
