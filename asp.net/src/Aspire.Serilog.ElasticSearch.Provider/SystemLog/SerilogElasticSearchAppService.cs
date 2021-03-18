@@ -137,7 +137,9 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
                 .DeserializeObjectAsync<JObject>();
 
             return new PagedResultDto<SystemLogFilterOutputDto>(
-                data["hits"]["hits"].Select(x => ToLogModel<SystemLogFilterOutputDto>(x, 200)),
+                data["hits"]["hits"]
+                    .Select(x => ToLogModel<SystemLogFilterOutputDto>(x, 200))
+                    .OrderByDescending(x => x.CreatedAt),
                 data["hits"]["total"]["value"].ToObject<int>());
         }
 
@@ -221,7 +223,7 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
                 ApiRouter = $"[{x["_source"]["fields"]["apiMethod"]}] {x["_source"]["fields"]["apiRouter"]}",
                 Title = x["_source"]["fields"]["title"]?.ToString() ?? string.Empty,
                 Message = x["_source"]["fields"]["message"]?.ToString()?.SubstringSafe(substringCount) ?? string.Empty,
-                CreatedAt = x["_source"]["@timestamp"].ToObject<DateTime>().ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                CreatedAt = x["_source"]["@timestamp"].ToObject<DateTime>(),
                 Filter1 = x["_source"]["fields"]["f1"]?.ToString() ?? string.Empty,
                 Filter2 = x["_source"]["fields"]["f2"]?.ToString() ?? string.Empty,
                 Id = $"/{x["_index"]}/{x["_type"]}/{x["_id"]}",

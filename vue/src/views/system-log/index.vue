@@ -1,6 +1,7 @@
 <template>
   <div class="app-container">
     <parser v-if="formConfig" :form-conf="formConfig" @submit="query" />
+
     <el-table v-if="tableConfig" :data="tableData" border style="width: 100%">
       <el-table-column
         v-for="item in tableConfig.cols"
@@ -49,7 +50,29 @@
     <el-dialog title="详情" :visible.sync="detailDialog" width="70%">
       <json-view v-if="detailJson" :data="detailJson" />
     </el-dialog>
-    <el-dialog title="追踪" :visible.sync="traceDialog" fullscreen> </el-dialog>
+    <el-dialog title="追踪" :visible.sync="traceDialog" fullscreen>
+      <el-tag>Ticks: {{ traceInfo.elapsedTime }}</el-tag>
+      <br /><br />
+      <el-table :data="traceInfo.list" border style="width: 100%">
+        <el-table-column prop="createdAt" label="时间" width="190" />
+        <el-table-column prop="title" label="标题" width="200" />
+        <el-table-column prop="message" label="消息" :show-overflow-tooltip="true" />
+        <el-table-column label="Mark" width="350">
+          <template slot-scope="scope">
+            <el-tag :style="`width: ${scope.row.mark || 0}%;padding:0px;`">{{
+              scope.row.mark || 0
+            }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" :width="60">
+          <template slot-scope="scope">
+            <el-button type="text" style="margin-right: 4px" @click="detail(scope.row)">
+              详情
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -74,7 +97,11 @@ export default {
       detailJson: undefined,
       detailDialog: false,
       traceDialog: false,
-      traceList: []
+      traceInfo: {
+        elapsedTime: 300,
+        marks: {},
+        list: []
+      }
     }
   },
   watch: {},
@@ -140,13 +167,33 @@ export default {
       this.detailDialog = true
     },
     async trace(row) {
+      // 根据追踪值搜索
       var { items } = await request.post('/api/SerilogElasticSearch/Filter', {
         traceId: row.traceId,
         pageIndex: 1,
         pageSize: 9999
       })
-      this.traceList = items
-      console.log(items)
+      if (!items || !items.length) {
+        this.$message.error('没有任何数据')
+      }
+      // 反转数组
+      items = items.reverse()
+
+      // 数组的第一位为开始时间
+      var startAt = items[0].createdAtTicks
+      var elapsedTime
+
+      // 数组的最后一位减去开始时间得到总时间差
+      this.traceInfo.elapsedTime = elapsedTime =
+        items[items.length - 1].createdAtTicks - startAt
+
+      if (elapsedTime > 0) {
+        items.forEach(x => {
+          x.mark = (((x.createdAtTicks - startAt) / elapsedTime) * 100).toFixed(0)
+        })
+      }
+
+      this.traceInfo.list = items
       this.traceDialog = true
     }
   }

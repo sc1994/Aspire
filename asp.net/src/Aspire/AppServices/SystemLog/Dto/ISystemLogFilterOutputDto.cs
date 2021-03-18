@@ -4,6 +4,7 @@
 
 namespace Aspire.SystemLog
 {
+    using System;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -16,8 +17,13 @@ namespace Aspire.SystemLog
         /// Gets or sets 创建时间.
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-        string CreatedAt { get; set; }
+        DateTime CreatedAt { get; set; }
 
+        /// <summary>
+        /// Gets or sets Created Ticks.
+        /// </summary>
+        /// <value></value>
+        long CreatedAtTicks { get; }
         /// <summary>
         /// Gets or sets Messages.
         /// </summary>

@@ -4,6 +4,7 @@
 
 namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
 {
+    using System;
     using Aspire.SystemLog;
 
     /// <summary>
@@ -12,12 +13,15 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
     public class SystemLogFilterOutputDto : SystemLogCommonDto, ISystemLogFilterOutputDto<string>
     {
         /// <inheritdoc/>
-        public string CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         /// <inheritdoc/>
         public string Message { get; set; }
 
         /// <inheritdoc/>
         public string Id { get; set; }
+
+        /// <inheritdoc/>
+        public long CreatedAtTicks => CreatedAt.Ticks;
     }
 }

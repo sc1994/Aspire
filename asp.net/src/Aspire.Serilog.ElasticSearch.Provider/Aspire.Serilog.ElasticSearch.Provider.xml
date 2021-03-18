@@ -147,6 +147,9 @@
         <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogFilterOutputDto.Id">
             <inheritdoc/>
         </member>
+        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogFilterOutputDto.CreatedAtTicks">
+            <inheritdoc/>
+        </member>
         <member name="T:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService">
             <summary>
             SerilogElastic Search AppService.

@@ -4,6 +4,7 @@
 
 namespace Aspire
 {
+    using System;
     using System.Threading.Tasks;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
@@ -93,6 +94,26 @@ namespace Aspire
             }
 
             return def;
+        }
+
+        /// <summary>
+        /// To Timestamp Millisecond.
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns>Timestamp Millisecond.</returns>
+        public static long ToTimestampMillisecond(this DateTime time)
+        {
+            return (DateTime.Now - new DateTime(1970, 1, 1, 0, 0, 0, 0)).Ticks / 1000;
+        }
+
+        /// <summary>
+        /// To Timestamp Millisecond.
+        /// </summary>
+        /// <param name="timestamp"></param>
+        /// <returns>Date Time.</returns>
+        public static DateTime ToDateTimeByTimestampMillisecond(this long timestamp)
+        {
+            return new DateTime(1970, 1, 1, 0, 0, 0, 0).AddMilliseconds(timestamp);
         }
     }
 }
