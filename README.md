@@ -3,4 +3,4 @@
 
 #### 速览
 
-:::image type="content" source="docs/statics/Aspire.png" alt-text="速览":::
+![速览](https://github.com/sc1994/Aspire/blob/56484d04a55ef3340c0b224d4b3ef71ccf542fdc/docs/statics/Aspire.png)
