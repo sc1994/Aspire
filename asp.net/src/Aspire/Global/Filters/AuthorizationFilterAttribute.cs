@@ -73,54 +73,45 @@ namespace Aspire
                 .FirstOrDefault() ?? contextActionDescriptor
                 .ControllerTypeInfo
                 .GetCustomAttributes<AuthorizationFilterAttribute>()
-                .FirstOrDefault() ?? contextActionDescriptor
-                .ControllerTypeInfo.BaseType?
-                .GetCustomAttributes<AuthorizationFilterAttribute>()
-                .FirstOrDefault() ?? contextActionDescriptor
-                .ControllerTypeInfo.BaseType?.BaseType?
-                .GetCustomAttributes<AuthorizationFilterAttribute>()
-                .FirstOrDefault() ?? contextActionDescriptor
-                .ControllerTypeInfo.BaseType?.BaseType?.BaseType?
-                .GetCustomAttributes<AuthorizationFilterAttribute>()
                 .FirstOrDefault();
 
+            // 没有鉴权标识
             if (authorize is null)
             {
                 return;
             }
 
-            // 类型错误
+            // 类型错误(未登录)
             if (!(context.HttpContext.Items[AppConst.CurrentUserHttpItemKey] is ICurrentUser user))
             {
+                var tmpResponse = new GlobalResponse(FriendlyThrowException.ThrowException(
+                    ResponseCode.Unauthorized, "当前操作需要登入"));
+                context.Result = new JsonResult(tmpResponse)
+                {
+                    StatusCode = StatusCodes.Status200OK,
+                };
                 return;
             }
 
-            // 用户不是admin
+            // 用户是admin
             if (user.Roles == Roles.Admin)
             {
                 return;
             }
 
-            var preResponse = new GlobalResponse(FriendlyThrowException.ThrowException(
-                ResponseCode.UnauthorizedRoles,
-                $"接口需要指定[{authorize.CurrentRoles.Join(",")}]的角色权限"));
-
             // 配置了指定角色
             if (authorize.CurrentRoles.Any())
             {
-                // 没有角色
-                if (user.Roles.IsNullOrWhiteSpace())
-                {
-                    context.Result = new JsonResult(preResponse) { StatusCode = StatusCodes.Status403Forbidden };
-                    return;
-                }
-
-                var useRoles = user.Roles.Split(',', StringSplitOptions.RemoveEmptyEntries);
-
                 // 角色不包含在指定角色中
-                if (useRoles.All(x => !authorize.CurrentRoles.Contains(x)))
+                if (user.Roles.IsNullOrWhiteSpace()
+                    || user.Roles
+                        .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                        .All(x => !authorize.CurrentRoles.Contains(x)))
                 {
-                    context.Result = new JsonResult(preResponse) { StatusCode = StatusCodes.Status403Forbidden };
+                    context.Result = new JsonResult(new GlobalResponse(FriendlyThrowException.ThrowException(ResponseCode.UnauthorizedRoles, "当前用户权限不足")))
+                    {
+                        StatusCode = StatusCodes.Status200OK,
+                    };
                 }
             }
         }

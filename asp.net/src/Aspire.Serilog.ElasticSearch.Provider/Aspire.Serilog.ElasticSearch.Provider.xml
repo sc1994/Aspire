@@ -19,7 +19,7 @@
             Items Store.
             </summary>
         </member>
-        <member name="M:Aspire.Serilog.ElasticSearch.Provider.LogItemsStore.#ctor(Aspire.Cache.IAspireCacheClient)">
+        <member name="M:Aspire.Serilog.ElasticSearch.Provider.LogItemsStore.#ctor(Aspire.IAspireCacheClient)">
             <summary>
             Initializes a new instance of the <see cref="T:Aspire.Serilog.ElasticSearch.Provider.LogItemsStore"/> class.
             </summary>

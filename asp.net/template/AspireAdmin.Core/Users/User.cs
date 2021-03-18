@@ -2,6 +2,8 @@ using Aspire.FreeSql.Provider;
 
 namespace AspireAdmin.Core.Users
 {
+    using Aspire;
+
     public class User : AuditEntity, IUserEntity
     {
         public string Account { get; set; }

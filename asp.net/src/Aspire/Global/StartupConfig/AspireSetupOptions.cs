@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Aspire
+namespace Aspire // TODO 考虑namespace的安放位置, 没必须要在根
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
