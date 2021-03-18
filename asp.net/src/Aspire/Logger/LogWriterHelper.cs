@@ -6,7 +6,6 @@ namespace Aspire
 {
     using System;
     using System.Net;
-    using Aspire.Authenticate;
     using Microsoft.AspNetCore.Http;
 
     /// <summary>

@@ -2,10 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Aspire.Authenticate
+namespace Aspire
 {
     using System;
-    using Aspire.AuditEntity;
 
     /// <summary>
     /// 用户 实体.

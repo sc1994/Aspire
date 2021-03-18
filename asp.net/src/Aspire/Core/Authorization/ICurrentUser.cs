@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Aspire.Authenticate
+namespace Aspire
 {
     /// <summary>
     /// 当前登入用户.

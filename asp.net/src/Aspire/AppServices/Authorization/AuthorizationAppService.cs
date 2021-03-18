@@ -7,7 +7,6 @@ namespace Aspire.Authorization
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Threading.Tasks;
-    using Aspire.AuditRepository;
     using Aspire.Authenticate;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;

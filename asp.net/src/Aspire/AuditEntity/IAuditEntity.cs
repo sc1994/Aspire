@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Aspire.AuditEntity
+namespace Aspire
 {
     using System;
     using System.ComponentModel;

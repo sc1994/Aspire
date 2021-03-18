@@ -22,6 +22,6 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
         public string Id { get; set; }
 
         /// <inheritdoc/>
-        public long CreatedAtTicks => CreatedAt.Ticks;
+        public long CreatedAtTicks => this.CreatedAt.Ticks;
     }
 }

@@ -9,8 +9,6 @@ namespace Microsoft.Extensions.DependencyInjection
     using System.Collections.Generic;
     using System.Data;
     using Aspire;
-    using Aspire.AuditRepository;
-    using Aspire.Authenticate;
     using Aspire.Mapper;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;

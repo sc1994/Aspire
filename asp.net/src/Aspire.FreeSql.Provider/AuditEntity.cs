@@ -6,7 +6,6 @@ namespace Aspire.FreeSql.Provider
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using Aspire.AuditEntity;
     using global::FreeSql.DataAnnotations;
 
     /// <inheritdoc cref="AuditEntity{Guid}" />

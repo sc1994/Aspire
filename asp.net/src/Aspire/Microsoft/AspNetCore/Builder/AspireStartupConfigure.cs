@@ -8,7 +8,6 @@ namespace Microsoft.AspNetCore.Builder
     using System;
     using System.Data;
     using Aspire;
-    using Aspire.Authenticate;
     using Aspire.Logger;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Routing;

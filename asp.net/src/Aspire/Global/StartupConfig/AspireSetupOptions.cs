@@ -6,8 +6,6 @@ namespace Aspire
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using Aspire.AuditRepository;
-    using Aspire.Cache;
     using Aspire.Logger;
     using Aspire.Mapper;
     using Microsoft.AspNetCore.Mvc;

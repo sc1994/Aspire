@@ -1,4 +1,3 @@
-using Aspire.Authenticate;
 using Aspire.FreeSql.Provider;
 
 namespace AspireAdmin.Core.Users

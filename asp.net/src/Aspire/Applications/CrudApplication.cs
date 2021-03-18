@@ -8,8 +8,6 @@ namespace Aspire
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading.Tasks;
-    using Aspire.AuditEntity;
-    using Aspire.AuditRepository;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
@@ -17,7 +15,7 @@ namespace Aspire
     /// </summary>
     /// <typeparam name="TAuditEntity">数据库审计实体.</typeparam>
     public abstract class CrudApplication<
-        TAuditEntity> : CrudAppService<
+        TAuditEntity> : CrudApplication<
         TAuditEntity,
         Guid>
         where TAuditEntity : IAuditEntity
@@ -30,9 +28,9 @@ namespace Aspire
     /// <typeparam name="TAuditEntity">数据库审计实体.</typeparam>
     /// <typeparam name="TPrimaryKey">实体主键.</typeparam>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:File may only contain a single type", Justification = "<挂起>")]
-    public abstract class CrudAppService<
+    public abstract class CrudApplication<
         TAuditEntity,
-        TPrimaryKey> : CrudAppService<
+        TPrimaryKey> : CrudApplication<
         TAuditEntity,
         TPrimaryKey,
         PageInputDto>
@@ -47,10 +45,10 @@ namespace Aspire
     /// <typeparam name="TPrimaryKey">实体主键.</typeparam>
     /// <typeparam name="TPageInputDto">数据传输对象 分页输入.</typeparam>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:File may only contain a single type", Justification = "<挂起>")]
-    public abstract class CrudAppService<
+    public abstract class CrudApplication<
         TAuditEntity,
         TPrimaryKey,
-        TPageInputDto> : CrudAppService<
+        TPageInputDto> : CrudApplication<
         TAuditEntity,
         TPrimaryKey,
         TPageInputDto,
@@ -68,11 +66,11 @@ namespace Aspire
     /// <typeparam name="TPageInputDto">数据传输对象 分页输入.</typeparam>
     /// <typeparam name="TDto">数据传输对象.</typeparam>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:File may only contain a single type", Justification = "<挂起>")]
-    public abstract class CrudAppService<
+    public abstract class CrudApplication<
         TAuditEntity,
         TPrimaryKey,
         TPageInputDto,
-        TDto> : CrudAppService<
+        TDto> : CrudApplication<
         TAuditEntity,
         TPrimaryKey,
         TPageInputDto,
@@ -93,12 +91,12 @@ namespace Aspire
     /// <typeparam name="TOutputDto">数据传输 输出对象.</typeparam>
     /// <typeparam name="TCreateOrUpdateDto">数据传输 创建或者更新 对象.</typeparam>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:File may only contain a single type", Justification = "<挂起>")]
-    public abstract class CrudAppService<
+    public abstract class CrudApplication<
         TAuditEntity,
         TPrimaryKey,
         TPageInputDto,
         TOutputDto,
-        TCreateOrUpdateDto> : CrudAppService<
+        TCreateOrUpdateDto> : CrudApplication<
         TAuditEntity,
         TPrimaryKey,
         TPageInputDto,
@@ -121,7 +119,7 @@ namespace Aspire
     /// <typeparam name="TCreateDto">数据传输 创建对象.</typeparam>
     /// <typeparam name="TUpdateDto">数据传输 更新对象.</typeparam>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:File may only contain a single type", Justification = "<挂起>")]
-    public abstract class CrudAppService<
+    public abstract class CrudApplication<
         TAuditEntity,
         TPrimaryKey,
         TPageInputDto,
@@ -133,9 +131,9 @@ namespace Aspire
         where TUpdateDto : IDto<TPrimaryKey>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CrudAppService{        TAuditEntity,         TPrimaryKey,         TPageInputDto,         TOutputDto,         TCreateDto,         TUpdateDto}"/> class.
+        /// Initializes a new instance of the <see cref="CrudApplication{        TAuditEntity,         TPrimaryKey,         TPageInputDto,         TOutputDto,         TCreateDto,         TUpdateDto}"/> class.
         /// </summary>
-        protected CrudAppService()
+        protected CrudApplication()
         {
             this.CurrentRepository = ServiceLocator.ServiceProvider.GetService<IAuditRepository<TAuditEntity, TPrimaryKey>>();
         }

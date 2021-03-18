@@ -4,7 +4,6 @@
 
 namespace Aspire.CSRedis.Provider
 {
-    using Aspire.Cache;
     using global::CSRedis;
     using Microsoft.Extensions.DependencyInjection;
 
