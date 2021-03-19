@@ -46,31 +46,27 @@
         - [ ] `FilterPage` 当使用 `PagingAsync` 需事先实现他们的过滤规则
 
 - [ ] 框架服务
-    - [ ] 授权接口
+    - [ ] 授权服务
         - TODO 目前直接在框架服务中实现 需要独立出去
-    - [x] 系统日志接口
+    - [x] 系统日志服务
         - [x] `SystemLogAppService` 系统日志服务抽象类
             - [x] `FilterAsync` 日志过滤(分页搜索)
             - [x] `GetAsync` 获取日志(单条)
             - [x] `GetSelectItems` 选择项(用于过滤条件的下拉)
             - [x] `DeleteAllSelectItems` 删除全部选择项
             - [x] `GetPageConfig` 页面配置, 支持一定程度的自定义页面
-        - [ ] 日志Dto
+        - [ ] 日志 Dto
             - `ISystemLogFilterInputDto`
             - `ISystemLogFilterOutputDto`
             - `ISystemLogDetailOutputDto`
 
-
-
-
-
 - [ ] 缓存接口
-    - [ ]`IAspireCacheClient`
-    - [ ]`IAspireRedisOptionsSetup`
+    - [ ] `IAspireCacheClient` 缓存客户端
+    - [ ] `IAspireRedisOptionsSetup` 继承此接口实现缓存的启动设置(比如注入)
     
 #### 框架内容 
 
-- [ ] 友好的异常消息
+- [x] 友好的异常消息
     - [x] `FriendlyThrowException.ThrowException(...)`
     - [x] 友好的堆栈 依赖了[Ben.Demystifier](https://github.com/benaadams/Ben.Demystifier)
     - [x] 本地环境中直接可在 `http response` 中查看堆栈
@@ -88,8 +84,8 @@
 - [ ] Jwt 
     - TODO 考虑集成到独立的授权服务中
     
-- [ ] 其他便利性
-    - [x] 静态`DI`服务定位 `ServiceLocator`
+- 其他便利性
+    - 静态`DI`服务定位 `ServiceLocator`
         - `ServiceLocator.ServiceProvider.GetService<TypeA>()`
     - 有序`GUID`生成
         - `GuidUtility.NewOrderlyGuid()`
@@ -108,6 +104,6 @@
 
 
 #### 功能实现
-- [x] `FreeSql` 实现审计仓储和审计实体 依赖了[FreeSql](https://github.com/dotnetcore/FreeSql)
+- TODO 未来这一部分会拆成新的参考
 
-- TODO 
+
