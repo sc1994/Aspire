@@ -20,10 +20,13 @@ namespace Aspire.SystemLog
         DateTime CreatedAt { get; set; }
 
         /// <summary>
-        /// Gets or sets Created Ticks.
+        /// Gets created Ticks.
         /// </summary>
-        /// <value></value>
+        /// <value>
+        /// Created Ticks.
+        /// </value>
         long CreatedAtTicks { get; }
+
         /// <summary>
         /// Gets or sets Messages.
         /// </summary>

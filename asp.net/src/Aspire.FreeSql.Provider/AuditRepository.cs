@@ -99,7 +99,7 @@ namespace Aspire.FreeSql.Provider
                 .Select<TAuditEntity>()
                 .Where(x => !x.Deleted)
                 .Where(filter)
-                .Take(int.Parse(limit.ToString())) // TODO 装拆箱
+                .Take(int.Parse(limit.ToString())) // 装拆箱
                 .ToListAsync()
                 .ToArrayAsync();
         }

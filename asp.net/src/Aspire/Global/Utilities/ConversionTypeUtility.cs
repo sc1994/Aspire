@@ -99,17 +99,17 @@ namespace Aspire
         /// <summary>
         /// To Timestamp Millisecond.
         /// </summary>
-        /// <param name="time"></param>
+        /// <param name="time">Date Time.</param>
         /// <returns>Timestamp Millisecond.</returns>
         public static long ToTimestampMillisecond(this DateTime time)
         {
-            return (DateTime.Now - new DateTime(1970, 1, 1, 0, 0, 0, 0)).Ticks / 1000;
+            return (time - new DateTime(1970, 1, 1, 0, 0, 0, 0)).Ticks / 1000;
         }
 
         /// <summary>
         /// To Timestamp Millisecond.
         /// </summary>
-        /// <param name="timestamp"></param>
+        /// <param name="timestamp">Timestamp.</param>
         /// <returns>Date Time.</returns>
         public static DateTime ToDateTimeByTimestampMillisecond(this long timestamp)
         {

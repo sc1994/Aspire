@@ -351,3 +351,4 @@ MigrationBackup/
 /asp.net/src/Aspire/Aspire.xml
 /asp.net/template/AspireAdmin.Application/AspireAdmin.Application.xml
 /asp.net/template/AspireAdmin.Host/AspireAdmin.Host.xml
+/asp.net/src/Aspire.Identity.Provider/Aspire.Identity.Provider.xml

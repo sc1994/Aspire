@@ -5,7 +5,6 @@
 namespace Aspire
 {
     using Aspire.Mapper;
-
     using Panda.DynamicWebApi;
     using Panda.DynamicWebApi.Attributes;
 
@@ -14,9 +13,8 @@ namespace Aspire
     /// 作为控制器的最基层.
     /// </summary>
     [DynamicWebApi]
-    [AuthorizationFilter]
-    [ResponseActionFilter]
-    [RequestActionFilter]
+    [Authentication]
+    [ResponseFormat]
     public abstract class Application : IDynamicWebApi
     {
         /// <summary>

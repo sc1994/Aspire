@@ -143,7 +143,7 @@ namespace Aspire.Authorization
         /// </summary>
         /// <param name="input">Register Dto.</param>
         /// <returns>注册结果.</returns>
-        [AuthorizationFilter(Roles.Admin)]
+        [Authentication(Roles.Admin)]
         public virtual async Task<bool> RegisterAsync(TRegisterDto input)
         {
             return await this.userRepository.InsertAsync(new TUserEntity

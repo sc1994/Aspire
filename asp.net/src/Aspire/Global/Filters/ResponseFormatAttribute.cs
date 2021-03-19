@@ -1,16 +1,19 @@
-// <copyright file="ResponseActionFilterAttribute.cs" company="PlaceholderCompany">
+// <copyright file="ResponseFormatAttribute.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
 namespace Aspire
 {
+    using System;
+    using System.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;
 
     /// <summary>
-    /// 响应过滤器.
+    /// 响应 格式.
     /// </summary>
-    public class ResponseActionFilterAttribute : ActionFilterAttribute
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    public class ResponseFormatAttribute : ActionFilterAttribute
     {
         /// <summary>
         /// 在控制器完成后检验控制器结果.
@@ -46,8 +49,11 @@ namespace Aspire
                 context.Exception = null;
             }
 
-            var logWriter = ServiceLocator.ServiceProvider.GetService<ILogWriter>();
-            logWriter.Information("Response Action Executed", logMessage);
+            if (context.ActionDescriptor.FilterDescriptors.All(x => x.Filter is not IgnoreLogAttribute))
+            {
+                var logWriter = ServiceLocator.ServiceProvider.GetService<ILogWriter>();
+                logWriter.Information("Response Executed", logMessage);
+            }
 
             base.OnActionExecuted(context);
         }
