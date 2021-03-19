@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>Aspire.Identity.Provider.xml</DocumentationFile>
+		<DocumentationFile>Aspire.Identity.Jwt.Provider.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -17,6 +17,11 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="AppServices\Identity\Dto\" />
+	  <Folder Include="Core\" />
 	</ItemGroup>
 
 </Project>

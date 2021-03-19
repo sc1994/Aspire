@@ -1,20 +1,20 @@
-// <copyright file="IAspireRedisOptionsSetup.cs" company="PlaceholderCompany">
+// <copyright file="AuthenticationOptionsSetup.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Aspire
+namespace Aspire.Identity
 {
     using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
-    /// Aspire Redis Options Setup.
+    /// 身份 启动项.
     /// </summary>
-    public interface IAspireRedisOptionsSetup
+    public interface IIdentityOptionsSetup
     {
         /// <summary>
-        /// Add Aspire Redis.
+        /// 添加身份.
         /// </summary>
         /// <param name="service">Service Collection.</param>
-        void AddAspireRedis(IServiceCollection service);
+        void AddIdentity(IServiceCollection service);
     }
 }

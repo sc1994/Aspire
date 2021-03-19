@@ -1,11 +1,6 @@
-// <copyright file="JwtMiddleware.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
-namespace Aspire
+namespace Aspire.Identity.Jwt.Provider
 {
     using System.Threading.Tasks;
-    using Aspire.Authenticate;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Options;
 

@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Aspire
+namespace Aspire.Identity
 {
     /// <summary>
     /// 当前登入用户.
@@ -22,6 +22,6 @@ namespace Aspire
         /// <summary>
         /// Gets or sets 角色.
         /// </summary>
-        string Roles { get; set; }
+        string[] Roles { get; set; }
     }
 }

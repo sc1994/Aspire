@@ -52,7 +52,7 @@
             Log Writer.
             </summary>
         </member>
-        <member name="M:Aspire.Serilog.ElasticSearch.Provider.LogWriter.#ctor(Serilog.ILogger,Aspire.LogWriterHelper)">
+        <member name="M:Aspire.Serilog.ElasticSearch.Provider.LogWriter.#ctor(Serilog.ILogger,Aspire.Logger.LogWriterHelper)">
             <summary>
             Initializes a new instance of the <see cref="T:Aspire.Serilog.ElasticSearch.Provider.LogWriter"/> class.
             </summary>
@@ -155,7 +155,7 @@
             SerilogElastic Search AppService.
             </summary>
         </member>
-        <member name="M:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Aspire.Serilog.ElasticSearch.Provider.LogItemsStore,Aspire.ILogWriter)">
+        <member name="M:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Aspire.Serilog.ElasticSearch.Provider.LogItemsStore,Aspire.Logger.ILogWriter)">
             <summary>
             Initializes a new instance of the <see cref="T:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService"/> class.
             </summary>

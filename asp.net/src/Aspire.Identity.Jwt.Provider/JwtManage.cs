@@ -1,15 +1,11 @@
-// <copyright file="JwtManage.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
-namespace Aspire.Authenticate
+namespace Aspire.Identity.Jwt.Provider
 {
     using System;
     using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
     using System.Security.Claims;
     using System.Text;
-    using Aspire.Authorization;
+    using Aspire.Logger;
     using Microsoft.IdentityModel.Tokens;
 
     /// <summary>
@@ -91,7 +87,7 @@ namespace Aspire.Authenticate
                 {
                     Account = token.Claims.First(x => x.Type == nameof(ICurrentUser.Account)).Value,
                     Name = token.Claims.First(x => x.Type == nameof(ICurrentUser.Name)).Value,
-                    Roles = token.Claims.First(x => x.Type == nameof(ICurrentUser.Roles)).Value,
+                    Roles = token.Claims.First(x => x.Type == nameof(ICurrentUser.Roles)).Value.DeserializeObject<string[]>(),
                 };
             }
             catch (Exception ex)

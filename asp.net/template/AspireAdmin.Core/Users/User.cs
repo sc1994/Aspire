@@ -2,7 +2,7 @@ using Aspire.FreeSql.Provider;
 
 namespace AspireAdmin.Core.Users
 {
-    using Aspire;
+    using Aspire.Identity;
 
     public class User : AuditEntity, IUserEntity
     {

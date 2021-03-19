@@ -7,6 +7,8 @@ namespace Aspire
     using System;
     using System.Linq;
     using System.Reflection;
+    using Aspire.Identity;
+    using Aspire.Logger;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Abstractions;
@@ -87,7 +89,7 @@ namespace Aspire
             }
 
             // 用户是admin
-            if (user.Roles == Roles.Admin)
+            if (user.Roles.Contains(Roles.Admin))
             {
                 base.OnActionExecuting(context);
                 return;
@@ -97,10 +99,8 @@ namespace Aspire
             if (authorize.CurrentRoles.Any())
             {
                 // 角色不包含在指定角色中
-                if (user.Roles.IsNullOrWhiteSpace()
-                    || user.Roles
-                        .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                        .All(x => !authorize.CurrentRoles.Contains(x)))
+                if (user.Roles.Any()
+                    || user.Roles.All(x => !authorize.CurrentRoles.Contains(x)))
                 {
                     var tmp = FriendlyThrowException.ThrowException(ResponseCode.UnauthorizedRoles, "当前用户权限不足");
                     context.Result = new JsonResult(new GlobalResponse(tmp))

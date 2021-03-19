@@ -6,6 +6,7 @@ namespace Aspire // TODO 考虑namespace的安放位置, 没必须要在根
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using Aspire.Identity;
     using Aspire.Logger;
     using Aspire.Mapper;
     using Microsoft.AspNetCore.Mvc;
@@ -67,6 +68,12 @@ namespace Aspire // TODO 考虑namespace的安放位置, 没必须要在根
         /// Gets or sets 缓存 设置项.
         /// </summary>
         [NotNull]
-        public IAspireRedisOptionsSetup CacheOptionsSetup { get; set; }
+        public ICacheClientOptionsSetup CacheClientOptionsSetup { get; set; }
+
+        /// <summary>
+        /// Gets or sets 身份 设置项.
+        /// </summary>
+        [NotNull]
+        public IIdentityOptionsSetup IdentityOptionsSetup { get; set; }
     }
 }

@@ -6,6 +6,7 @@ namespace Aspire
 {
     using System;
     using System.Linq;
+    using Aspire.Logger;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;
 
