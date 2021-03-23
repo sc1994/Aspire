@@ -5,17 +5,9 @@
 namespace Aspire
 {
     using Aspire.Mapper;
-    using Panda.DynamicWebApi;
-    using Panda.DynamicWebApi.Attributes;
 
-    /// <summary>
-    /// 应用
-    /// 作为控制器的最基层.
-    /// </summary>
-    [DynamicWebApi]
-    [Authentication]
-    [ResponseFormat]
-    public abstract class Application : IDynamicWebApi
+    /// <inheritdoc />
+    public abstract class Application : IApplication
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Application"/> class.

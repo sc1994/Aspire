@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
+namespace Aspire.SystemLog
 {
     using System;
     using System.Collections.Generic;
@@ -12,14 +12,14 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
     using System.Net.Http.Json;
     using System.Threading.Tasks;
     using Aspire.Logger;
-    using Aspire.SystemLog;
+    using Aspire.Serilog.ElasticSearch.Provider;
     using Microsoft.Extensions.Configuration;
     using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// SerilogElastic Search AppService.
     /// </summary>
-    public class SerilogElasticSearchAppService : SystemLogAppService<
+    public class SerilogElasticSearchAppService : Application, ISystemLogAppService<
         string,
         SystemLogFilterInputDto,
         SystemLogFilterOutputDto,
@@ -55,7 +55,7 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
         }
 
         /// <inheritdoc />
-        public override async Task<PagedResultDto<SystemLogFilterOutputDto>> FilterAsync(SystemLogFilterInputDto filterInput)
+        public async Task<PagedResultDto<SystemLogFilterOutputDto>> FilterAsync(SystemLogFilterInputDto filterInput)
         {
             var items = new List<object>();
             if (!string.IsNullOrWhiteSpace(filterInput.ApiMethod))
@@ -145,7 +145,7 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
         }
 
         /// <inheritdoc />
-        public override async Task<SystemLogDetailOutputDto> GetAsync(string id)
+        public async Task<SystemLogDetailOutputDto> GetAsync(string id)
         {
             using var client = new HttpClient { BaseAddress = new Uri(this.node) };
             var data = await client.GetStringAsync(id).DeserializeObjectAsync<JObject>();
@@ -153,7 +153,7 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
         }
 
         /// <inheritdoc />
-        public override async Task<SystemLogSelectItemsDto> GetSelectItems()
+        public async Task<SystemLogSelectItemsDto> GetSelectItems()
         {
             var items = LogItemsStore.GetItems().Select(x => x.DeserializeObject());
             return await Task.FromResult(new SystemLogSelectItemsDto
@@ -166,14 +166,14 @@ namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
         }
 
         /// <inheritdoc />
-        public override async Task<bool> DeleteAllSelectItems()
+        public async Task<bool> DeleteAllSelectItems()
         {
             this.itemsStore.ClearItemsStore();
             return await Task.FromResult(true);
         }
 
         /// <inheritdoc />
-        public override async Task<JObject> GetPageConfig()
+        public async Task<JObject> GetPageConfig()
         {
             // TODO 响应具体的实体
             var config = await File.ReadAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data/PageConfig.json"));

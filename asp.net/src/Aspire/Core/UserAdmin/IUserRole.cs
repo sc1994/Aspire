@@ -2,14 +2,14 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Aspire.Identity
+namespace Aspire.UserAdmin
 {
     using System;
 
     /// <summary>
     /// 用户角色.
     /// </summary>
-    public interface IUserRoleEntity : IUserRoleEntity<Guid>
+    public interface IUserRole : IUserRole<Guid>
     {
     }
 
@@ -17,7 +17,7 @@ namespace Aspire.Identity
     /// 用户角色.
     /// </summary>
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
-    public interface IUserRoleEntity<TPrimaryKey> : IAuditEntity<TPrimaryKey>
+    public interface IUserRole<TPrimaryKey> : IAuditEntity<TPrimaryKey>
     {
         /// <summary>
         /// Gets or sets 角色名.

@@ -13,7 +13,7 @@ namespace Aspire
     /// <summary>
     /// 响应 格式.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Interface)]
     public class ResponseFormatAttribute : ActionFilterAttribute
     {
         /// <summary>

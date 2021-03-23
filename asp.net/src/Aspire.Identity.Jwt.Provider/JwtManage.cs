@@ -1,3 +1,7 @@
+// <copyright file="JwtManage.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 namespace Aspire.Identity.Jwt.Provider
 {
     using System;
@@ -29,7 +33,7 @@ namespace Aspire.Identity.Jwt.Provider
         /// </summary>
         /// <param name="user">user.</param>
         /// <returns>TokenDto.</returns>
-        internal TokenDto GenerateJwtToken(ICurrentUser user)
+        internal IdentityTokenDto GenerateJwtToken(ICurrentUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(this.jwtAppSettings.Secret);
@@ -46,7 +50,7 @@ namespace Aspire.Identity.Jwt.Provider
                     SecurityAlgorithms.HmacSha256Signature),
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            return new TokenDto
+            return new IdentityTokenDto
             {
                 Token = $"Bearer {tokenHandler.WriteToken(token)}",
                 ExpiryTime = expiryTime,

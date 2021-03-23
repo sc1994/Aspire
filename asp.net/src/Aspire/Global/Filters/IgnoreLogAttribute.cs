@@ -10,7 +10,7 @@ namespace Aspire
     /// <summary>
     /// 响应 日志 忽略.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Interface)]
     public class IgnoreLogAttribute : Attribute, IFilterMetadata
     {
     }

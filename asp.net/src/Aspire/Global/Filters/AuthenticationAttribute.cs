@@ -18,7 +18,7 @@ namespace Aspire
     /// <summary>
     /// Authentication.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Interface)]
     public class AuthenticationAttribute : ActionFilterAttribute
     {
         /// <summary>

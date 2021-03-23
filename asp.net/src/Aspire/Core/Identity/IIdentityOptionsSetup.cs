@@ -1,4 +1,4 @@
-// <copyright file="AuthenticationOptionsSetup.cs" company="PlaceholderCompany">
+// <copyright file="IIdentityOptionsSetup.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 

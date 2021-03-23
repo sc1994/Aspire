@@ -1,4 +1,4 @@
-// <copyright file="SystemLogAppService.cs" company="PlaceholderCompany">
+// <copyright file="ISystemLogAppService.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -16,11 +16,11 @@ namespace Aspire.SystemLog
     /// <typeparam name="TDetailOutputDto">Detail Output Dto.</typeparam>
     [Authentication(Roles.Admin)]
     [IgnoreLog]
-    public abstract class SystemLogAppService<
-        TPrimaryKey,
-        TFilterInputDto,
+    public interface ISystemLogAppService<
+        in TPrimaryKey,
+        in TFilterInputDto,
         TFilterOutputDto,
-        TDetailOutputDto> : Application
+        TDetailOutputDto> : IApplication
         where TFilterInputDto : ISystemLogFilterInputDto
         where TFilterOutputDto : ISystemLogFilterOutputDto<TPrimaryKey>
         where TDetailOutputDto : ISystemLogDetailOutputDto<TPrimaryKey>
@@ -30,31 +30,31 @@ namespace Aspire.SystemLog
         /// </summary>
         /// <param name="filterInput">Filter Input.</param>
         /// <returns>分页过滤输出.</returns>
-        public abstract Task<PagedResultDto<TFilterOutputDto>> FilterAsync(TFilterInputDto filterInput);
+        Task<PagedResultDto<TFilterOutputDto>> FilterAsync(TFilterInputDto filterInput);
 
         /// <summary>
         /// Get Detail.
         /// </summary>
         /// <param name="id">Primary Key.</param>
         /// <returns>详情输出.</returns>
-        public abstract Task<TDetailOutputDto> GetAsync(TPrimaryKey id);
+        Task<TDetailOutputDto> GetAsync(TPrimaryKey id);
 
         /// <summary>
         /// 获取选择项.
         /// </summary>
         /// <returns>选择项集合.</returns>
-        public abstract Task<SystemLogSelectItemsDto> GetSelectItems();
+        Task<SystemLogSelectItemsDto> GetSelectItems();
 
         /// <summary>
         /// 删除全部选择项.
         /// </summary>
         /// <returns>Is Success.</returns>
-        public abstract Task<bool> DeleteAllSelectItems();
+        Task<bool> DeleteAllSelectItems();
 
         /// <summary>
         /// Get Page Config.
         /// </summary>
         /// <returns>Config.</returns>
-        public abstract Task<JObject> GetPageConfig();
+        Task<JObject> GetPageConfig();
     }
 }

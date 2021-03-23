@@ -1,15 +1,15 @@
-// <copyright file="IUserEntity.cs" company="PlaceholderCompany">
+// <copyright file="IUserAdminEntity.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Aspire.Identity
+namespace Aspire.UserAdmin
 {
     using System;
 
     /// <summary>
     /// 用户 实体.
     /// </summary>
-    public interface IUserEntity : IUserEntity<Guid>
+    public interface IUserAdmin : IUserAdminEntity<Guid>
     {
     }
 
@@ -17,7 +17,7 @@ namespace Aspire.Identity
     /// 用户 实体.
     /// </summary>
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
-    public interface IUserEntity<TPrimaryKey> : IAuditEntity<TPrimaryKey>
+    public interface IUserAdminEntity<TPrimaryKey> : IAuditEntity<TPrimaryKey>
     {
         /// <summary>
         /// Gets or sets 用户Id.

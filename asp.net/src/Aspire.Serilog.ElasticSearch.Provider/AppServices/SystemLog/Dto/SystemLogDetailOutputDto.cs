@@ -2,10 +2,8 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
+namespace Aspire.SystemLog
 {
-    using Aspire.SystemLog;
-
     /// <summary>
     /// 系统日志 详情 输出.
     /// </summary>

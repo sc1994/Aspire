@@ -2,10 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Aspire.Serilog.ElasticSearch.Provider.SystemLog
+namespace Aspire.SystemLog
 {
     using System;
-    using Aspire.SystemLog;
 
     /// <summary>
     /// Filter Output.

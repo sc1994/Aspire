@@ -10,40 +10,31 @@ namespace Aspire
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
 
-    /// <summary>
-    /// CRUD 服务.
-    /// </summary>
-    /// <typeparam name="TAuditEntity">数据库审计实体.</typeparam>
+    /// <inheritdoc cref="ICrudApplication{ TAuditEntity, TPrimaryKey, TPageInputDto,TOutputDto, TCreateDto, TUpdateDto }"/>
     public abstract class CrudApplication<
         TAuditEntity> : CrudApplication<
         TAuditEntity,
-        Guid>
+        Guid>, ICrudApplication<
+        TAuditEntity>
         where TAuditEntity : IAuditEntity
     {
     }
 
-    /// <summary>
-    /// CRUD 服务.
-    /// </summary>
-    /// <typeparam name="TAuditEntity">数据库审计实体.</typeparam>
-    /// <typeparam name="TPrimaryKey">实体主键.</typeparam>
+    /// <inheritdoc cref="ICrudApplication{ TAuditEntity, TPrimaryKey, TPageInputDto,TOutputDto, TCreateDto, TUpdateDto }"/>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:File may only contain a single type", Justification = "<挂起>")]
     public abstract class CrudApplication<
         TAuditEntity,
         TPrimaryKey> : CrudApplication<
         TAuditEntity,
         TPrimaryKey,
-        PageInputDto>
+        PageInputDto>, ICrudApplication<
+        TAuditEntity,
+        TPrimaryKey>
         where TAuditEntity : IAuditEntity<TPrimaryKey>
     {
     }
 
-    /// <summary>
-    /// CRUD 服务.
-    /// </summary>
-    /// <typeparam name="TAuditEntity">数据库审计实体.</typeparam>
-    /// <typeparam name="TPrimaryKey">实体主键.</typeparam>
-    /// <typeparam name="TPageInputDto">数据传输对象 分页输入.</typeparam>
+    /// <inheritdoc cref="ICrudApplication{ TAuditEntity, TPrimaryKey, TPageInputDto,TOutputDto, TCreateDto, TUpdateDto }"/>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:File may only contain a single type", Justification = "<挂起>")]
     public abstract class CrudApplication<
         TAuditEntity,
@@ -52,19 +43,16 @@ namespace Aspire
         TAuditEntity,
         TPrimaryKey,
         TPageInputDto,
-        TAuditEntity>
+        TAuditEntity>, ICrudApplication<
+        TAuditEntity,
+        TPrimaryKey,
+        TPageInputDto>
         where TAuditEntity : IAuditEntity<TPrimaryKey>
         where TPageInputDto : PageInputDto
     {
     }
 
-    /// <summary>
-    /// CRUD 服务.
-    /// </summary>
-    /// <typeparam name="TAuditEntity">数据库审计实体.</typeparam>
-    /// <typeparam name="TPrimaryKey">实体主键.</typeparam>
-    /// <typeparam name="TPageInputDto">数据传输对象 分页输入.</typeparam>
-    /// <typeparam name="TDto">数据传输对象.</typeparam>
+    /// <inheritdoc cref="ICrudApplication{ TAuditEntity, TPrimaryKey, TPageInputDto,TOutputDto, TCreateDto, TUpdateDto }"/>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:File may only contain a single type", Justification = "<挂起>")]
     public abstract class CrudApplication<
         TAuditEntity,
@@ -75,6 +63,10 @@ namespace Aspire
         TPrimaryKey,
         TPageInputDto,
         TDto,
+        TDto>, ICrudApplication<
+        TAuditEntity,
+        TPrimaryKey,
+        TPageInputDto,
         TDto>
         where TAuditEntity : IAuditEntity<TPrimaryKey>
         where TPageInputDto : PageInputDto
@@ -82,14 +74,7 @@ namespace Aspire
     {
     }
 
-    /// <summary>
-    /// CRUD 服务.
-    /// </summary>
-    /// <typeparam name="TAuditEntity">数据库审计实体.</typeparam>
-    /// <typeparam name="TPrimaryKey">实体主键.</typeparam>
-    /// <typeparam name="TPageInputDto">数据传输对象 分页输入.</typeparam>
-    /// <typeparam name="TOutputDto">数据传输 输出对象.</typeparam>
-    /// <typeparam name="TCreateOrUpdateDto">数据传输 创建或者更新 对象.</typeparam>
+    /// <inheritdoc cref="ICrudApplication{ TAuditEntity, TPrimaryKey, TPageInputDto,TOutputDto, TCreateDto, TUpdateDto }"/>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:File may only contain a single type", Justification = "<挂起>")]
     public abstract class CrudApplication<
         TAuditEntity,
@@ -102,6 +87,11 @@ namespace Aspire
         TPageInputDto,
         TOutputDto,
         TCreateOrUpdateDto,
+        TCreateOrUpdateDto>, ICrudApplication<
+        TAuditEntity,
+        TPrimaryKey,
+        TPageInputDto,
+        TOutputDto,
         TCreateOrUpdateDto>
         where TAuditEntity : IAuditEntity<TPrimaryKey>
         where TPageInputDto : PageInputDto
@@ -109,15 +99,7 @@ namespace Aspire
     {
     }
 
-    /// <summary>
-    /// CRUD 服务.
-    /// </summary>
-    /// <typeparam name="TAuditEntity">数据库审计实体.</typeparam>
-    /// <typeparam name="TPrimaryKey">实体主键.</typeparam>
-    /// <typeparam name="TPageInputDto">数据传输对象 分页输入.</typeparam>
-    /// <typeparam name="TOutputDto">数据传输 输出对象.</typeparam>
-    /// <typeparam name="TCreateDto">数据传输 创建对象.</typeparam>
-    /// <typeparam name="TUpdateDto">数据传输 更新对象.</typeparam>
+    /// <inheritdoc cref="ICrudApplication{ TAuditEntity, TPrimaryKey, TPageInputDto,TOutputDto, TCreateDto, TUpdateDto }"/>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:File may only contain a single type", Justification = "<挂起>")]
     public abstract class CrudApplication<
         TAuditEntity,
@@ -125,7 +107,13 @@ namespace Aspire
         TPageInputDto,
         TOutputDto,
         TCreateDto,
-        TUpdateDto> : Application
+        TUpdateDto> : Application, ICrudApplication<
+        TAuditEntity,
+        TPrimaryKey,
+        TPageInputDto,
+        TOutputDto,
+        TCreateDto,
+        TUpdateDto>
         where TAuditEntity : IAuditEntity<TPrimaryKey>
         where TPageInputDto : PageInputDto
         where TUpdateDto : IDto<TPrimaryKey>
