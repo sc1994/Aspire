@@ -5,6 +5,7 @@
 namespace Aspire.Identity.Jwt.Provider
 {
     using System.Threading.Tasks;
+    using Aspire.Identities;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Options;
 

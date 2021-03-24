@@ -2,9 +2,9 @@ using Aspire.FreeSql.Provider;
 
 namespace AspireAdmin.Core.Users
 {
-    using Aspire.Identity;
+    using Aspire.Users;
 
-    public class User : AuditEntity, IUserEntity
+    public class User : AuditEntity, IUser
     {
         public string Account { get; set; }
         public string Name { get; set; }
@@ -12,7 +12,7 @@ namespace AspireAdmin.Core.Users
         public string Password { get; set; }
     }
 
-    public class UserRole : AuditEntity, IUserRoleEntity
+    public class UserRole : AuditEntity, IUserRole
     {
         public string RoleName { get; set; }
     }

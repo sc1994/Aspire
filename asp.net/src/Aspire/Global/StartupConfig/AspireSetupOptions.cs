@@ -6,9 +6,9 @@ namespace Aspire // TODO 考虑namespace的安放位置, 没必须要在根
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using Aspire.Identity;
-    using Aspire.Logger;
     using Aspire.Mapper;
+    using Identities;
+    using Loggers;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Panda.DynamicWebApi;

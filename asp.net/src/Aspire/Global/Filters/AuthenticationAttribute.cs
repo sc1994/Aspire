@@ -7,8 +7,8 @@ namespace Aspire
     using System;
     using System.Linq;
     using System.Reflection;
-    using Aspire.Identity;
-    using Aspire.Logger;
+    using Aspire.Identities;
+    using Aspire.Loggers;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Abstractions;

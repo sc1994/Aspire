@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>Aspire.Identity.Jwt.Provider.xml</DocumentationFile>
+		<DocumentationFile>Aspire.UserAdmin.Provider.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -9,14 +9,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Aspire\Aspire.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="System.Collections.Concurrent" Version="4.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="AppService\Users\" />
+	  <Folder Include="Core\" />
 	</ItemGroup>
 
 </Project>

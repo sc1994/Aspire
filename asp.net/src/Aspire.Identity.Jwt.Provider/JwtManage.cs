@@ -9,7 +9,8 @@ namespace Aspire.Identity.Jwt.Provider
     using System.Linq;
     using System.Security.Claims;
     using System.Text;
-    using Aspire.Logger;
+    using Aspire.Identities;
+    using Aspire.Loggers;
     using Microsoft.IdentityModel.Tokens;
 
     /// <summary>

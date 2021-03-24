@@ -9,8 +9,8 @@ namespace Microsoft.Extensions.DependencyInjection
     using System.Collections.Generic;
     using System.Data;
     using Aspire;
-    using Aspire.Identity;
-    using Aspire.Logger;
+    using Aspire.Identities;
+    using Aspire.Loggers;
     using Aspire.Mapper;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;

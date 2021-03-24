@@ -9,10 +9,10 @@ namespace Aspire.FreeSql.Provider
     using System.Data.Common;
     using System.Data.SqlTypes;
     using System.Linq;
-    using Aspire.Identity;
-    using Aspire.Logger;
     using global::FreeSql;
     using global::FreeSql.Aop;
+    using Identities;
+    using Loggers;
     using Microsoft.Extensions.DependencyInjection;
 
     /// <inheritdoc/>
