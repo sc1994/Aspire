@@ -17,5 +17,8 @@ namespace Aspire.Identities
 
         /// <inheritdoc />
         public int Ttl { get; set; }
+
+        /// <inheritdoc />
+        public string TokenHeaderName { get; set; }
     }
 }

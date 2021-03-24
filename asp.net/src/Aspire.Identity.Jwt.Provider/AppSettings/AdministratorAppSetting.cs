@@ -1,13 +1,13 @@
-// <copyright file="AdminAppSettings.cs" company="PlaceholderCompany">
+// <copyright file="AdministratorAppSetting.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Aspire
+namespace Aspire.Identity.Jwt.Provider.AppSettings
 {
     /// <summary>
     /// 管理员 配置项.
     /// </summary>
-    public class AdminAppSettings
+    public class AdministratorAppSetting
     {
         /// <summary>
         /// Gets or sets 主键.

@@ -5,11 +5,11 @@
 namespace Aspire.Serilog.ElasticSearch.Provider
 {
     using System;
+    using Aspire.Loggers;
     using global::Serilog;
     using global::Serilog.Events;
     using global::Serilog.Formatting.Elasticsearch;
     using global::Serilog.Sinks.Elasticsearch;
-    using Loggers;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 

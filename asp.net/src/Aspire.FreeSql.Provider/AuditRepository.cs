@@ -9,8 +9,8 @@ namespace Aspire.FreeSql.Provider
     using System.Diagnostics.CodeAnalysis;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
+    using Aspire.Identities;
     using global::FreeSql;
-    using Identities;
 
     /// <inheritdoc />
     internal class AuditRepository<TAuditEntity> : AuditRepository<TAuditEntity, Guid>

@@ -4,7 +4,7 @@
 
 namespace Aspire.Serilog.ElasticSearch.Provider
 {
-    using Loggers;
+    using Aspire.Loggers;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
 

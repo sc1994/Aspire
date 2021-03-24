@@ -14,16 +14,21 @@ namespace Aspire.Identities
         /// <summary>
         /// Gets or sets Token.
         /// </summary>
-        public string Token { get; set; }
+        string Token { get; set; }
 
         /// <summary>
         /// Gets or sets 到期时间.
         /// </summary>
-        public DateTime ExpiryTime { get; set; }
+        DateTime ExpiryTime { get; set; }
 
         /// <summary>
         /// Gets or sets Ttl.
         /// </summary>
-        public int Ttl { get; set; }
+        int Ttl { get; set; }
+
+        /// <summary>
+        /// Gets or sets Token Header Name.
+        /// </summary>
+        public string TokenHeaderName { get; set; }
     }
 }

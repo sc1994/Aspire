@@ -52,7 +52,7 @@
         <member name="T:Aspire.FreeSql.Provider.AuditRepository`1">
             <inheritdoc />
         </member>
-        <member name="M:Aspire.FreeSql.Provider.AuditRepository`1.#ctor(IFreeSql,Aspire.Identity.ICurrentUser)">
+        <member name="M:Aspire.FreeSql.Provider.AuditRepository`1.#ctor(IFreeSql,Aspire.Identities.ICurrentUser)">
             <summary>
             Initializes a new instance of the <see cref="T:Aspire.FreeSql.Provider.AuditRepository`1"/> class.
             </summary>
@@ -62,7 +62,7 @@
         <member name="T:Aspire.FreeSql.Provider.AuditRepository`2">
             <inheritdoc />
         </member>
-        <member name="M:Aspire.FreeSql.Provider.AuditRepository`2.#ctor(IFreeSql,Aspire.Identity.ICurrentUser)">
+        <member name="M:Aspire.FreeSql.Provider.AuditRepository`2.#ctor(IFreeSql,Aspire.Identities.ICurrentUser)">
             <summary>
             Initializes a new instance of the <see cref="T:Aspire.FreeSql.Provider.AuditRepository`2"/> class.
             </summary>

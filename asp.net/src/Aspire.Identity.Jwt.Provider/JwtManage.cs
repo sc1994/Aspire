@@ -10,6 +10,7 @@ namespace Aspire.Identity.Jwt.Provider
     using System.Security.Claims;
     using System.Text;
     using Aspire.Identities;
+    using Aspire.Identity.Jwt.Provider.AppSettings;
     using Aspire.Loggers;
     using Microsoft.IdentityModel.Tokens;
 
@@ -18,26 +19,16 @@ namespace Aspire.Identity.Jwt.Provider
     /// </summary>
     internal class JwtManage
     {
-        private readonly JwtAppSettings jwtAppSettings;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="JwtManage"/> class.
-        /// </summary>
-        /// <param name="jwtAppSettings">jwt app settings.</param>
-        internal JwtManage(JwtAppSettings jwtAppSettings)
-        {
-            this.jwtAppSettings = jwtAppSettings;
-        }
-
         /// <summary>
         /// Generate JwtToken.
         /// </summary>
-        /// <param name="user">user.</param>
-        /// <returns>TokenDto.</returns>
-        internal IdentityTokenDto GenerateJwtToken(ICurrentUser user)
+        /// <param name="user">User.</param>
+        /// <param name="appSetting">App Setting.</param>
+        /// <returns>Identity TokenDto.</returns>
+        internal static IdentityTokenDto GenerateJwtToken(ICurrentUser user, IdentityAppSetting appSetting)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(this.jwtAppSettings.Secret);
+            var key = Encoding.ASCII.GetBytes(appSetting.Secret);
             DateTime expiryTime;
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -45,7 +36,7 @@ namespace Aspire.Identity.Jwt.Provider
                     .GetProperties()
                     .Select(x => new Claim(x.Name, x.GetValue(user)?.ToString() ?? string.Empty))
                     .ToArray()),
-                Expires = expiryTime = DateTime.Now.AddSeconds(this.jwtAppSettings.ExpireSeconds),
+                Expires = expiryTime = DateTime.Now.AddSeconds(appSetting.ExpireSeconds),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature),
@@ -55,7 +46,8 @@ namespace Aspire.Identity.Jwt.Provider
             {
                 Token = $"Bearer {tokenHandler.WriteToken(token)}",
                 ExpiryTime = expiryTime,
-                Ttl = this.jwtAppSettings.ExpireSeconds,
+                Ttl = appSetting.ExpireSeconds,
+                TokenHeaderName = "Authorization",
             };
         }
 
@@ -64,14 +56,15 @@ namespace Aspire.Identity.Jwt.Provider
         /// </summary>
         /// <typeparam name="TCurrentUser">Current User.</typeparam>
         /// <param name="jwtToken">jwt token value.</param>
+        /// <param name="appSetting">App Setting.</param>
         /// <returns>Current User .</returns>
-        internal ICurrentUser DeconstructionJwtToken<TCurrentUser>(string jwtToken)
+        internal static ICurrentUser DeconstructionJwtToken<TCurrentUser>(string jwtToken, IdentityAppSetting appSetting)
             where TCurrentUser : ICurrentUser, new()
         {
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(this.jwtAppSettings.Secret);
+                var key = Encoding.ASCII.GetBytes(appSetting.Secret);
                 _ = tokenHandler.ValidateToken(
                     jwtToken.Split(' ').LastOrDefault(),
                     new TokenValidationParameters

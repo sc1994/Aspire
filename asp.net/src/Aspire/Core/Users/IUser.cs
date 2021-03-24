@@ -5,6 +5,7 @@
 namespace Aspire.Users
 {
     using System;
+    using Aspire.Identities;
 
     /// <summary>
     /// 用户 实体.
@@ -14,21 +15,11 @@ namespace Aspire.Users
     }
 
     /// <summary>
-    /// 用户
+    /// 用户.
     /// </summary>
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
-    public interface IUser<TPrimaryKey> : IAuditEntity<TPrimaryKey>
+    public interface IUser<TPrimaryKey> : IAuditEntity<TPrimaryKey>, ICurrentUser
     {
-        /// <summary>
-        /// Gets or sets 用户Id.
-        /// </summary>
-        string Account { get; set; }
-
-        /// <summary>
-        /// Gets or sets 姓名.
-        /// </summary>
-        string Name { get; set; }
-
         /// <summary>
         /// Gets or sets 密码.
         /// </summary>

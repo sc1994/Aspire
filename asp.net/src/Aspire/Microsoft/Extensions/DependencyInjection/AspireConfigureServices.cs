@@ -163,8 +163,6 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new NoNullAllowedException(nameof(AspireSetupOptions) + "." + nameof(AspireSetupOptions.Configuration));
             }
 
-            services.Configure<AspireAppSettings>(options.Configuration.GetSection("Aspire"));
-
             // 引入 Panda.DynamicWebApi 自定义配置
             if (options.DynamicWebApiOptionsSetup is null)
             {

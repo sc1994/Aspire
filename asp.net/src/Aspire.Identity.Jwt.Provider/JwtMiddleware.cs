@@ -6,6 +6,7 @@ namespace Aspire.Identity.Jwt.Provider
 {
     using System.Threading.Tasks;
     using Aspire.Identities;
+    using Aspire.Identity.Jwt.Provider.AppSettings;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Options;
 
@@ -17,17 +18,17 @@ namespace Aspire.Identity.Jwt.Provider
         where TCurrentUser : ICurrentUser, new()
     {
         private readonly RequestDelegate next;
-        private readonly AspireAppSettings aspireSetupOptions;
+        private readonly IdentityAppSetting appSetting;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JwtMiddleware{TCurrentUser}"/> class.
         /// </summary>
         /// <param name="next">Next Middleware.</param>
-        /// <param name="aspireAppSettings">App Settings.</param>
-        public JwtMiddleware(RequestDelegate next, IOptions<AspireAppSettings> aspireAppSettings)
+        /// <param name="appSetting">App Setting.</param>
+        public JwtMiddleware(RequestDelegate next, IOptions<IdentityAppSetting> appSetting)
         {
             this.next = next;
-            this.aspireSetupOptions = aspireAppSettings.Value;
+            this.appSetting = appSetting.Value;
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace Aspire.Identity.Jwt.Provider
             {
                 try
                 {
-                    var current = new JwtManage(this.aspireSetupOptions.Jwt).DeconstructionJwtToken<TCurrentUser>(token);
+                    var current = JwtManage.DeconstructionJwtToken<TCurrentUser>(token, this.appSetting);
 
                     // attach user to context on successful jwt validation
                     context.Items[AppConst.CurrentUserHttpItemKey] = current;
