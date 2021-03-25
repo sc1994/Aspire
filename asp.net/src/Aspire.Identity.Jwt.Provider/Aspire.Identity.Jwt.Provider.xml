@@ -40,26 +40,40 @@
         <member name="P:Aspire.Identities.IdentityTokenDto.Ttl">
             <inheritdoc />
         </member>
-        <member name="T:Aspire.Identities.IdentityAppService`1">
+        <member name="P:Aspire.Identities.IdentityTokenDto.TokenHeaderName">
+            <inheritdoc />
+        </member>
+        <member name="T:Aspire.Identities.IdentityAppService`2">
             <inheritdoc cref="T:Aspire.Identities.IIdentityAppService`3"/>
         </member>
-        <member name="M:Aspire.Identities.IdentityAppService`1.#ctor(Aspire.Users.IUserManage{`0},Microsoft.Extensions.Options.IOptions{Aspire.Identity.Jwt.Provider.AppSettings.IdentityAppSetting},Microsoft.AspNetCore.Http.IHttpContextAccessor,Aspire.Mapper.IAspireMapper)">
+        <member name="M:Aspire.Identities.IdentityAppService`2.#ctor(Aspire.Users.IUserManage{`0,`1},Microsoft.Extensions.Options.IOptions{Aspire.Identity.Jwt.Provider.AppSettings.IdentityAppSetting},Microsoft.AspNetCore.Http.IHttpContextAccessor,Aspire.Mapper.IAspireMapper)">
             <summary>
-            Initializes a new instance of the <see cref="T:Aspire.Identities.IdentityAppService`1"/> class.
+            Initializes a new instance of the <see cref="T:Aspire.Identities.IdentityAppService`2"/> class.
             </summary>
             <param name="userManage">User Manage.</param>
             <param name="appSetting">App Setting.</param>
             <param name="httpContext">Http Context Accessor.</param>
             <param name="mapper">Mapper.</param>
         </member>
-        <member name="M:Aspire.Identities.IdentityAppService`1.LoginAsync(Aspire.Identities.IdentityLoginDto)">
+        <member name="M:Aspire.Identities.IdentityAppService`2.LoginAsync(Aspire.Identities.IdentityLoginDto)">
             <inheritdoc />
         </member>
-        <member name="M:Aspire.Identities.IdentityAppService`1.GetCurrentUserAsync">
+        <member name="M:Aspire.Identities.IdentityAppService`2.GetCurrentUserAsync">
             <inheritdoc />
         </member>
-        <member name="M:Aspire.Identities.IdentityAppService`1.LogoutAsync">
+        <member name="M:Aspire.Identities.IdentityAppService`2.LogoutAsync">
             <inheritdoc />
+        </member>
+        <member name="T:Aspire.Users.IUserAppService`6">
+            <summary>
+            User Manage AppService.
+            </summary>
+            <typeparam name="TUserEntity">User Entity.</typeparam>
+            <typeparam name="TUserPrimaryKey">User PrimaryKey.</typeparam>
+            <typeparam name="TUserPageInputDto">User Page InputDto.</typeparam>
+            <typeparam name="TUserOutputDto">User OutputDto.</typeparam>
+            <typeparam name="TUserCreateDto">User CreateDto.</typeparam>
+            <typeparam name="TUserUpdateDto">User UpdateDto.</typeparam>
         </member>
         <member name="T:Aspire.Identity.Jwt.Provider.AppSettings.AdministratorAppSetting">
             <summary>

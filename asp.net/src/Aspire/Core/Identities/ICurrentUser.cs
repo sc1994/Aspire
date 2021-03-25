@@ -4,24 +4,12 @@
 
 namespace Aspire.Identities
 {
+    using Aspire.Users;
+
     /// <summary>
     /// 当前登入用户.
     /// </summary>
-    public interface ICurrentUser
+    public interface ICurrentUser : IUserAccount, IUserBase
     {
-        /// <summary>
-        /// Gets or sets 用户Id.
-        /// </summary>
-        string Account { get; set; }
-
-        /// <summary>
-        /// Gets or sets 姓名.
-        /// </summary>
-        string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets 角色.
-        /// </summary>
-        string[] Roles { get; set; }
     }
 }

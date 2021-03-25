@@ -39,7 +39,7 @@ namespace Aspire
         TAuditEntity,
         TAuditEntity>
         where TAuditEntity : IAuditEntity<TPrimaryKey>
-        where TPageInputDto : PageInputDto
+        where TPageInputDto : IPageInputDto
     {
     }
 
@@ -55,7 +55,7 @@ namespace Aspire
         TDto,
         TDto>
         where TAuditEntity : IAuditEntity<TPrimaryKey>
-        where TPageInputDto : PageInputDto
+        where TPageInputDto : IPageInputDto
         where TDto : IDto<TPrimaryKey>
     {
     }
@@ -74,7 +74,7 @@ namespace Aspire
         TCreateOrUpdateDto,
         TCreateOrUpdateDto>
         where TAuditEntity : IAuditEntity<TPrimaryKey>
-        where TPageInputDto : PageInputDto
+        where TPageInputDto : IPageInputDto
         where TCreateOrUpdateDto : IDto<TPrimaryKey>
     {
     }
@@ -96,7 +96,7 @@ namespace Aspire
         in TCreateDto,
         in TUpdateDto> : IApplication
         where TAuditEntity : IAuditEntity<TPrimaryKey>
-        where TPageInputDto : PageInputDto
+        where TPageInputDto : IPageInputDto
         where TUpdateDto : IDto<TPrimaryKey>
     {
         /// <summary>

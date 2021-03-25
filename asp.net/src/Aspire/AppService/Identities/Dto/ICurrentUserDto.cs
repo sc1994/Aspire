@@ -9,9 +9,5 @@ namespace Aspire.Identities
     /// </summary>
     public interface ICurrentUserDto : ICurrentUser
     {
-        /// <summary>
-        /// Gets or sets Icon.
-        /// </summary>
-        string Icon { get; set; }
     }
 }

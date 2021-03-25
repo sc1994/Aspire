@@ -18,11 +18,7 @@ namespace Aspire.Users
     /// 用户.
     /// </summary>
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
-    public interface IUser<TPrimaryKey> : IAuditEntity<TPrimaryKey>, ICurrentUser
+    public interface IUser<TPrimaryKey> : IAuditEntity<TPrimaryKey>, ICurrentUser, IUserPassword
     {
-        /// <summary>
-        /// Gets or sets 密码.
-        /// </summary>
-        string Password { get; set; }
     }
 }
