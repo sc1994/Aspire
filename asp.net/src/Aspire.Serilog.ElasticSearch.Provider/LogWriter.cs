@@ -6,6 +6,7 @@ namespace Aspire.Serilog.ElasticSearch.Provider
 {
     using System;
     using System.Linq;
+    using Aspire.Loggers;
     using global::Serilog;
 
     /// <summary>

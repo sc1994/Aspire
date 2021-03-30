@@ -9,10 +9,9 @@ namespace Microsoft.Extensions.DependencyInjection
     using System.Collections.Generic;
     using System.Data;
     using Aspire;
-    using Aspire.AuditRepository;
-    using Aspire.Authenticate;
+    using Aspire.Identities;
+    using Aspire.Loggers;
     using Aspire.Mapper;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.OpenApi.Models;
@@ -27,26 +26,30 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         /// add aspire.
         /// </summary>
-        /// <typeparam name="TUserEntity">User Entity.</typeparam>
         /// <param name="services">Service Collection.</param>
         /// <param name="dynamicWebApiOptionsSetup">Dynamic Api OptionsSetup.</param>
         /// <param name="swaggerGenOptionsSetup">Swagger OptionsSetup.</param>
         /// <param name="mapperOptions">Mapper OptionsSetup.</param>
         /// <param name="auditRepositoryOptions">Audit Repository OptionsSetup.</param>
+        /// <param name="identityOptionsSetup">Identity OptionsSetup.</param>
         /// <param name="configuration">Configuration.</param>
         /// <param name="newtonsoftJsonOptionsSetup">NewtonsoftJson OptionsSetup.</param>
+        /// <param name="cacheClientOptionsSetup">Cache Client OptionsSetup.</param>
+        /// <param name="loggerOptionsSetup">Logger OptionsSetup.</param>
         /// <returns>Service Collection .</returns>
-        public static IServiceCollection AddAspire<TUserEntity>(
+        public static IServiceCollection AddAspire(
             this IServiceCollection services,
             Action<DynamicWebApiOptions> dynamicWebApiOptionsSetup,
             Action<SwaggerGenOptions> swaggerGenOptionsSetup,
             IAspireMapperOptionsSetup mapperOptions,
             IAuditRepositoryOptionsSetup auditRepositoryOptions,
+            IIdentityOptionsSetup identityOptionsSetup,
             IConfiguration configuration,
-            Action<MvcNewtonsoftJsonOptions> newtonsoftJsonOptionsSetup = null)
-            where TUserEntity : class, IUserEntity, new()
+            Action<MvcNewtonsoftJsonOptions> newtonsoftJsonOptionsSetup = null,
+            ICacheClientOptionsSetup cacheClientOptionsSetup = null,
+            ILoggerOptionsSetup loggerOptionsSetup = null)
         {
-            return AddAspire<TUserEntity>(services, setupAction =>
+            return AddAspire(services, setupAction =>
             {
                 setupAction.Configuration = configuration;
                 setupAction.SwaggerGenOptionsSetup = swaggerGenOptionsSetup;
@@ -54,72 +57,22 @@ namespace Microsoft.Extensions.DependencyInjection
                 setupAction.AuditRepositoryOptions = auditRepositoryOptions;
                 setupAction.MapperOptions = mapperOptions;
                 setupAction.NewtonsoftJsonOptionsSetup = newtonsoftJsonOptionsSetup;
+                setupAction.CacheClientOptionsSetup = cacheClientOptionsSetup;
+                setupAction.LoggerOptionsSetup = loggerOptionsSetup;
+                setupAction.IdentityOptionsSetup = identityOptionsSetup;
             });
         }
 
         /// <summary>
         /// add aspire.
         /// </summary>
-        /// <typeparam name="TUserEntity">User Entity.</typeparam>
-        /// <typeparam name="TPrimaryKey">Primary Key.</typeparam>
-        /// <param name="services">Service Collection.</param>
-        /// <param name="dynamicWebApiOptionsSetup">Dynamic Api OptionsSetup.</param>
-        /// <param name="swaggerGenOptionsSetup">Swagger OptionsSetup.</param>
-        /// <param name="mapperOptions">Mapper OptionsSetup.</param>
-        /// <param name="auditRepositoryOptions">Audit Repository OptionsSetup.</param>
-        /// <param name="configuration">Configuration.</param>
-        /// <param name="newtonsoftJsonOptionsSetup">NewtonsoftJson OptionsSetup.</param>
-        /// <returns>Service Collection .</returns>
-        public static IServiceCollection AddAspire<TUserEntity, TPrimaryKey>(
-            this IServiceCollection services,
-            Action<DynamicWebApiOptions> dynamicWebApiOptionsSetup,
-            Action<SwaggerGenOptions> swaggerGenOptionsSetup,
-            IAspireMapperOptionsSetup mapperOptions,
-            IAuditRepositoryOptionsSetup auditRepositoryOptions,
-            IConfiguration configuration,
-            Action<MvcNewtonsoftJsonOptions> newtonsoftJsonOptionsSetup = null)
-            where TUserEntity : class, IUserEntity<TPrimaryKey>, new()
-        {
-            return AddAspire<TUserEntity, TPrimaryKey>(services, setupAction =>
-            {
-                setupAction.Configuration = configuration;
-                setupAction.SwaggerGenOptionsSetup = swaggerGenOptionsSetup;
-                setupAction.DynamicWebApiOptionsSetup = dynamicWebApiOptionsSetup;
-                setupAction.AuditRepositoryOptions = auditRepositoryOptions;
-                setupAction.MapperOptions = mapperOptions;
-                setupAction.NewtonsoftJsonOptionsSetup = newtonsoftJsonOptionsSetup;
-            });
-        }
-
-        /// <summary>
-        /// add aspire.
-        /// </summary>
-        /// <typeparam name="TUserEntity">User Entity.</typeparam>
         /// <param name="services">Service Collection.</param>
         /// <param name="setupAction">Setup Action.</param>
         /// <exception cref="ArgumentNullException">请注意 [NotNull] 标识.</exception>
         /// <returns>Service Collection .</returns>
-        public static IServiceCollection AddAspire<TUserEntity>(
+        public static IServiceCollection AddAspire(
             this IServiceCollection services,
             Action<AspireSetupOptions> setupAction)
-            where TUserEntity : class, IUserEntity, new()
-        {
-            return AddAspire<TUserEntity, Guid>(services, setupAction);
-        }
-
-        /// <summary>
-        /// add aspire.
-        /// </summary>
-        /// <typeparam name="TUserEntity">User Entity.</typeparam>
-        /// <typeparam name="TPrimaryKey">Primary Key.</typeparam>
-        /// <param name="services">Service Collection.</param>
-        /// <param name="setupAction">Setup Action.</param>
-        /// <exception cref="ArgumentNullException">请注意 [NotNull] 标识.</exception>
-        /// <returns>Service Collection .</returns>
-        public static IServiceCollection AddAspire<TUserEntity, TPrimaryKey>(
-            this IServiceCollection services,
-            Action<AspireSetupOptions> setupAction)
-            where TUserEntity : class, IUserEntity<TPrimaryKey>, new()
         {
             var options = new AspireSetupOptions();
             setupAction(options);
@@ -130,6 +83,14 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddSingleton<IServiceProviderProxy, HttpContextServiceProviderProxy>();
 
             var mvcBuilder = services.AddControllers();
+
+            // identity
+            if (options.IdentityOptionsSetup is null)
+            {
+                throw new NoNullAllowedException(nameof(AspireSetupOptions) + "." + nameof(AspireSetupOptions.IdentityOptionsSetup));
+            }
+
+            options.IdentityOptionsSetup.AddIdentity(services);
 
             // NewtonsoftJson
             if (options.NewtonsoftJsonOptionsSetup is null)
@@ -202,48 +163,6 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new NoNullAllowedException(nameof(AspireSetupOptions) + "." + nameof(AspireSetupOptions.Configuration));
             }
 
-            services.Configure<AspireAppSettings>(options.Configuration.GetSection("Aspire"));
-
-            // current user
-            services.AddScoped(x =>
-            {
-                var httpContext = x.GetService<IHttpContextAccessor>().HttpContext;
-                if (httpContext != null && httpContext.Items[AppConst.CurrentUserHttpItemKey] is ICurrentUser user)
-                {
-                    return user;
-                }
-
-                return new TUserEntity
-                {
-                    Account = "undefined",
-                    Name = "undefined",
-                };
-            });
-
-            // 暂时放弃 asp.net identity 方案，实现过于繁琐
-            // services.AddIdentity<TUserEntity, TUserRoleEntity>()
-            // .AddEntityFrameworkStores<AspireIdentityDbContext<TUserEntity>>()
-            // .AddUserStore<>()
-            // .AddRoleStore<>()
-            // .AddDefaultTokenProviders();
-            // services
-            //    .AddAuthentication(x => {
-            //        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //        x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    })
-            //    .AddJwtBearer(x => {
-            //        x.SaveToken = true;
-            //        x.RequireHttpsMetadata = false;
-            //        x.TokenValidationParameters = new TokenValidationParameters {
-            //            ValidateIssuer = true,
-            //            ValidateAudience = true,
-            //            ValidAudience = aspireConfigure.Jwt.ValidAudience,
-            //            ValidIssuer = aspireConfigure.Jwt.ValidIssuer,
-            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(aspireConfigure.Jwt.Secret))
-            //        };
-            //    });
-
             // 引入 Panda.DynamicWebApi 自定义配置
             if (options.DynamicWebApiOptionsSetup is null)
             {
@@ -265,12 +184,12 @@ namespace Microsoft.Extensions.DependencyInjection
             options.LoggerOptionsSetup.AddLogger(services, options.Configuration);
 
             // Cache
-            if (options.CacheOptionsSetup is null)
+            if (options.CacheClientOptionsSetup is null)
             {
-                throw new NoNullAllowedException(nameof(AspireSetupOptions) + "." + nameof(AspireSetupOptions.CacheOptionsSetup));
+                throw new NoNullAllowedException(nameof(AspireSetupOptions) + "." + nameof(AspireSetupOptions.CacheClientOptionsSetup));
             }
 
-            options.CacheOptionsSetup.AddAspireRedis(services);
+            options.CacheClientOptionsSetup.AddCacheClient(services);
 
             return services;
         }

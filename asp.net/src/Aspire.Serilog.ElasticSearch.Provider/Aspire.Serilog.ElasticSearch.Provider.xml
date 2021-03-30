@@ -4,6 +4,102 @@
         <name>Aspire.Serilog.ElasticSearch.Provider</name>
     </assembly>
     <members>
+        <member name="T:Aspire.SystemLogs.SystemLogCommonDto">
+            <summary>
+            Common Dto.
+            </summary>
+        </member>
+        <member name="P:Aspire.SystemLogs.SystemLogCommonDto.ApiMethod">
+            <inheritdoc/>
+        </member>
+        <member name="P:Aspire.SystemLogs.SystemLogCommonDto.ApiRouter">
+            <inheritdoc/>
+        </member>
+        <member name="P:Aspire.SystemLogs.SystemLogCommonDto.Title">
+            <inheritdoc/>
+        </member>
+        <member name="P:Aspire.SystemLogs.SystemLogCommonDto.TraceId">
+            <inheritdoc/>
+        </member>
+        <member name="P:Aspire.SystemLogs.SystemLogCommonDto.Filter1">
+            <inheritdoc/>
+        </member>
+        <member name="P:Aspire.SystemLogs.SystemLogCommonDto.Filter2">
+            <inheritdoc/>
+        </member>
+        <member name="P:Aspire.SystemLogs.SystemLogCommonDto.ClientAddress">
+            <inheritdoc/>
+        </member>
+        <member name="P:Aspire.SystemLogs.SystemLogCommonDto.ServerAddress">
+            <inheritdoc/>
+        </member>
+        <member name="P:Aspire.SystemLogs.SystemLogCommonDto.Level">
+            <inheritdoc/>
+        </member>
+        <member name="T:Aspire.SystemLogs.SystemLogDetailOutputDto">
+            <summary>
+            系统日志 详情 输出.
+            </summary>
+        </member>
+        <member name="T:Aspire.SystemLogs.SystemLogFilterInputDto">
+            <summary>
+            日志 查询过滤器.
+            </summary>
+        </member>
+        <member name="P:Aspire.SystemLogs.SystemLogFilterInputDto.CreatedAtRange">
+            <inheritdoc/>
+        </member>
+        <member name="P:Aspire.SystemLogs.SystemLogFilterInputDto.PageIndex">
+            <inheritdoc/>
+        </member>
+        <member name="P:Aspire.SystemLogs.SystemLogFilterInputDto.PageSize">
+            <inheritdoc/>
+        </member>
+        <member name="T:Aspire.SystemLogs.SystemLogFilterOutputDto">
+            <summary>
+            Filter Output.
+            </summary>
+        </member>
+        <member name="P:Aspire.SystemLogs.SystemLogFilterOutputDto.CreatedAt">
+            <inheritdoc/>
+        </member>
+        <member name="P:Aspire.SystemLogs.SystemLogFilterOutputDto.Message">
+            <inheritdoc/>
+        </member>
+        <member name="P:Aspire.SystemLogs.SystemLogFilterOutputDto.Id">
+            <inheritdoc/>
+        </member>
+        <member name="P:Aspire.SystemLogs.SystemLogFilterOutputDto.CreatedAtTicks">
+            <inheritdoc/>
+        </member>
+        <member name="T:Aspire.SystemLogs.SerilogElasticSearchAppService">
+            <summary>
+            SerilogElastic Search AppService.
+            </summary>
+        </member>
+        <member name="M:Aspire.SystemLogs.SerilogElasticSearchAppService.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Aspire.Serilog.ElasticSearch.Provider.LogItemsStore,Aspire.Loggers.ILogWriter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Aspire.SystemLogs.SerilogElasticSearchAppService"/> class.
+            </summary>
+            <param name="config">Configuration.</param>
+            <param name="itemsStore">Items Store.</param>
+            <param name="logWriter">Log Writer.</param>
+        </member>
+        <member name="M:Aspire.SystemLogs.SerilogElasticSearchAppService.FilterAsync(Aspire.SystemLogs.SystemLogFilterInputDto)">
+            <inheritdoc />
+        </member>
+        <member name="M:Aspire.SystemLogs.SerilogElasticSearchAppService.GetAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Aspire.SystemLogs.SerilogElasticSearchAppService.GetSelectItems">
+            <inheritdoc />
+        </member>
+        <member name="M:Aspire.SystemLogs.SerilogElasticSearchAppService.DeleteAllSelectItems">
+            <inheritdoc />
+        </member>
+        <member name="M:Aspire.SystemLogs.SerilogElasticSearchAppService.GetPageConfig">
+            <inheritdoc />
+        </member>
         <member name="T:Aspire.Serilog.ElasticSearch.Provider.LogItemsStore">
             <summary>
             Log Write Store.
@@ -19,7 +115,7 @@
             Items Store.
             </summary>
         </member>
-        <member name="M:Aspire.Serilog.ElasticSearch.Provider.LogItemsStore.#ctor(Aspire.Cache.IAspireCacheClient)">
+        <member name="M:Aspire.Serilog.ElasticSearch.Provider.LogItemsStore.#ctor(Aspire.IAspireCacheClient)">
             <summary>
             Initializes a new instance of the <see cref="T:Aspire.Serilog.ElasticSearch.Provider.LogItemsStore"/> class.
             </summary>
@@ -52,7 +148,7 @@
             Log Writer.
             </summary>
         </member>
-        <member name="M:Aspire.Serilog.ElasticSearch.Provider.LogWriter.#ctor(Serilog.ILogger,Aspire.LogWriterHelper)">
+        <member name="M:Aspire.Serilog.ElasticSearch.Provider.LogWriter.#ctor(Serilog.ILogger,Aspire.Loggers.LogWriterHelper)">
             <summary>
             Initializes a new instance of the <see cref="T:Aspire.Serilog.ElasticSearch.Provider.LogWriter"/> class.
             </summary>
@@ -81,102 +177,6 @@
         </member>
         <member name="M:Aspire.Serilog.ElasticSearch.Provider.SerilogElasticSearchOptionsSetup.AddLogger(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
             <inheritdoc/>
-        </member>
-        <member name="T:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogCommonDto">
-            <summary>
-            Common Dto.
-            </summary>
-        </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogCommonDto.ApiMethod">
-            <inheritdoc/>
-        </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogCommonDto.ApiRouter">
-            <inheritdoc/>
-        </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogCommonDto.Title">
-            <inheritdoc/>
-        </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogCommonDto.TraceId">
-            <inheritdoc/>
-        </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogCommonDto.Filter1">
-            <inheritdoc/>
-        </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogCommonDto.Filter2">
-            <inheritdoc/>
-        </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogCommonDto.ClientAddress">
-            <inheritdoc/>
-        </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogCommonDto.ServerAddress">
-            <inheritdoc/>
-        </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogCommonDto.Level">
-            <inheritdoc/>
-        </member>
-        <member name="T:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogDetailOutputDto">
-            <summary>
-            系统日志 详情 输出.
-            </summary>
-        </member>
-        <member name="T:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogFilterInputDto">
-            <summary>
-            日志 查询过滤器.
-            </summary>
-        </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogFilterInputDto.CreatedAtRange">
-            <inheritdoc/>
-        </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogFilterInputDto.PageIndex">
-            <inheritdoc/>
-        </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogFilterInputDto.PageSize">
-            <inheritdoc/>
-        </member>
-        <member name="T:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogFilterOutputDto">
-            <summary>
-            Filter Output.
-            </summary>
-        </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogFilterOutputDto.CreatedAt">
-            <inheritdoc/>
-        </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogFilterOutputDto.Message">
-            <inheritdoc/>
-        </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogFilterOutputDto.Id">
-            <inheritdoc/>
-        </member>
-        <member name="P:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogFilterOutputDto.CreatedAtTicks">
-            <inheritdoc/>
-        </member>
-        <member name="T:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService">
-            <summary>
-            SerilogElastic Search AppService.
-            </summary>
-        </member>
-        <member name="M:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Aspire.Serilog.ElasticSearch.Provider.LogItemsStore,Aspire.ILogWriter)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService"/> class.
-            </summary>
-            <param name="config">Configuration.</param>
-            <param name="itemsStore">Items Store.</param>
-            <param name="logWriter">Log Writer.</param>
-        </member>
-        <member name="M:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService.FilterAsync(Aspire.Serilog.ElasticSearch.Provider.SystemLog.SystemLogFilterInputDto)">
-            <inheritdoc />
-        </member>
-        <member name="M:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService.GetAsync(System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService.GetSelectItems">
-            <inheritdoc />
-        </member>
-        <member name="M:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService.DeleteAllSelectItems">
-            <inheritdoc />
-        </member>
-        <member name="M:Aspire.Serilog.ElasticSearch.Provider.SystemLog.SerilogElasticSearchAppService.GetPageConfig">
-            <inheritdoc />
         </member>
     </members>
 </doc>

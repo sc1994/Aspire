@@ -55,7 +55,7 @@
         },
         "clearable": true,
         "disabled": false,
-        "filterable": false,
+        "filterable": true,
         "multiple": false,
         "__vModel__": "apiMethod"
       },
@@ -88,7 +88,7 @@
         },
         "clearable": true,
         "disabled": false,
-        "filterable": false,
+        "filterable": true,
         "multiple": false,
         "__vModel__": "apiRouter"
       },
@@ -129,7 +129,7 @@
         },
         "clearable": true,
         "disabled": false,
-        "filterable": false,
+        "filterable": true,
         "multiple": false,
         "__vModel__": "level"
       },
@@ -157,7 +157,7 @@
         },
         "clearable": true,
         "disabled": false,
-        "filterable": false,
+        "filterable": true,
         "multiple": false,
         "__vModel__": "title"
       },
@@ -217,7 +217,7 @@
         },
         "clearable": true,
         "disabled": false,
-        "filterable": false,
+        "filterable": true,
         "multiple": false,
         "__vModel__": "serverAddress"
       },
@@ -284,6 +284,38 @@
         "readonly": false,
         "disabled": false,
         "__vModel__": "filter2"
+      },
+      {
+        "__config__": {
+          "label": "",
+          "labelWidth": null,
+          "showLabel": true,
+          "changeTag": true,
+          "tag": "el-input",
+          "tagIcon": "input",
+          "layout": "colFormItem",
+          "span": 6,
+          "document": "https://element.eleme.cn/#/zh-CN/component/input",
+          "regList": [],
+          "formId": 106,
+          "renderKey": 1615802103064
+        },
+        "__slot__": {
+          "prepend": "",
+          "append": ""
+        },
+        "placeholder": "用户账号",
+        "style": {
+          "width": "100%"
+        },
+        "clearable": true,
+        "prefix-icon": "",
+        "suffix-icon": "",
+        "maxlength": null,
+        "show-word-limit": false,
+        "readonly": false,
+        "disabled": false,
+        "__vModel__": "account"
       }
     ],
     "formRef": "elForm",

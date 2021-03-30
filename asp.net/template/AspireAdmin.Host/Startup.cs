@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Aspire.AutoMapper.Provider;
 using Aspire.FreeSql.Provider;
 using Aspire.Serilog.ElasticSearch.Provider;
-using AspireAdmin.Core.Users;
 using FreeSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +13,7 @@ using Microsoft.OpenApi.Models;
 
 namespace AspireAdmin.Host
 {
+    using System.Linq;
     using Aspire.CSRedis.Provider;
 
     public class Startup
@@ -39,7 +39,7 @@ namespace AspireAdmin.Host
                 });
             });
 
-            services.AddAspire<User>(options =>
+            services.AddAspire(options =>
             {
                 var applicationAssembly = Assembly.Load("AspireAdmin.Application");
 
@@ -79,7 +79,7 @@ namespace AspireAdmin.Host
 
                 options.LoggerOptionsSetup = new SerilogElasticSearchOptionsSetup();
 
-                options.CacheOptionsSetup = new AspireCacheOptionsSetup(this.configuration.GetConnectionString("Redis"));
+                options.CacheClientOptionsSetup = new CsRedisCacheClientOptionsSetup(this.configuration.GetConnectionString("Redis"));
             });
         }
 
@@ -92,7 +92,7 @@ namespace AspireAdmin.Host
 
             app.UseCors("AspireAdminCors");
 
-            app.UseAspire<User>(configure =>
+            app.UseAspire(configure =>
             {
                 configure.EndpointRouteConfigure = endpoint =>
                 {

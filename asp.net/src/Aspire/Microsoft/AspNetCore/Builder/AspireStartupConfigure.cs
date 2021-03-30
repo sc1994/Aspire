@@ -8,10 +8,7 @@ namespace Microsoft.AspNetCore.Builder
     using System;
     using System.Data;
     using Aspire;
-    using Aspire.Authenticate;
-    using Aspire.Logger;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Routing;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
@@ -23,79 +20,12 @@ namespace Microsoft.AspNetCore.Builder
         /// <summary>
         /// 使用 aspire.
         /// </summary>
-        /// <typeparam name="TUserEntity">用户实体.</typeparam>
-        /// <param name="app">Application Builder.</param>
-        /// <param name="endpointRouteConfigure">终结点配置.</param>
-        /// <param name="swaggerUiName">swagger ui name.</param>
-        /// <param name="loggerConfigure">Logger Configure.</param>
-        /// <returns>Application Builder .</returns>
-        public static IApplicationBuilder UseAspire<TUserEntity>(
-            this IApplicationBuilder app,
-            Action<IEndpointRouteBuilder> endpointRouteConfigure,
-            string swaggerUiName,
-            ILoggerConfigure loggerConfigure)
-            where TUserEntity : class, IUserEntity, new()
-        {
-            return UseAspire<TUserEntity, Guid>(
-                app,
-                endpointRouteConfigure,
-                swaggerUiName,
-                loggerConfigure);
-        }
-
-        /// <summary>
-        /// 使用 aspire.
-        /// </summary>
-        /// <typeparam name="TUserEntity">用户实体.</typeparam>
-        /// <typeparam name="TPrimaryKey">实体主键.</typeparam>
-        /// <param name="app">Application Builder.</param>
-        /// <param name="endpointRouteConfigure">终结点 配置.</param>
-        /// <param name="swaggerUiName">swagger ui name.</param>
-        /// <param name="loggerConfigure">Logger Configure.</param>
-        /// <returns>Application Builder .</returns>
-        public static IApplicationBuilder UseAspire<TUserEntity, TPrimaryKey>(
-            this IApplicationBuilder app,
-            Action<IEndpointRouteBuilder> endpointRouteConfigure,
-            string swaggerUiName,
-            ILoggerConfigure loggerConfigure)
-            where TUserEntity : class, IUserEntity<TPrimaryKey>, new()
-        {
-            return UseAspire<TUserEntity, TPrimaryKey>(app, actionConfigure =>
-            {
-                actionConfigure.EndpointRouteConfigure = endpointRouteConfigure;
-                actionConfigure.SwaggerUiName = swaggerUiName;
-                actionConfigure.LoggerConfigure = loggerConfigure;
-            });
-        }
-
-        /// <summary>
-        /// 使用 aspire.
-        /// </summary>
-        /// <typeparam name="TUserEntity">用户实体.</typeparam>
-        /// <param name="app">Application Builder.</param>
-        /// <param name="actionConfigure">Aspire Use Configure.</param>
-        /// <exception cref="ArgumentNullException">请注意 [NotNull] 标识.</exception>
-        /// <returns>Application Builder .</returns>
-        public static IApplicationBuilder UseAspire<TUserEntity>(
-            this IApplicationBuilder app,
-            Action<AspireUseConfigure> actionConfigure)
-            where TUserEntity : class, IUserEntity, new()
-        {
-            return UseAspire<TUserEntity, Guid>(app, actionConfigure);
-        }
-
-        /// <summary>
-        /// 使用 aspire.
-        /// </summary>
-        /// <typeparam name="TUserEntity">用户实体.</typeparam>
-        /// <typeparam name="TPrimaryKey">实体主键.</typeparam>
         /// <param name="app">Application Builder.</param>
         /// <param name="actionConfigure">请注意 [NotNull] 标识.</param>
         /// <returns>Application Builder .</returns>
-        public static IApplicationBuilder UseAspire<TUserEntity, TPrimaryKey>(
+        public static IApplicationBuilder UseAspire(
             this IApplicationBuilder app,
             Action<AspireUseConfigure> actionConfigure)
-            where TUserEntity : class, IUserEntity<TPrimaryKey>, new()
         {
             var configure = new AspireUseConfigure();
             actionConfigure(configure);
@@ -124,14 +54,6 @@ namespace Microsoft.AspNetCore.Builder
             }
 
             app.UseRouting();
-
-            /*
-             暂时放弃 asp.net identity 方案，实现过于繁琐
-             app.UseAuthentication();
-             app.UseAuthorization();
-            */
-
-            app.UseMiddleware<JwtMiddleware<TUserEntity>>();
 
             app.UseEndpoints(configure.EndpointRouteConfigure);
 

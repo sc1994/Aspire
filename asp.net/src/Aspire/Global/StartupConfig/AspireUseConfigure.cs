@@ -6,7 +6,7 @@ namespace Aspire
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using Aspire.Logger;
+    using Aspire.Loggers;
     using Microsoft.AspNetCore.Routing;
 
     /// <summary>

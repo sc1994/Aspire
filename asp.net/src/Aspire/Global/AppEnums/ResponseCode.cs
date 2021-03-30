@@ -18,9 +18,15 @@ namespace Aspire
         Ok = 20000,
 
         /// <summary>
-        /// 未授权角色.
+        /// 未授权.
         /// </summary>
-        [Description("未授权角色")]
+        [Description("未授权")]
+        Unauthorized = 40100,
+
+        /// <summary>
+        /// 未授权的角色.
+        /// </summary>
+        [Description("未授权的角色")]
         UnauthorizedRoles = 40101,
 
         /// <summary>

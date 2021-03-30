@@ -25,4 +25,9 @@
 		</PackageReference>
 	</ItemGroup>
 
+
+	<ItemGroup>
+	  <Folder Include="Global\Middleware\" />
+	</ItemGroup>
+
 </Project>

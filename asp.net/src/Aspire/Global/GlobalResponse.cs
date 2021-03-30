@@ -19,7 +19,7 @@ namespace Aspire
         /// <summary>
         /// Initializes a new instance of the <see cref="GlobalResponse"/> class.
         /// </summary>
-        /// <param name="code">Code.</param>
+        /// <param name="code"><see cref="ResponseCode" /> 可自定义code.</param>
         public GlobalResponse(int code)
         {
             this.Code = code;
@@ -37,7 +37,7 @@ namespace Aspire
         /// <summary>
         /// Initializes a new instance of the <see cref="GlobalResponse"/> class.
         /// </summary>
-        /// <param name="code">Code.</param>
+        /// <param name="code"><see cref="ResponseCode" /> 可自定义code.</param>
         /// <param name="result">Result.</param>
         public GlobalResponse(int code, object result)
             : this(code)
@@ -83,18 +83,18 @@ namespace Aspire
         }
 
         /// <summary>
-        /// Gets Code.
+        /// Gets Code <see cref="ResponseCode" /> 可自定义code.
         /// </summary>
         public int Code { get; }
 
         /// <summary>
-        /// Gets or sets Messages.
+        /// Gets or sets Messages 用于页面弹出友好异常消息内容.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string[] Messages { get; set; }
 
         /// <summary>
-        /// Gets or sets Title.
+        /// Gets or sets Title 用于页面弹出友好异常消息标题.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Title { get; set; }
@@ -107,16 +107,16 @@ namespace Aspire
 
 #if DEBUG
         /// <summary>
-        /// Gets or sets Stack Trace.
+        /// Gets or sets Stack Trace 不会通过 Json 发送给网络.
         /// </summary>
         [JsonIgnore]
         public object StackTrace { get; set; }
 
         /// <summary>
-        /// Gets Stack Trace Text.
+        /// Gets Stack Trace Text 默认处理了一些堆栈的内容, 减少无用信息.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string[] StackTraceText
+        public virtual string[] StackTraceText
         {
             get
             {

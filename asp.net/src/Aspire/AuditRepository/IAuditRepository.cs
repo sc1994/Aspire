@@ -2,14 +2,13 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Aspire.AuditRepository
+namespace Aspire
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
-    using Aspire.AuditEntity;
 
     /// <summary>
     /// 审计仓储 （主键为GUID）.

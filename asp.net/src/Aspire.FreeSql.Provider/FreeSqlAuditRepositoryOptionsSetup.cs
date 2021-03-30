@@ -9,9 +9,8 @@ namespace Aspire.FreeSql.Provider
     using System.Data.Common;
     using System.Data.SqlTypes;
     using System.Linq;
-    using Aspire.AuditEntity;
-    using Aspire.AuditRepository;
-    using Aspire.Authenticate;
+    using Aspire.Identities;
+    using Aspire.Loggers;
     using global::FreeSql;
     using global::FreeSql.Aop;
     using Microsoft.Extensions.DependencyInjection;

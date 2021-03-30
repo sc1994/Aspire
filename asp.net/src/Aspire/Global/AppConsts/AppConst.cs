@@ -7,11 +7,11 @@ namespace Aspire
     /// <summary>
     /// App Const.
     /// </summary>
-    internal static class AppConst
+    public static class AppConst
     {
         /// <summary>
         /// Current User Http Item Key.
         /// </summary>
-        internal const string CurrentUserHttpItemKey = "Aspire.CurrentUser.Http.Item.Key";
+        public const string CurrentUserHttpItemKey = "Aspire.CurrentUser.Http.Item.Key";
     }
 }

@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Aspire.Cache
+namespace Aspire
 {
     using System.Collections.Generic;
     using System.Linq;

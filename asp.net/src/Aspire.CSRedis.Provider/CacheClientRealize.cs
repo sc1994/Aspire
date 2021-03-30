@@ -6,7 +6,6 @@ namespace Aspire.CSRedis.Provider
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Aspire.Cache;
     using global::CSRedis;
 
     /// <summary>

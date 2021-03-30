@@ -9,7 +9,6 @@ namespace Aspire.Serilog.ElasticSearch.Provider
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading.Tasks;
-    using Aspire.Cache;
 
     /// <summary>
     /// Log Write Store.

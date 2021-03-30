@@ -5,7 +5,7 @@
 namespace Aspire.Serilog.ElasticSearch.Provider
 {
     using System;
-    using Aspire.Logger;
+    using Aspire.Loggers;
     using global::Serilog;
     using global::Serilog.Events;
     using global::Serilog.Formatting.Elasticsearch;

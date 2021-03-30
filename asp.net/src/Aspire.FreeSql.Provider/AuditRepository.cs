@@ -9,8 +9,7 @@ namespace Aspire.FreeSql.Provider
     using System.Diagnostics.CodeAnalysis;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
-    using Aspire.AuditRepository;
-    using Aspire.Authenticate;
+    using Aspire.Identities;
     using global::FreeSql;
 
     /// <inheritdoc />
@@ -101,7 +100,7 @@ namespace Aspire.FreeSql.Provider
                 .Select<TAuditEntity>()
                 .Where(x => !x.Deleted)
                 .Where(filter)
-                .Take(int.Parse(limit.ToString())) // TODO 装拆箱
+                .Take(int.Parse(limit.ToString())) // 装拆箱
                 .ToListAsync()
                 .ToArrayAsync();
         }
