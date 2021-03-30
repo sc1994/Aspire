@@ -51,7 +51,7 @@ namespace Aspire
         {
             var filters = context.ActionDescriptor.FilterDescriptors.OrderBy(x => x.Order);
 
-            if (filters.All(x => x.Filter is not IgnoreLogAttribute))
+            if (filters.All(x => x.Filter is not IgnoreActionLogAttribute))
             {
                 var logWriter = ServiceLocator.ServiceProvider.GetService<ILogWriter>();
                 logWriter.Information("Request Executing", context.ActionArguments);

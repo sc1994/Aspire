@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Models;
 
 namespace AspireAdmin.Host
 {
+    using System.Linq;
     using Aspire.CSRedis.Provider;
 
     public class Startup

@@ -15,7 +15,7 @@ namespace Aspire.SystemLogs
     /// <typeparam name="TFilterOutputDto">Filter Output Dto.</typeparam>
     /// <typeparam name="TDetailOutputDto">Detail Output Dto.</typeparam>
     [Authentication(Roles.Admin)]
-    [IgnoreLog]
+    [IgnoreActionLog]
     public interface ISystemLogAppService<
         in TPrimaryKey,
         in TFilterInputDto,

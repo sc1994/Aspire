@@ -50,7 +50,7 @@ namespace Aspire
                 context.Exception = null;
             }
 
-            if (context.ActionDescriptor.FilterDescriptors.All(x => x.Filter is not IgnoreLogAttribute))
+            if (context.ActionDescriptor.FilterDescriptors.All(x => x.Filter is not IgnoreActionLogAttribute))
             {
                 var logWriter = ServiceLocator.ServiceProvider.GetService<ILogWriter>();
                 logWriter.Information("Response Executed", logMessage);
