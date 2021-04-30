@@ -1,4 +1,4 @@
-// <copyright file="IPageInputDto.cs" company="PlaceholderCompany">
+// <copyright file="PageInputDto.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -18,5 +18,15 @@ namespace Aspire
         /// Gets or sets 页 大小.
         /// </summary>
         int PageSize { get; set; }
+    }
+
+    /// <inheritdoc />
+    public class PageInputDto : IPageInputDto
+    {
+        /// <inheritdoc />
+        public int PageIndex { get; set; } = 1;
+
+        /// <inheritdoc />
+        public int PageSize { get; set; } = 10;
     }
 }

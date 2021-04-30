@@ -162,21 +162,6 @@
             Gets or sets 主键.
             </summary>
         </member>
-        <member name="T:Aspire.IPageInputDto">
-            <summary>
-            页输入.
-            </summary>
-        </member>
-        <member name="P:Aspire.IPageInputDto.PageIndex">
-            <summary>
-            Gets or sets 页 索引.
-            </summary>
-        </member>
-        <member name="P:Aspire.IPageInputDto.PageSize">
-            <summary>
-            Gets or sets 页 大小.
-            </summary>
-        </member>
         <member name="T:Aspire.PagedResultDto`1">
             <summary>
             分页结果.
@@ -198,6 +183,21 @@
         <member name="P:Aspire.PagedResultDto`1.TotalCount">
             <summary>
             Gets total count.
+            </summary>
+        </member>
+        <member name="T:Aspire.IPageInputDto">
+            <summary>
+            页输入.
+            </summary>
+        </member>
+        <member name="P:Aspire.IPageInputDto.PageIndex">
+            <summary>
+            Gets or sets 页 索引.
+            </summary>
+        </member>
+        <member name="P:Aspire.IPageInputDto.PageSize">
+            <summary>
+            Gets or sets 页 大小.
             </summary>
         </member>
         <member name="T:Aspire.PageInputDto">
