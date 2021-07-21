@@ -3,7 +3,7 @@
     /// <summary>
     ///     mapper.
     /// </summary>
-    public interface IMapper
+    public interface IAspireMapper
     {
         /// <summary>
         ///     映射到.

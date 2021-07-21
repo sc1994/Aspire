@@ -1,46 +1,66 @@
-﻿using System.Reflection;
-using Aspire;
-using Aspire.AutoMapper;
-using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using Microsoft.OpenApi.Models;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     /// <summary>
-    ///     auto mapper 服务配置.
+    ///     swagger 服务配置.
     /// </summary>
-    public static class AutoMapperConfigureServices
+    public static class SwaggerConfigureServices
     {
         /// <summary>
-        ///     添加 aspire 的 auto mapper.
+        ///     添加 aspire 的 swagger.
         /// </summary>
         /// <param name="services">服务.</param>
-        /// <param name="applicationAssembly">要使用 mapper 的类 所属的程序集.</param>
+        /// <param name="title">swagger doc title.</param>
         /// <returns>当前服务.</returns>
-        public static IServiceCollection AddAspireAutoMapper(
+        public static IServiceCollection AddAspireSwagger(
             this IServiceCollection services,
-            Assembly applicationAssembly)
+            string title)
         {
-            services.AddSingleton(_ => // 创建 auto mapper 的实例.
+            services.AddSwaggerGen(c =>
             {
-                return new MapperConfiguration(cfg =>
+                c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    cfg.AddMaps(applicationAssembly);
-                    applicationAssembly
-                        .GetTypes()
-                        .ForEach(type =>
+                    Title = title,
+                    Version = "v1"
+                });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "设置 Authorization.",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
                         {
-                            var mapperCase = type.GetCustomAttribute<MapToAttribute>();
-                            if (mapperCase is null) return;
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header
+                        },
+                        new List<string>()
+                    }
+                });
 
-                            cfg.CreateProfile(
-                                $"{type.FullName}_mutually_{mapperCase.MapToType.FullName}",
-                                profileConfig => { profileConfig.CreateMap(type, mapperCase.MapToType).ReverseMap(); });
-                        });
-                }).CreateMapper();
+                c.DocInclusionPredicate((docName, description) => true);
+                var baseDirectory = AppDomain.CurrentDomain.BaseDirectory ?? string.Empty;
+                var xmlFile = AppDomain.CurrentDomain.FriendlyName + ".xml";
+                var xmlPath = Path.Combine(baseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
-
-            services.AddScoped<IAspireMapper, AspireAutoMapper>();
-
             return services;
         }
     }

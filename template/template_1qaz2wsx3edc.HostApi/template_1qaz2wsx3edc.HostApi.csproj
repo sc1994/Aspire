@@ -4,5 +4,16 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Aspire.AppService.Crud\Aspire.AppService.Crud.csproj" />
+    <ProjectReference Include="..\..\src\Aspire.Repository.FreeSql\Aspire.Repository.FreeSql.csproj" />
+    <ProjectReference Include="..\..\src\Aspire.AppService.Swagger\Aspire.AppService.Swagger.csproj" />
+    <ProjectReference Include="..\..\src\Aspire.Mapper.AutoMapper\Aspire.Mapper.AutoMapper.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="App_Data" />
+  </ItemGroup>
+
 
 </Project>

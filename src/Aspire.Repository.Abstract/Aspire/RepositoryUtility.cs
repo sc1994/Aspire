@@ -2,25 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Aspire.Audit;
+using Aspire.Entity;
+using Aspire.Entity.Audit;
 
 namespace Aspire
 {
-    /// <inheritdoc />
-    public abstract class RepositoryUtility<TEntity, TOrmWhere>
-        : RepositoryUtility<TEntity, TOrmWhere, long>
-        where TEntity : EntityBase
-    {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="RepositoryUtility{TEntity, TOrmWhere}" /> class.
-        /// </summary>
-        /// <param name="currentUser">当前用户.</param>
-        protected RepositoryUtility(ICurrentUser currentUser)
-            : base(currentUser)
-        {
-        }
-    }
-
     /// <summary>
     ///     仓储实用工具.
     /// </summary>
@@ -29,7 +15,7 @@ namespace Aspire
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
     public abstract class RepositoryUtility<TEntity, TOrmWhere, TPrimaryKey>
         : IRepository<TEntity, TOrmWhere, TPrimaryKey>
-        where TEntity : EntityBase<TPrimaryKey>
+        where TEntity : IEntityBase<TPrimaryKey>
     {
         private readonly ICurrentUser currentUser;
 

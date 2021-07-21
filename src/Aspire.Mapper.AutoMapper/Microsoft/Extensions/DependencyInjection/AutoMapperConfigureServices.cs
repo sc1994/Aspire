@@ -1,39 +1,46 @@
-﻿using System;
-using FreeSql;
-using FreeSql.Aop;
+﻿using System.Reflection;
+using Aspire;
+using Aspire.AutoMapper;
+using AutoMapper;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     /// <summary>
-    ///     free sql 服务配置.
+    ///     auto mapper 服务配置.
     /// </summary>
-    public static class FreeSqlConfigureServices
+    public static class AutoMapperConfigureServices
     {
         /// <summary>
-        ///     添加 aspire 的 free sql.
+        ///     添加 aspire 的 auto mapper.
         /// </summary>
         /// <param name="services">服务.</param>
-        /// <param name="dataType">data type.</param>
-        /// <param name="connectionString">数据库链接字符串.</param>
-        /// <param name="curdAfterEvent">crud 之后的事件, 每次执行完成crud之后都会触发该方法.</param>
-        /// <typeparam name="TDatabase">数据库.</typeparam>
+        /// <param name="applicationAssembly">要使用 mapper 的类 所属的程序集.</param>
         /// <returns>当前服务.</returns>
-        public static IServiceCollection AddAspireFreeSql<TDatabase>(
+        public static IServiceCollection AddAspireAutoMapper(
             this IServiceCollection services,
-            DataType dataType,
-            string connectionString,
-            Action<object, CurdAfterEventArgs> curdAfterEvent)
+            Assembly applicationAssembly)
         {
-            var freeSql = new FreeSqlBuilder()
-                .UseConnectionString(dataType, connectionString)
-#if DEBUG
-                .UseAutoSyncStructure(true) // automatically synchronize the entity structure to the database
-#endif
-                .Build<TDatabase>();
+            services.AddSingleton(_ => // 创建 auto mapper 的实例.
+            {
+                return new MapperConfiguration(cfg =>
+                {
+                    cfg.AddMaps(applicationAssembly);
+                    applicationAssembly
+                        .GetTypes()
+                        .ForEach(type =>
+                        {
+                            var mapperCase = type.GetCustomAttribute<MapToAttribute>();
+                            if (mapperCase is null) return;
 
-            if (curdAfterEvent != null) freeSql.Aop.CurdAfter += (sender, args) => { curdAfterEvent(sender, args); };
+                            cfg.CreateProfile(
+                                $"{type.FullName}_mutually_{mapperCase.MapToType.FullName}",
+                                profileConfig => { profileConfig.CreateMap(type, mapperCase.MapToType).ReverseMap(); });
+                        });
+                }).CreateMapper();
+            });
 
-            services.AddSingleton(freeSql);
+            services.AddScoped<IAspireMapper, AspireAutoMapper>();
+
             return services;
         }
     }

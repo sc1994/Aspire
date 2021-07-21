@@ -1,25 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Aspire.Entity;
 using FreeSql;
 
 namespace Aspire.Repository.FreeSql
 {
-    /// <inheritdoc />
-    public class FreeSqlRepository<TEntity, TDatabase> : FreeSqlRepository<TEntity, long, TDatabase>
-        where TEntity : EntityBase
-    {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="FreeSqlRepository{TEntity, TDatabase}" /> class.
-        /// </summary>
-        /// <param name="freeSql">free sql.</param>
-        /// <param name="currentUser">当前用户.</param>
-        public FreeSqlRepository(IFreeSql<TDatabase> freeSql, ICurrentUser currentUser)
-            : base(freeSql, currentUser)
-        {
-        }
-    }
-
     /// <summary>
     ///     free sql 仓储实现.
     /// </summary>
@@ -28,7 +14,7 @@ namespace Aspire.Repository.FreeSql
     /// <typeparam name="TDatabase">使用的数据库(针对free sql的多数据形式).</typeparam>
     public class FreeSqlRepository<TEntity, TPrimaryKey, TDatabase>
         : RepositoryUtility<TEntity, ISelect<TEntity>, TPrimaryKey>
-        where TEntity : EntityBase<TPrimaryKey>
+        where TEntity : class, IEntityBase<TPrimaryKey>
     {
         private readonly IFreeSql<TDatabase> freeSql;
 

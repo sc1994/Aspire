@@ -1,0 +1,5 @@
+{
+    "files.exclude": {
+        "**/Aspire*.xml": true
+    }
+}

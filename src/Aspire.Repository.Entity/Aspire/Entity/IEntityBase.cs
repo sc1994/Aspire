@@ -1,10 +1,5 @@
 ﻿namespace Aspire.Entity
 {
-    /// <inheritdoc />
-    public interface IEntityBase : IEntityBase<long>
-    {
-    }
-
     /// <summary>
     ///     实体基类.
     /// </summary>

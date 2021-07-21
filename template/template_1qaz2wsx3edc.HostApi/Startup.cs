@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Data;
+using System.Reflection;
+using AutoMapper;
+using FreeSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace template_1qaz2wsx3edc.HostApi
 {
@@ -26,6 +23,11 @@ namespace template_1qaz2wsx3edc.HostApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            var appServiceAssembly = Assembly.Load($"{typeof(Startup).Namespace?.Replace("HostApi", "AppService")}");
+            services.AddAspireDynamicWebApi(appServiceAssembly);
+            services.AddAspireAutoMapper(appServiceAssembly);
+            services.AddAspireFreeSql(DataType.Sqlite, "Data Source = App_Data/main.db");
+            services.AddAspireSwagger(typeof(Startup).Namespace);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +36,7 @@ namespace template_1qaz2wsx3edc.HostApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseAspireSwagger(typeof(Startup).Namespace);
             }
 
             app.UseHttpsRedirection();
@@ -42,10 +45,7 @@ namespace template_1qaz2wsx3edc.HostApi
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

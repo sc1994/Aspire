@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Aspire.Dto;
+using Aspire.Entity;
 using Aspire.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,35 +12,18 @@ namespace Aspire
     /// <inheritdoc />
     public abstract class AppServiceCrud<
         TEntity,
-        TOrmWhere> : AppServiceCrud<TEntity, TOrmWhere, long>
-        where TEntity : EntityBase<long>
-    {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="AppServiceCrud{        TEntity,         TOrmWhere}" /> class.
-        /// </summary>
-        /// <param name="repository">仓储实例.</param>
-        /// <param name="mapper">mapper实例.</param>
-        protected AppServiceCrud(IRepository<TEntity, TOrmWhere, long> repository, IMapper mapper)
-            : base(repository, mapper)
-        {
-        }
-    }
-
-    /// <inheritdoc />
-    public abstract class AppServiceCrud<
-        TEntity,
         TOrmWhere,
         TPrimaryKey> : AppServiceCrud<TEntity, TOrmWhere, TPrimaryKey, TEntity>
-        where TEntity : EntityBase<TPrimaryKey>
+        where TEntity : IEntityBase<TPrimaryKey>
     {
         /// <summary>
         ///     Initializes a new instance of the
         ///     <see cref="AppServiceCrud{        TEntity,         TOrmWhere,         TPrimaryKey}" /> class.
         /// </summary>
         /// <param name="repository">仓储实例.</param>
-        /// <param name="mapper">mapper实例.</param>
-        protected AppServiceCrud(IRepository<TEntity, TOrmWhere, TPrimaryKey> repository, IMapper mapper)
-            : base(repository, mapper)
+        /// <param name="aspireMapper">mapper实例.</param>
+        protected AppServiceCrud(IRepository<TEntity, TOrmWhere, TPrimaryKey> repository, IAspireMapper aspireMapper)
+            : base(repository, aspireMapper)
         {
         }
     }
@@ -50,16 +34,16 @@ namespace Aspire
         TOrmWhere,
         TPrimaryKey,
         TDto> : AppServiceCrud<TEntity, TOrmWhere, TPrimaryKey, TDto, TDto>
-        where TEntity : EntityBase<TPrimaryKey>
+        where TEntity : IEntityBase<TPrimaryKey>
     {
         /// <summary>
         ///     Initializes a new instance of the
         ///     <see cref="AppServiceCrud{        TEntity,         TOrmWhere,         TPrimaryKey,         TDto}" /> class.
         /// </summary>
         /// <param name="repository">仓储实例.</param>
-        /// <param name="mapper">mapper实例.</param>
-        protected AppServiceCrud(IRepository<TEntity, TOrmWhere, TPrimaryKey> repository, IMapper mapper)
-            : base(repository, mapper)
+        /// <param name="aspireMapper">mapper实例.</param>
+        protected AppServiceCrud(IRepository<TEntity, TOrmWhere, TPrimaryKey> repository, IAspireMapper aspireMapper)
+            : base(repository, aspireMapper)
         {
         }
     }
@@ -71,7 +55,7 @@ namespace Aspire
         TPrimaryKey,
         TQueryFilterDto,
         TDto> : AppServiceCrud<TEntity, TOrmWhere, TPrimaryKey, TQueryFilterDto, TDto, TDto>
-        where TEntity : EntityBase<TPrimaryKey>
+        where TEntity : IEntityBase<TPrimaryKey>
     {
         /// <summary>
         ///     Initializes a new instance of the
@@ -80,9 +64,9 @@ namespace Aspire
         ///     class.
         /// </summary>
         /// <param name="repository">仓储实例.</param>
-        /// <param name="mapper">mapper实例.</param>
-        protected AppServiceCrud(IRepository<TEntity, TOrmWhere, TPrimaryKey> repository, IMapper mapper)
-            : base(repository, mapper)
+        /// <param name="aspireMapper">mapper实例.</param>
+        protected AppServiceCrud(IRepository<TEntity, TOrmWhere, TPrimaryKey> repository, IAspireMapper aspireMapper)
+            : base(repository, aspireMapper)
         {
         }
     }
@@ -95,7 +79,7 @@ namespace Aspire
         TQueryFilterDto,
         TOutputDto,
         TInputDto> : AppServiceCrud<TEntity, TOrmWhere, TPrimaryKey, TQueryFilterDto, TOutputDto, TInputDto, TInputDto>
-        where TEntity : EntityBase<TPrimaryKey>
+        where TEntity : IEntityBase<TPrimaryKey>
     {
         /// <summary>
         ///     Initializes a new instance of the
@@ -104,9 +88,9 @@ namespace Aspire
         ///     class.
         /// </summary>
         /// <param name="repository">仓储实例.</param>
-        /// <param name="mapper">mapper实例.</param>
-        protected AppServiceCrud(IRepository<TEntity, TOrmWhere, TPrimaryKey> repository, IMapper mapper)
-            : base(repository, mapper)
+        /// <param name="aspireMapper">mapper实例.</param>
+        protected AppServiceCrud(IRepository<TEntity, TOrmWhere, TPrimaryKey> repository, IAspireMapper aspireMapper)
+            : base(repository, aspireMapper)
         {
         }
     }
@@ -131,9 +115,9 @@ namespace Aspire
         TCreateInputDto,
         TUpdateInputDto> : AppServiceBase,
         ICrudSingle<TPrimaryKey, TCreateInputDto, TOutputDto, TUpdateInputDto>
-        where TEntity : EntityBase<TPrimaryKey>
+        where TEntity : IEntityBase<TPrimaryKey>
     {
-        private readonly IMapper mapper;
+        private readonly IAspireMapper aspireMapper;
         private readonly IRepository<TEntity, TOrmWhere, TPrimaryKey> repository;
 
         /// <summary>
@@ -143,11 +127,11 @@ namespace Aspire
         ///     class.
         /// </summary>
         /// <param name="repository">仓储实例.</param>
-        /// <param name="mapper">mapper实例.</param>
-        protected AppServiceCrud(IRepository<TEntity, TOrmWhere, TPrimaryKey> repository, IMapper mapper)
+        /// <param name="aspireMapper">mapper实例.</param>
+        protected AppServiceCrud(IRepository<TEntity, TOrmWhere, TPrimaryKey> repository, IAspireMapper aspireMapper)
         {
             this.repository = repository;
-            this.mapper = mapper;
+            this.aspireMapper = aspireMapper;
         }
 
         /// <inheritdoc />
@@ -214,7 +198,7 @@ namespace Aspire
         /// <returns>dto.</returns>
         protected TOutputDto MapToDto(TEntity entity)
         {
-            return mapper.MapTo<TOutputDto>(entity);
+            return aspireMapper.MapTo<TOutputDto>(entity);
         }
 
         /// <summary>
@@ -224,7 +208,7 @@ namespace Aspire
         /// <returns>dto集合.</returns>
         protected IEnumerable<TOutputDto> MapToDtos(IEnumerable<TEntity> entities)
         {
-            return mapper.MapTo<IEnumerable<TOutputDto>>(entities);
+            return aspireMapper.MapTo<IEnumerable<TOutputDto>>(entities);
         }
 
         /// <summary>
@@ -234,7 +218,7 @@ namespace Aspire
         /// <returns>实体.</returns>
         protected TEntity MapToEntity(TCreateInputDto createInputDto)
         {
-            return mapper.MapTo<TEntity>(createInputDto);
+            return aspireMapper.MapTo<TEntity>(createInputDto);
         }
 
         /// <summary>
@@ -244,7 +228,7 @@ namespace Aspire
         /// <returns>实体.</returns>
         protected TEntity MapToEntity(TUpdateInputDto updateInputDto)
         {
-            return mapper.MapTo<TEntity>(updateInputDto);
+            return aspireMapper.MapTo<TEntity>(updateInputDto);
         }
     }
 }

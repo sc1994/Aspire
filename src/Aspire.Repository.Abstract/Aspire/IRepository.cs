@@ -1,15 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Aspire.Entity;
 using Aspire.Interfaces;
 
 namespace Aspire
 {
-    /// <inheritdoc />
-    public interface IRepository<TEntity, in TOrmWhere> : IRepository<TEntity, TOrmWhere, long>
-        where TEntity : EntityBase
-    {
-    }
-
     /// <summary>
     ///     仓储.
     /// </summary>
@@ -17,7 +12,7 @@ namespace Aspire
     /// <typeparam name="TOrmWhere">比如ef的IQueryable, freeSql的ISelect.</typeparam>
     /// <typeparam name="TPrimaryKey">实体主键.</typeparam>
     public interface IRepository<TEntity, in TOrmWhere, TPrimaryKey> : ICrud<TEntity, TPrimaryKey>
-        where TEntity : EntityBase<TPrimaryKey>
+        where TEntity : IEntityBase<TPrimaryKey>
     {
         /// <summary>
         ///     分页列表.

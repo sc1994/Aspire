@@ -1,7 +1,9 @@
 ﻿namespace Aspire.Repository.FreeSql
 {
-    public class IDefaultDatabase
+    /// <summary>
+    /// 默认数据库.
+    /// </summary>
+    public interface IDefaultDatabase
     {
-        
     }
 }

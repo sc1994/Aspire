@@ -1,7 +1,5 @@
-﻿namespace Aspire
+﻿using FreeSql;
+
+namespace Aspire
 {
-    public interface IRepository
-    {
-        
-    }
 }

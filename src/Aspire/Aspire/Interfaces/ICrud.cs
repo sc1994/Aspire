@@ -1,17 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Aspire.Entity;
 
 namespace Aspire.Interfaces
 {
     /// <inheritdoc />
-    public interface ICrud<TEntity> : ICrud<TEntity, long>
-        where TEntity : EntityBase
-    {
-    }
-
-    /// <inheritdoc />
     public interface ICrud<TEntity, TPrimaryKey> : ICrudSingle<TPrimaryKey, TEntity, TEntity, TEntity>
-        where TEntity : EntityBase<TPrimaryKey>
+        where TEntity : IEntityBase<TPrimaryKey>
     {
         /// <summary>
         ///     根据实体集合新增数据.
