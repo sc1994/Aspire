@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
+#pragma warning disable 1591
+
 namespace template_1qaz2wsx3edc.HostApi
 {
     // ReSharper disable once ClassNeverInstantiated.Global

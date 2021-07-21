@@ -64,8 +64,8 @@ namespace Microsoft.Extensions.DependencyInjection
             if (curdAfterEvent != null) freeSql.Aop.CurdAfter += (sender, args) => { curdAfterEvent(sender, args); };
 
             services.AddSingleton(freeSql);
-            services.AddScoped(typeof(IRepository<,,>), typeof(FreeSqlRepository<,,>));
-            services.AddScoped(typeof(IRepository<,,>), typeof(FreeSqlRepository<,,>));
+            services.AddScoped(typeof(IRepository<,>), typeof(FreeSqlRepository<,,>));
+            services.AddScoped(typeof(RepositoryUtility<,>), typeof(FreeSqlRepository<,,>));
             return services;
         }
     }

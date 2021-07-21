@@ -1,12 +1,12 @@
-using System.Data;
 using System.Reflection;
-using AutoMapper;
 using FreeSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
+#pragma warning disable 1591
 
 namespace template_1qaz2wsx3edc.HostApi
 {

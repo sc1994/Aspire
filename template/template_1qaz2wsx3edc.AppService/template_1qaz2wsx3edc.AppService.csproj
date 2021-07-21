@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Aspire.AppService.Crud\Aspire.AppService.Crud.csproj" />
+    <ProjectReference Include="..\template_1qaz2wsx3edc.Core\template_1qaz2wsx3edc.Core.csproj" />
+  </ItemGroup>
+  
 </Project>

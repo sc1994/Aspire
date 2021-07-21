@@ -59,7 +59,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory ?? string.Empty;
                 var xmlFile = AppDomain.CurrentDomain.FriendlyName + ".xml";
                 var xmlPath = Path.Combine(baseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
+                if (File.Exists(xmlPath)) c.IncludeXmlComments(xmlPath);
             });
             return services;
         }

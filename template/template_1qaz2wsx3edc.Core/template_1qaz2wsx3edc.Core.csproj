@@ -4,4 +4,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Aspire.Logger.Abstract\Aspire.Logger.Abstract.csproj" />
+    <ProjectReference Include="..\..\src\Aspire.Mapper.Abstract\Aspire.Mapper.Abstract.csproj" />
+    <ProjectReference Include="..\..\src\Aspire.Repository.FreeSql\Aspire.Repository.FreeSql.csproj" />
+    <ProjectReference Include="..\template_1qaz2wsx3edc.Entity\template_1qaz2wsx3edc.Entity.csproj" />
+  </ItemGroup>
+  
 </Project>

@@ -4,11 +4,18 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>template_1qaz2wsx3edc.HostApi.xml</DocumentationFile>
+  </PropertyGroup>
+  
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Aspire.AppService.Crud\Aspire.AppService.Crud.csproj" />
-    <ProjectReference Include="..\..\src\Aspire.Repository.FreeSql\Aspire.Repository.FreeSql.csproj" />
+    <PackageReference Include="FreeSql.Provider.Sqlite" Version="2.5.200" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <ProjectReference Include="..\..\src\Aspire.AppService.Swagger\Aspire.AppService.Swagger.csproj" />
     <ProjectReference Include="..\..\src\Aspire.Mapper.AutoMapper\Aspire.Mapper.AutoMapper.csproj" />
+    <ProjectReference Include="..\template_1qaz2wsx3edc.AppService\template_1qaz2wsx3edc.AppService.csproj" />
   </ItemGroup>
 
   <ItemGroup>
