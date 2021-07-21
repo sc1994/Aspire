@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Aspire.Audit
+namespace Aspire.Entity.Audit
 {
     /// <summary>
     ///     软删除审计.

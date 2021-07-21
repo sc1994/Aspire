@@ -1,7 +1,7 @@
-﻿namespace Aspire
+﻿namespace Aspire.Entity
 {
     /// <inheritdoc />
-    public abstract class EntityBase : EntityBase<long>
+    public interface IEntityBase : IEntityBase<long>
     {
     }
 
@@ -9,11 +9,11 @@
     ///     实体基类.
     /// </summary>
     /// <typeparam name="TPrimaryKey">主键类型.</typeparam>
-    public abstract class EntityBase<TPrimaryKey>
+    public interface IEntityBase<TPrimaryKey>
     {
         /// <summary>
         ///     Gets or sets 主键.
         /// </summary>
-        public abstract TPrimaryKey Id { get; set; }
+        TPrimaryKey Id { get; set; }
     }
 }
