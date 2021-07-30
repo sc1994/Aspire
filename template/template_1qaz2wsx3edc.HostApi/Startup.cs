@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using template_1qaz2wsx3edc.Entity.MainDatabase;
 
 #pragma warning disable 1591
 
@@ -26,7 +27,7 @@ namespace template_1qaz2wsx3edc.HostApi
             var appServiceAssembly = Assembly.Load($"{typeof(Startup).Namespace?.Replace("HostApi", "AppService")}");
             services.AddAspireDynamicWebApi(appServiceAssembly);
             services.AddAspireAutoMapper(appServiceAssembly);
-            services.AddAspireFreeSql(DataType.Sqlite, "Data Source = App_Data/main.db");
+            services.AddAspireFreeSql<IMainDatabase>(DataType.Sqlite, "Data Source = App_Data/main.db");
             services.AddAspireSwagger(typeof(Startup).Namespace);
         }
 

@@ -8,8 +8,9 @@ namespace Aspire.Entity
     ///     free sql 审计实体. 默认涵盖了 free sql 审计的字段实现.
     /// </summary>
     /// <typeparam name="TPrimaryKey">主键类型.</typeparam>
-    public class EntityAuditFreeSql<TPrimaryKey> :
-        IEntityBase<TPrimaryKey>,
+    /// <typeparam name="TDatabase">指定当前实体所属的数据库.</typeparam>
+    public class EntityAuditFreeSql<TPrimaryKey, TDatabase> :
+        IEntityBase<TPrimaryKey, TDatabase>,
         IAuditSoftDelete,
         IAuditCreate,
         IAuditUpdate

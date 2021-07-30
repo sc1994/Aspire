@@ -1,45 +1,52 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31512.422
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D4680C7F-7B7A-43C0-9E4A-0B8D0F651249}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire", "src\Aspire\Aspire.csproj", "{5B9B3FC6-1BFC-46FB-9A17-97672109E084}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire", "src\Aspire\Aspire.csproj", "{5B9B3FC6-1BFC-46FB-9A17-97672109E084}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Account", "src\Aspire.Account\Aspire.Account.csproj", "{8FACF5BA-15B4-4988-8609-D648ED0C0E54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Account", "src\Aspire.Account\Aspire.Account.csproj", "{8FACF5BA-15B4-4988-8609-D648ED0C0E54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.AppService", "src\Aspire.AppService\Aspire.AppService.csproj", "{D82573B2-8FEA-4028-B626-E379A9383EC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.AppService", "src\Aspire.AppService\Aspire.AppService.csproj", "{D82573B2-8FEA-4028-B626-E379A9383EC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.AppService.Crud", "src\Aspire.AppService.Crud\Aspire.AppService.Crud.csproj", "{1CDAD956-1110-444D-8FD4-D883B9E5C864}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.AppService.Crud", "src\Aspire.AppService.Crud\Aspire.AppService.Crud.csproj", "{1CDAD956-1110-444D-8FD4-D883B9E5C864}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Logger.Abstract", "src\Aspire.Logger.Abstract\Aspire.Logger.Abstract.csproj", "{CF692FC8-A460-441A-BC1E-A28E4F52E6BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Logger.Abstract", "src\Aspire.Logger.Abstract\Aspire.Logger.Abstract.csproj", "{CF692FC8-A460-441A-BC1E-A28E4F52E6BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Mapper.Abstract", "src\Aspire.Mapper.Abstract\Aspire.Mapper.Abstract.csproj", "{4FE00EFA-F320-4503-B494-02901040786C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Mapper.Abstract", "src\Aspire.Mapper.Abstract\Aspire.Mapper.Abstract.csproj", "{4FE00EFA-F320-4503-B494-02901040786C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Mapper.AutoMapper", "src\Aspire.Mapper.AutoMapper\Aspire.Mapper.AutoMapper.csproj", "{A8DA6DEF-FE40-4275-8FF4-9EAB1B15AA31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Mapper.AutoMapper", "src\Aspire.Mapper.AutoMapper\Aspire.Mapper.AutoMapper.csproj", "{A8DA6DEF-FE40-4275-8FF4-9EAB1B15AA31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Repository.Abstract", "src\Aspire.Repository.Abstract\Aspire.Repository.Abstract.csproj", "{97825609-1D51-4460-AB6F-BC220637F3E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Repository.Abstract", "src\Aspire.Repository.Abstract\Aspire.Repository.Abstract.csproj", "{97825609-1D51-4460-AB6F-BC220637F3E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Repository.FreeSql", "src\Aspire.Repository.FreeSql\Aspire.Repository.FreeSql.csproj", "{B541D976-A329-4A3B-A45E-88245D969420}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Repository.FreeSql", "src\Aspire.Repository.FreeSql\Aspire.Repository.FreeSql.csproj", "{B541D976-A329-4A3B-A45E-88245D969420}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Utility", "src\Aspire.Utility\Aspire.Utility.csproj", "{A96CDFE2-E5E3-451E-BE0D-2B5944C8A06F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Utility", "src\Aspire.Utility\Aspire.Utility.csproj", "{A96CDFE2-E5E3-451E-BE0D-2B5944C8A06F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "template", "template", "{3AA30910-7C3E-49E4-A654-042185F5EF21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "template_1qaz2wsx3edc.AppService", "template\template_1qaz2wsx3edc.AppService\template_1qaz2wsx3edc.AppService.csproj", "{859F3C9C-D15A-4F2E-82FD-DBAA6267CD69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "template_1qaz2wsx3edc.AppService", "template\template_1qaz2wsx3edc.AppService\template_1qaz2wsx3edc.AppService.csproj", "{859F3C9C-D15A-4F2E-82FD-DBAA6267CD69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "template_1qaz2wsx3edc.Core", "template\template_1qaz2wsx3edc.Core\template_1qaz2wsx3edc.Core.csproj", "{EEBC6B98-5777-4BEA-AF7E-DF7BA56BB3E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "template_1qaz2wsx3edc.Core", "template\template_1qaz2wsx3edc.Core\template_1qaz2wsx3edc.Core.csproj", "{EEBC6B98-5777-4BEA-AF7E-DF7BA56BB3E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "template_1qaz2wsx3edc.Entity", "template\template_1qaz2wsx3edc.Entity\template_1qaz2wsx3edc.Entity.csproj", "{141E68D7-67BD-4C8F-AB6C-C1A141B797BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "template_1qaz2wsx3edc.Entity", "template\template_1qaz2wsx3edc.Entity\template_1qaz2wsx3edc.Entity.csproj", "{141E68D7-67BD-4C8F-AB6C-C1A141B797BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "template_1qaz2wsx3edc.HostApi", "template\template_1qaz2wsx3edc.HostApi\template_1qaz2wsx3edc.HostApi.csproj", "{526DC81F-BD02-4FE9-8082-43AABE63A752}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "template_1qaz2wsx3edc.HostApi", "template\template_1qaz2wsx3edc.HostApi\template_1qaz2wsx3edc.HostApi.csproj", "{526DC81F-BD02-4FE9-8082-43AABE63A752}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.AppService.Swagger", "src\Aspire.AppService.Swagger\Aspire.AppService.Swagger.csproj", "{C20C4F07-B434-46D8-B9D0-8173FE366D5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.AppService.Swagger", "src\Aspire.AppService.Swagger\Aspire.AppService.Swagger.csproj", "{C20C4F07-B434-46D8-B9D0-8173FE366D5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Repository.Entity", "src\Aspire.Repository.Entity\Aspire.Repository.Entity.csproj", "{E3E64FAD-5CB0-43D9-BEF9-16BFACE42CE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Repository.Entity", "src\Aspire.Repository.Entity\Aspire.Repository.Entity.csproj", "{E3E64FAD-5CB0-43D9-BEF9-16BFACE42CE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Repository.FreeSql.Entity", "src\Aspire.Repository.FreeSql.Entity\Aspire.Repository.FreeSql.Entity.csproj", "{C69BEC79-1E92-4179-9931-2C005AE9CA9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Repository.FreeSql.Entity", "src\Aspire.Repository.FreeSql.Entity\Aspire.Repository.FreeSql.Entity.csproj", "{C69BEC79-1E92-4179-9931-2C005AE9CA9C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D9F36F7F-6706-441E-B248-B35BACB2A929}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Repository.FreeSql.AppService", "src\Aspire.Repository.FreeSql.AppService\Aspire.Repository.FreeSql.AppService.csproj", "{599439A1-7E5E-4894-8B3C-C812F0A71DD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,9 +56,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{5B9B3FC6-1BFC-46FB-9A17-97672109E084}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -258,6 +262,21 @@ Global
 		{C69BEC79-1E92-4179-9931-2C005AE9CA9C}.Release|x64.Build.0 = Release|Any CPU
 		{C69BEC79-1E92-4179-9931-2C005AE9CA9C}.Release|x86.ActiveCfg = Release|Any CPU
 		{C69BEC79-1E92-4179-9931-2C005AE9CA9C}.Release|x86.Build.0 = Release|Any CPU
+		{599439A1-7E5E-4894-8B3C-C812F0A71DD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{599439A1-7E5E-4894-8B3C-C812F0A71DD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{599439A1-7E5E-4894-8B3C-C812F0A71DD3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{599439A1-7E5E-4894-8B3C-C812F0A71DD3}.Debug|x64.Build.0 = Debug|Any CPU
+		{599439A1-7E5E-4894-8B3C-C812F0A71DD3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{599439A1-7E5E-4894-8B3C-C812F0A71DD3}.Debug|x86.Build.0 = Debug|Any CPU
+		{599439A1-7E5E-4894-8B3C-C812F0A71DD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{599439A1-7E5E-4894-8B3C-C812F0A71DD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{599439A1-7E5E-4894-8B3C-C812F0A71DD3}.Release|x64.ActiveCfg = Release|Any CPU
+		{599439A1-7E5E-4894-8B3C-C812F0A71DD3}.Release|x64.Build.0 = Release|Any CPU
+		{599439A1-7E5E-4894-8B3C-C812F0A71DD3}.Release|x86.ActiveCfg = Release|Any CPU
+		{599439A1-7E5E-4894-8B3C-C812F0A71DD3}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5B9B3FC6-1BFC-46FB-9A17-97672109E084} = {D4680C7F-7B7A-43C0-9E4A-0B8D0F651249}
@@ -277,5 +296,9 @@ Global
 		{C20C4F07-B434-46D8-B9D0-8173FE366D5F} = {D4680C7F-7B7A-43C0-9E4A-0B8D0F651249}
 		{E3E64FAD-5CB0-43D9-BEF9-16BFACE42CE2} = {D4680C7F-7B7A-43C0-9E4A-0B8D0F651249}
 		{C69BEC79-1E92-4179-9931-2C005AE9CA9C} = {D4680C7F-7B7A-43C0-9E4A-0B8D0F651249}
+		{599439A1-7E5E-4894-8B3C-C812F0A71DD3} = {D4680C7F-7B7A-43C0-9E4A-0B8D0F651249}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A5539C5-5FE4-44AD-82C0-F6C44EAA0E24}
 	EndGlobalSection
 EndGlobal
