@@ -6,19 +6,23 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Aspire.Repository.FreeSql.AppService.xml</DocumentationFile>
+    <DocumentationFile>Aspire.AppService.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Aspire.AppService.Crud\Aspire.AppService.Crud.csproj" />
-    <ProjectReference Include="..\Aspire.Repository.FreeSql\Aspire.Repository.FreeSql.csproj" />
+    <ProjectReference Include="..\Aspire\Aspire.csproj" />  
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Panda.DynamicWebApi" Version="1.0.6" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Microsoft\Extensions\DependencyInjection" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Aspire.Entity;
+﻿using Aspire.Entity;
 using FreeSql;
 
 namespace Aspire
@@ -18,7 +17,7 @@ namespace Aspire
     }
 
     /// <summary>
-    /// xxx.
+    ///     xxx.
     /// </summary>
     public interface IDatabase
     {

@@ -13,7 +13,7 @@ namespace Aspire.Repository.FreeSql
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
     /// <typeparam name="TDatabase">使用的数据库(针对free sql的多数据形式).</typeparam>
     public class FreeSqlRepository<TEntity, TPrimaryKey, TDatabase>
-        : RepositoryUtility<TEntity, TPrimaryKey>, IRepository<TEntity, TPrimaryKey>
+        : RepositoryUtility<TEntity, TPrimaryKey>
         where TEntity : class, IEntityBase<TPrimaryKey>
     {
         private readonly IFreeSql<TDatabase> freeSql;
