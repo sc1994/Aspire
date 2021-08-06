@@ -18,14 +18,11 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             if (mvcBuilder == null) throw new ArgumentNullException(nameof(mvcBuilder));
 
-            mvcBuilder.AddMvcOptions(options => { options.Filters.Add(new ResponseFormatFilterAttribute()); });
+            mvcBuilder.AddMvcOptions(options => { options.Filters.Add<ResponseFormatFilterAttribute>(); });
 
             return mvcBuilder;
         }
 
-        /// <summary>
-        ///     响应格式化.
-        /// </summary>
         private class ResponseFormatFilterAttribute : ActionFilterAttribute
         {
             public override void OnActionExecuted(ActionExecutedContext context)

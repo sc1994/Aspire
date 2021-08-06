@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
 using Aspire;
 using Aspire.Exceptions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.AspNetCore.Builder
 {
@@ -25,6 +28,7 @@ namespace Microsoft.AspNetCore.Builder
                 }
                 catch (FriendlyException friendlyException)
                 {
+                    ExceptionLog(cxt, friendlyException);
                     await cxt.Response.WriteAsync(new
                     {
                         Success = false,
@@ -37,6 +41,7 @@ namespace Microsoft.AspNetCore.Builder
                 }
                 catch (Exception exception)
                 {
+                    ExceptionLog(cxt, exception);
                     await cxt.Response.WriteAsync(new
                     {
                         Success = false,
@@ -49,6 +54,31 @@ namespace Microsoft.AspNetCore.Builder
                 }
             });
             return app;
+        }
+
+        private static void ExceptionLog(HttpContext cxt, Exception exception)
+        {
+            var logger = cxt.RequestServices.GetRequiredService<ILogger>();
+            var controllerActionDescriptor = cxt
+                .GetEndpoint()
+                .Metadata
+                .GetMetadata<ControllerActionDescriptor>();
+
+            var controllerName = controllerActionDescriptor.ControllerName;
+            var actionName = controllerActionDescriptor.ActionName;
+
+            if (exception is FriendlyException friendlyException)
+            {
+                var msg = string.Join("\r\n", new[]
+                {
+                    friendlyException.Title
+                }.Concat(friendlyException.Messages.Select(x => "\t" + x))); // 拼接消息内容 , 混合标题和内容到一个文档
+                logger.Warn(friendlyException, msg, controllerName, actionName);
+            }
+            else
+            {
+                logger.Error(exception, exception.Message, controllerName, actionName);
+            }
         }
     }
 }

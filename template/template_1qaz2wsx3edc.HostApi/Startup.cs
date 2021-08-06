@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Panda.DynamicWebApi;
+using template_1qaz2wsx3edc.AppService.Accounts;
 using template_1qaz2wsx3edc.Entity.MainDatabase;
 
 #pragma warning disable 1591
@@ -23,12 +26,19 @@ namespace template_1qaz2wsx3edc.HostApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddRequestLog();
+
+            services.AddLogging(configure =>
+            {
+                configure.AddConsole();
+            });
+            
             var appServiceAssembly = Assembly.Load($"{typeof(Startup).Namespace?.Replace("HostApi", "AppService")}");
-            services.AddAspireDynamicWebApi(appServiceAssembly);
+            services.AddAspireSwagger(typeof(Startup).Namespace);
             services.AddAspireAutoMapper(appServiceAssembly);
             services.AddAspireFreeSql<IMainDatabase>(DataType.Sqlite, "Data Source = App_Data/main.db");
-            services.AddAspireSwagger(typeof(Startup).Namespace);
+            
+            services.AddAspire(typeof(AccountAppService).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,10 +50,9 @@ namespace template_1qaz2wsx3edc.HostApi
                 app.UseAspireSwagger(typeof(Startup).Namespace);
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

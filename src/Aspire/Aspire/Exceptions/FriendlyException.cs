@@ -20,6 +20,16 @@ namespace Aspire.Exceptions
         ///     Initializes a new instance of the <see cref="FriendlyException" /> class.
         /// </summary>
         /// <param name="title">异常标题.</param>
+        /// <param name="innerException">内部异常.</param>
+        public FriendlyException(string title, Exception innerException)
+            : base(title, innerException)
+        {
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="FriendlyException" /> class.
+        /// </summary>
+        /// <param name="title">异常标题.</param>
         /// <param name="messages">异常消息集合.</param>
         public FriendlyException(string title, params string[] messages)
             : this(FriendlyExceptionCode.Unknown, title, messages)
