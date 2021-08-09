@@ -10,8 +10,8 @@ namespace Aspire
         private readonly IlogTracer logTracer;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DefaultLogger"/> class.
-        /// 默认的日志纪录类, 使用asp.net的日志工具输出日志.
+        ///     Initializes a new instance of the <see cref="DefaultLogger" /> class.
+        ///     默认的日志纪录类, 使用asp.net的日志工具输出日志.
         /// </summary>
         /// <param name="logger">asp.net logger.</param>
         /// <param name="logTracer">日志追踪类.</param>
@@ -115,15 +115,16 @@ namespace Aspire
         {
             logger.Log(
                 level,
-                "[{traceId}][{callerFilePath}][{callerMemberName}][{callerLineNumber}] [{f1}][{f2}] {message} {exception}",
+                @"[{traceId}] [ms:{ms:0,5}] [{f1}][{f2}] {message} {exception} at [{callerMemberName}] from {callerFilePath} in [{callerLineNumber}]line",
                 logTracer.TraceId,
-                callerFilePath,
-                callerMemberName,
-                callerLineNumber,
-                f1,
-                f2,
+                $"{(DateTime.Now - logTracer.CreatedAt).TotalMilliseconds,5:0.#}",
+                $"{f1,16}",
+                $"{f2,16}",
                 message,
-                exception?.ToString());
+                exception?.ToString(),
+                callerMemberName,
+                callerFilePath,
+                callerLineNumber);
         }
     }
 }

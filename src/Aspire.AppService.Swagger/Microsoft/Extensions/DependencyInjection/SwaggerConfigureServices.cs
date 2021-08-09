@@ -55,8 +55,8 @@ namespace Microsoft.Extensions.DependencyInjection
                     }
                 });
 
-                c.DocInclusionPredicate((docName, description) => true);
-                var baseDirectory = AppDomain.CurrentDomain.BaseDirectory ?? string.Empty;
+                c.DocInclusionPredicate((_, _) => true);
+                var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 var xmlFile = AppDomain.CurrentDomain.FriendlyName + ".xml";
                 var xmlPath = Path.Combine(baseDirectory, xmlFile);
                 if (File.Exists(xmlPath)) c.IncludeXmlComments(xmlPath);

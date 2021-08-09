@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Reflection;
 using FreeSql;
 using Microsoft.AspNetCore.Builder;
@@ -5,7 +6,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using template_1qaz2wsx3edc.AppService.Accounts;
 using template_1qaz2wsx3edc.Entity.MainDatabase;
 
@@ -15,6 +15,11 @@ namespace template_1qaz2wsx3edc.HostApi
 {
     public class Startup
     {
+        private static readonly string[] logHeaderKeys =
+        {
+            "Content-Length"
+        };
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,7 +30,10 @@ namespace template_1qaz2wsx3edc.HostApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddRequestLog();
+            services
+                .AddControllers()
+                .AddRequestLog(x => logHeaderKeys.Contains(x.Key))
+                .AddResponseLog();
 
             var appServiceAssembly = Assembly.Load($"{typeof(Startup).Namespace?.Replace("HostApi", "AppService")}");
             services.AddAspireSwagger(typeof(Startup).Namespace);

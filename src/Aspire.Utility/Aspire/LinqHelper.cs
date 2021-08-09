@@ -41,5 +41,23 @@ namespace Aspire
         {
             foreach (var item in source) action(item);
         }
+
+        /// <summary>
+        ///     where if.
+        /// </summary>
+        /// <param name="source">源.</param>
+        /// <param name="isWhere">是否 过滤, 如果为true 才会执行后面的过滤动作.</param>
+        /// <param name="predicate">过滤.</param>
+        /// <typeparam name="T">泛型.</typeparam>
+        /// <returns>结果.</returns>
+        public static IEnumerable<T> WhereIf<T>(
+            this IEnumerable<T> source,
+            bool isWhere,
+            Func<T, bool> predicate)
+        {
+            if (!isWhere) return source;
+
+            return source.Where(predicate);
+        }
     }
 }

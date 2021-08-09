@@ -1,9 +1,6 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using Aspire;
-using Microsoft.Extensions.Logging;
 using Panda.DynamicWebApi;
-using ILogger = Aspire.ILogger;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -24,10 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
             Assembly applicationAssembly,
             string apiPreFix = "api")
         {
-            services.AddDynamicWebApi(options =>
-            {
-                options.AddAssemblyOptions(applicationAssembly, apiPreFix);
-            });
+            services.AddDynamicWebApi(options => { options.AddAssemblyOptions(applicationAssembly, apiPreFix); });
 
             services.AddScoped<IlogTracer, DefaultLogTracer>();
             services.AddScoped<ILogger, DefaultLogger>();
