@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Aspire.Repository.Entity\Aspire.Repository.Entity.csproj" />
+    <ProjectReference Include="..\Aspire.Utility\Aspire.Utility.csproj" />
   </ItemGroup>
 
 </Project>

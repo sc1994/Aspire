@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Aspire.Account\Aspire.Account.csproj" />
+    <ProjectReference Include="..\Aspire.Repository.Entity\Aspire.Repository.Entity.csproj" />
     <ProjectReference Include="..\Aspire\Aspire.csproj" />
   </ItemGroup>
 
