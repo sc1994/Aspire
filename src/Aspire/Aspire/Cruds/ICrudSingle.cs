@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Aspire.Interfaces
+namespace Aspire.Cruds
 {
     /// <summary>
     ///     单一的增查改删.

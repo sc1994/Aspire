@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Aspire.Entity;
 
-namespace Aspire.Interfaces
+namespace Aspire.Cruds
 {
     /// <inheritdoc />
     public interface ICrud<TEntity, TPrimaryKey> : ICrudSingle<TPrimaryKey, TEntity, TEntity, TEntity>

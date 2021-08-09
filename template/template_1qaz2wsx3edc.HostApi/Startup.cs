@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Panda.DynamicWebApi;
 using template_1qaz2wsx3edc.AppService.Accounts;
 using template_1qaz2wsx3edc.Entity.MainDatabase;
 
@@ -28,16 +27,11 @@ namespace template_1qaz2wsx3edc.HostApi
         {
             services.AddControllers().AddRequestLog();
 
-            services.AddLogging(configure =>
-            {
-                configure.AddConsole();
-            });
-            
             var appServiceAssembly = Assembly.Load($"{typeof(Startup).Namespace?.Replace("HostApi", "AppService")}");
             services.AddAspireSwagger(typeof(Startup).Namespace);
             services.AddAspireAutoMapper(appServiceAssembly);
             services.AddAspireFreeSql<IMainDatabase>(DataType.Sqlite, "Data Source = App_Data/main.db");
-            
+
             services.AddAspire(typeof(AccountAppService).Assembly);
         }
 

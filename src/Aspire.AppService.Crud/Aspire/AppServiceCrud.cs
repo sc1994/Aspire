@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Aspire.Cruds;
 using Aspire.Dto;
 using Aspire.Entity;
-using Aspire.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 // ReSharper disable SA1402
@@ -78,15 +78,15 @@ namespace Aspire
         /// <summary>
         ///     分页查询.
         /// </summary>
-        /// <param name="index">索引.</param>
-        /// <param name="size">大小.</param>
         /// <param name="input">查询过滤.</param>
+        /// <param name="index">页索引.</param>
+        /// <param name="size">页大小.</param>
         /// <returns>A <see cref="Task{TResult}" /> representing the result of the asynchronous operation.</returns>
-        [HttpPost("{index}_{size}")] // TODO 默认值
+        [HttpPost("{index}_{size}")]
         public virtual async Task<PagingOutputDto<TOutputDto>> PagingQueryAsync(
-            int index,
-            int size,
-            TQueryFilterDto input)
+            [FromBody] TQueryFilterDto input,
+            [FromQuery] int index = 1,
+            [FromQuery] int size = 10)
         {
             if (input == null) throw new ArgumentNullException(nameof(input));
 

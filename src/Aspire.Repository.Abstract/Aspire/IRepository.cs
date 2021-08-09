@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Aspire.Cruds;
 using Aspire.Entity;
-using Aspire.Interfaces;
 
 namespace Aspire
 {
