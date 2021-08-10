@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Linq;
+using System.Reflection;
 using Aspire;
 using Panda.DynamicWebApi;
 
@@ -14,14 +16,19 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services">服务.</param>
         /// <param name="applicationAssembly">要使用 mapper 的类 所属的程序集.</param>
-        /// <param name="apiPreFix">api的前缀.</param>
         /// <returns>当前服务.</returns>
         public static IServiceCollection AddAspire(
             this IServiceCollection services,
-            Assembly applicationAssembly,
-            string apiPreFix = "api")
+            Assembly applicationAssembly)
         {
-            services.AddDynamicWebApi(options => { options.AddAssemblyOptions(applicationAssembly, apiPreFix); });
+            var setupDomain = AppDomain
+                .CurrentDomain
+                .GetAssemblies()
+                .First(x => x.ManifestModule.Name == AppDomain.CurrentDomain.FriendlyName + ".dll");
+            
+            
+
+            services.AddDynamicWebApi(options => { options.AddAssemblyOptions(applicationAssembly); });
 
             services.AddScoped<IlogTracer, DefaultLogTracer>();
             services.AddScoped<ILogger, DefaultLogger>();

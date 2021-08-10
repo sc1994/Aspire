@@ -1,9 +1,9 @@
 ﻿namespace Aspire
 {
     /// <summary>
-    ///     当前用户.
+    ///     当前账户.
     /// </summary>
-    public interface ICurrentUser
+    public interface ICurrentAccount
     {
         /// <summary>
         ///     Gets or sets 账户Id(唯一键).

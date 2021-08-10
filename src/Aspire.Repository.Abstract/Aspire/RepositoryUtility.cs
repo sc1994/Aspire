@@ -17,15 +17,15 @@ namespace Aspire
         : IRepository<TEntity, TOrmWhere, TPrimaryKey>
         where TEntity : IEntityBase<TPrimaryKey>
     {
-        private readonly ICurrentUser currentUser;
+        private readonly ICurrentAccount _currentAccount;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="RepositoryUtility{TEntity, TOrmWhere, TPrimaryKey}" /> class.
         /// </summary>
-        /// <param name="currentUser">当前用户.</param>
-        protected RepositoryUtility(ICurrentUser currentUser)
+        /// <param name="currentAccount">当前用户.</param>
+        protected RepositoryUtility(ICurrentAccount currentAccount)
         {
-            this.currentUser = currentUser;
+            this._currentAccount = currentAccount;
         }
 
         /// <inheritdoc />
@@ -76,7 +76,7 @@ namespace Aspire
                         throw new NullReferenceException(
                             $"将 {typeof(TEntity)} 显示转换成 {nameof(IAuditCreate)} 产生了 null 结果");
 
-                    createAudit.Creator = currentUser.AccountId;
+                    createAudit.Creator = _currentAccount.AccountId;
                     createAudit.CreatedAt = DateTime.Now;
                     return x;
                 });
@@ -106,7 +106,7 @@ namespace Aspire
                         throw new NullReferenceException(
                             $"将 {typeof(TEntity)} 显示转换成 {nameof(IAuditUpdate)} 产生了 null 结果");
 
-                    updateAudit.Updater = currentUser.AccountId;
+                    updateAudit.Updater = _currentAccount.AccountId;
                     updateAudit.UpdatedAt = DateTime.Now;
                     return x;
                 });
@@ -135,7 +135,7 @@ namespace Aspire
                         $"将 {typeof(TEntity)} 显示转换成 {nameof(IAuditUpdate)} 产生了 null 结果");
 
                 deleteAudit.Deleted = true;
-                deleteAudit.Deleter = currentUser.AccountId;
+                deleteAudit.Deleter = _currentAccount.AccountId;
                 deleteAudit.DeletedAt = DateTime.Now;
                 return x;
             });
