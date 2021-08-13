@@ -60,9 +60,11 @@ namespace Microsoft.AspNetCore.Builder
         {
             var logger = cxt.RequestServices.GetRequiredService<ILogger>();
             var controllerActionDescriptor = cxt
-                .GetEndpoint()
+                .GetEndpoint()?
                 .Metadata
                 .GetMetadata<ControllerActionDescriptor>();
+
+            if (controllerActionDescriptor == null) return;
 
             var controllerName = controllerActionDescriptor.ControllerName;
             var actionName = controllerActionDescriptor.ActionName;

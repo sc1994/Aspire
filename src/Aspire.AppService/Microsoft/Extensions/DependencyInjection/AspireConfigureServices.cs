@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using Aspire;
 using Panda.DynamicWebApi;
 
@@ -21,13 +19,6 @@ namespace Microsoft.Extensions.DependencyInjection
             this IServiceCollection services,
             Assembly applicationAssembly)
         {
-            var setupDomain = AppDomain
-                .CurrentDomain
-                .GetAssemblies()
-                .First(x => x.ManifestModule.Name == AppDomain.CurrentDomain.FriendlyName + ".dll");
-            
-            
-
             services.AddDynamicWebApi(options => { options.AddAssemblyOptions(applicationAssembly); });
 
             services.AddScoped<IlogTracer, DefaultLogTracer>();

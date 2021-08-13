@@ -11,9 +11,9 @@ namespace Aspire
         /// <summary>
         ///     Initializes a new instance of the <see cref="RepositoryUtility{TEntity, TPrimaryKey}" /> class.
         /// </summary>
-        /// <param name="currentAccount">当前用户.</param>
-        protected RepositoryUtility(ICurrentAccount currentAccount)
-            : base(currentAccount)
+        /// <param name="account">当前用户.</param>
+        protected RepositoryUtility(IAccount account)
+            : base(account)
         {
         }
     }

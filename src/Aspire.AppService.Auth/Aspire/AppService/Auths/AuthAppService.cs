@@ -1,6 +1,6 @@
 ﻿using System;
-using Aspire.Account;
-using Microsoft.AspNetCore.DataProtection;
+using Aspire.Core.Account;
+using Aspire.Core.Jwt;
 
 namespace Aspire.AppService.Auths
 {
@@ -31,18 +31,17 @@ namespace Aspire.AppService.Auths
             if (accountId == null) throw new ArgumentNullException(nameof(accountId));
             if (password == null) throw new ArgumentNullException(nameof(password));
 
-            var account = accountManage.GetAccount();
-
-            return "11";
+            var account = accountManage.GetAccountByIdAndPassword(accountId, password);
+            return JwtManage.Create(account);
         }
 
         /// <summary>
-        /// 获取当前账户信息
+        /// 获取当前账户信息.
         /// </summary>
         /// <returns>当前账户.</returns>
-        public ICurrentAccount GetCurrentAccount()
+        public IAccount GetCurrentAccount()
         {
-            return "";
+            throw new NotImplementedException();
         }
     }
 }

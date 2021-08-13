@@ -23,6 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
             return mvcBuilder;
         }
 
+        // ReSharper disable once ClassNeverInstantiated.Local
         private class ResponseFormatFilterAttribute : ActionFilterAttribute
         {
             public override void OnActionExecuted(ActionExecutedContext context)

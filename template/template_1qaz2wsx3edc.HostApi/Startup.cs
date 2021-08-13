@@ -13,7 +13,6 @@ using template_1qaz2wsx3edc.Entity.MainDatabase;
 
 namespace template_1qaz2wsx3edc.HostApi
 {
-    [AuthModule]
     public class Startup
     {
         private static readonly string[] logHeaderKeys =

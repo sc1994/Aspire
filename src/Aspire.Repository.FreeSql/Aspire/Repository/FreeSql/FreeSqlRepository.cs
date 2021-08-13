@@ -22,9 +22,9 @@ namespace Aspire.Repository.FreeSql
         ///     Initializes a new instance of the <see cref="FreeSqlRepository{TEntity, TPrimaryKey, TDatabase}" /> class.
         /// </summary>
         /// <param name="freeSql">free sql.</param>
-        /// <param name="currentAccount">当前用户.</param>
-        public FreeSqlRepository(IFreeSql<TDatabase> freeSql, ICurrentAccount currentAccount)
-            : base(currentAccount)
+        /// <param name="account">当前用户.</param>
+        public FreeSqlRepository(IFreeSql<TDatabase> freeSql, IAccount account)
+            : base(account)
         {
             this.freeSql = freeSql;
         }

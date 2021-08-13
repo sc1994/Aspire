@@ -17,15 +17,15 @@ namespace Aspire
         : IRepository<TEntity, TOrmWhere, TPrimaryKey>
         where TEntity : IEntityBase<TPrimaryKey>
     {
-        private readonly ICurrentAccount _currentAccount;
+        private readonly IAccount account;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="RepositoryUtility{TEntity, TOrmWhere, TPrimaryKey}" /> class.
         /// </summary>
-        /// <param name="currentAccount">当前用户.</param>
-        protected RepositoryUtility(ICurrentAccount currentAccount)
+        /// <param name="account">当前用户.</param>
+        protected RepositoryUtility(IAccount account)
         {
-            this._currentAccount = currentAccount;
+            this.account = account;
         }
 
         /// <inheritdoc />
@@ -76,7 +76,7 @@ namespace Aspire
                         throw new NullReferenceException(
                             $"将 {typeof(TEntity)} 显示转换成 {nameof(IAuditCreate)} 产生了 null 结果");
 
-                    createAudit.Creator = _currentAccount.AccountId;
+                    createAudit.Creator = account.AccountId;
                     createAudit.CreatedAt = DateTime.Now;
                     return x;
                 });
@@ -106,7 +106,7 @@ namespace Aspire
                         throw new NullReferenceException(
                             $"将 {typeof(TEntity)} 显示转换成 {nameof(IAuditUpdate)} 产生了 null 结果");
 
-                    updateAudit.Updater = _currentAccount.AccountId;
+                    updateAudit.Updater = account.AccountId;
                     updateAudit.UpdatedAt = DateTime.Now;
                     return x;
                 });
@@ -135,7 +135,7 @@ namespace Aspire
                         $"将 {typeof(TEntity)} 显示转换成 {nameof(IAuditUpdate)} 产生了 null 结果");
 
                 deleteAudit.Deleted = true;
-                deleteAudit.Deleter = _currentAccount.AccountId;
+                deleteAudit.Deleter = account.AccountId;
                 deleteAudit.DeletedAt = DateTime.Now;
                 return x;
             });
