@@ -1,21 +1,20 @@
 ﻿using System;
-using Microsoft.Extensions.Logging;
+using Serilog.Events;
 
-namespace Aspire
+namespace Aspire.SeriLogger
 {
     /// <inheritdoc />
-    public class DefaultLogger : ILogger
+    public class SeriLogger : ILogger
     {
-        private readonly ILogger<DefaultLogger> logger;
         private readonly ILogTracer logTracer;
+        private readonly Serilog.ILogger logger;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="DefaultLogger" /> class.
-        ///     默认的日志纪录类, 使用asp.net的日志工具输出日志.
+        ///     Initializes a new instance of the <see cref="SeriLogger" /> class.
         /// </summary>
-        /// <param name="logger">asp.net logger.</param>
+        /// <param name="logger">Serilog logger.</param>
         /// <param name="logTracer">日志追踪类.</param>
-        public DefaultLogger(ILogger<DefaultLogger> logger, ILogTracer logTracer)
+        public SeriLogger(Serilog.ILogger logger, ILogTracer logTracer)
         {
             this.logger = logger;
             this.logTracer = logTracer;
@@ -31,7 +30,7 @@ namespace Aspire
             int callerLineNumber = 0)
         {
             Log(
-                LogLevel.Information,
+                2,
                 callerFilePath,
                 callerMemberName,
                 callerLineNumber,
@@ -51,7 +50,7 @@ namespace Aspire
             int callerLineNumber = 0)
         {
             Log(
-                LogLevel.Warning,
+                3,
                 callerFilePath,
                 callerMemberName,
                 callerLineNumber,
@@ -72,7 +71,7 @@ namespace Aspire
             int callerLineNumber = 0)
         {
             Log(
-                LogLevel.Warning,
+                3,
                 callerFilePath,
                 callerMemberName,
                 callerLineNumber,
@@ -93,7 +92,7 @@ namespace Aspire
             int callerLineNumber = 0)
         {
             Log(
-                LogLevel.Error,
+                4,
                 callerFilePath,
                 callerMemberName,
                 callerLineNumber,
@@ -104,7 +103,7 @@ namespace Aspire
         }
 
         private void Log(
-            LogLevel level,
+            int level,
             string callerFilePath,
             string callerMemberName,
             int callerLineNumber,
@@ -113,9 +112,11 @@ namespace Aspire
             string message,
             Exception exception)
         {
-            logger.Log(
-                level,
-                "[{traceId}] [{ms}]ms [{f1}][{f2}] {message} {exception} at [{callerMemberName}] from [{callerFilePath}] in [{callerLineNumber}]line",
+            const string template =
+                "[{traceId}] [{ms}]ms [{f1}][{f2}]\r\n\tat [{callerMemberName}] from [{callerFilePath}] in [{callerLineNumber}]line\r\n\t{message} ";
+
+            var @params = new object[]
+            {
                 logTracer.TraceId,
                 $"{(DateTime.Now - logTracer.CreatedAt).TotalMilliseconds,6:0.#}",
                 $"{f1,10}",
@@ -124,7 +125,17 @@ namespace Aspire
                 exception?.ToString(),
                 callerMemberName,
                 callerFilePath,
-                callerLineNumber);
+                callerLineNumber
+            };
+
+            if (exception == null)
+            {
+                logger.Write((LogEventLevel) level, template, @params);
+            }
+            else
+            {
+                logger.Write((LogEventLevel) level, exception, template, @params);
+            }
         }
     }
 }

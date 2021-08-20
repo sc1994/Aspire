@@ -40,6 +40,7 @@ namespace template_1qaz2wsx3edc.HostApi
                 .AddAspireSwagger(typeof(Startup).Namespace)
                 .AddAspireAutoMapper(appServiceAssembly)
                 .AddAspireFreeSql<IMainDatabase>(DataType.Sqlite, "Data Source = App_Data/main.db")
+                .AddAspireSerilog(configuration => { })
                 .AddAspireRequestLog(x => logHeaderKeys.Contains(x.Key))
                 .AddAspireResponseLog()
                 .AddResponseFormat()

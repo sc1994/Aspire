@@ -52,6 +52,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.AppService.RequestLo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.AppService.ResponseLog", "src\Aspire.AppService.ResponseLog\Aspire.AppService.ResponseLog.csproj", "{0733C479-A85C-4656-A7F9-BECE58928186}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Logger.Serilog", "src\Aspire.Logger.Serilog\Aspire.Logger.Serilog.csproj", "{BCCB9ECD-3271-4533-AFE1-4D3264B19BB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -302,6 +304,18 @@ Global
 		{0733C479-A85C-4656-A7F9-BECE58928186}.Release|x64.Build.0 = Release|Any CPU
 		{0733C479-A85C-4656-A7F9-BECE58928186}.Release|x86.ActiveCfg = Release|Any CPU
 		{0733C479-A85C-4656-A7F9-BECE58928186}.Release|x86.Build.0 = Release|Any CPU
+		{BCCB9ECD-3271-4533-AFE1-4D3264B19BB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCCB9ECD-3271-4533-AFE1-4D3264B19BB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCCB9ECD-3271-4533-AFE1-4D3264B19BB0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BCCB9ECD-3271-4533-AFE1-4D3264B19BB0}.Debug|x64.Build.0 = Debug|Any CPU
+		{BCCB9ECD-3271-4533-AFE1-4D3264B19BB0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BCCB9ECD-3271-4533-AFE1-4D3264B19BB0}.Debug|x86.Build.0 = Debug|Any CPU
+		{BCCB9ECD-3271-4533-AFE1-4D3264B19BB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCCB9ECD-3271-4533-AFE1-4D3264B19BB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCCB9ECD-3271-4533-AFE1-4D3264B19BB0}.Release|x64.ActiveCfg = Release|Any CPU
+		{BCCB9ECD-3271-4533-AFE1-4D3264B19BB0}.Release|x64.Build.0 = Release|Any CPU
+		{BCCB9ECD-3271-4533-AFE1-4D3264B19BB0}.Release|x86.ActiveCfg = Release|Any CPU
+		{BCCB9ECD-3271-4533-AFE1-4D3264B19BB0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -327,6 +341,7 @@ Global
 		{D6CB7B39-5127-4164-A746-18845D74DBA3} = {D4680C7F-7B7A-43C0-9E4A-0B8D0F651249}
 		{A874090B-E9BB-4C0C-B402-0023A455ED1F} = {D4680C7F-7B7A-43C0-9E4A-0B8D0F651249}
 		{0733C479-A85C-4656-A7F9-BECE58928186} = {D4680C7F-7B7A-43C0-9E4A-0B8D0F651249}
+		{BCCB9ECD-3271-4533-AFE1-4D3264B19BB0} = {D4680C7F-7B7A-43C0-9E4A-0B8D0F651249}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4A5539C5-5FE4-44AD-82C0-F6C44EAA0E24}
