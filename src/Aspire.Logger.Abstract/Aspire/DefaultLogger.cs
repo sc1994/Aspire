@@ -7,7 +7,7 @@ namespace Aspire
     public class DefaultLogger : ILogger
     {
         private readonly ILogger<DefaultLogger> logger;
-        private readonly IlogTracer logTracer;
+        private readonly ILogTracer logTracer;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="DefaultLogger" /> class.
@@ -15,7 +15,7 @@ namespace Aspire
         /// </summary>
         /// <param name="logger">asp.net logger.</param>
         /// <param name="logTracer">日志追踪类.</param>
-        public DefaultLogger(ILogger<DefaultLogger> logger, IlogTracer logTracer)
+        public DefaultLogger(ILogger<DefaultLogger> logger, ILogTracer logTracer)
         {
             this.logger = logger;
             this.logTracer = logTracer;
@@ -115,11 +115,11 @@ namespace Aspire
         {
             logger.Log(
                 level,
-                @"[{traceId}] [ms:{ms:0,5}] [{f1}][{f2}] {message} {exception} at [{callerMemberName}] from {callerFilePath} in [{callerLineNumber}]line",
+                "[{traceId}] [ms:{ms}] {message} {exception}[{f1}][{f2}] at [{callerMemberName}] from {callerFilePath} in [{callerLineNumber}]line",
                 logTracer.TraceId,
-                $"{(DateTime.Now - logTracer.CreatedAt).TotalMilliseconds,5:0.#}",
-                $"{f1,16}",
-                $"{f2,16}",
+                $"{(DateTime.Now - logTracer.CreatedAt).TotalMilliseconds,6:0.#}",
+                $"{f1,10}",
+                $"{f2,10}",
                 message,
                 exception?.ToString(),
                 callerMemberName,

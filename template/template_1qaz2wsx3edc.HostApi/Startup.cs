@@ -42,6 +42,7 @@ namespace template_1qaz2wsx3edc.HostApi
                 .AddAspireFreeSql<IMainDatabase>(DataType.Sqlite, "Data Source = App_Data/main.db")
                 .AddAspireRequestLog(x => logHeaderKeys.Contains(x.Key))
                 .AddAspireResponseLog()
+                .AddResponseFormat()
                 .AddAspireAuth<CustomAccount, CustomAccountManage>(provider =>
                     provider.GetRequiredService<CustomAccountManage>());
         }
@@ -54,6 +55,8 @@ namespace template_1qaz2wsx3edc.HostApi
                 app.UseDeveloperExceptionPage();
                 app.UseAspireSwagger(typeof(Startup).Namespace);
             }
+
+            app.UseFriendlyException();
 
             app.UseRouting();
 

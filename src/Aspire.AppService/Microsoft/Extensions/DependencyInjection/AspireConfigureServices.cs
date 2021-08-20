@@ -20,11 +20,13 @@ namespace Microsoft.Extensions.DependencyInjection
             Assembly applicationAssembly)
         {
             var mvcBuilder = services.AddControllers();
+            mvcBuilder.AddNewtonsoftJson();
+
             services.AddHttpContextAccessor();
 
             services.AddDynamicWebApi(options => { options.AddAssemblyOptions(applicationAssembly); });
 
-            services.AddScoped<IlogTracer, DefaultLogTracer>();
+            services.AddScoped<ILogTracer, DefaultLogTracer>();
             services.AddScoped<ILogger, DefaultLogger>();
 
             return new AspireBuilder(mvcBuilder, services);

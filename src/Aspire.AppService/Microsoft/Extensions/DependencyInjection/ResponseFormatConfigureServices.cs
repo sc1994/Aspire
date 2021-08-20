@@ -12,15 +12,18 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         ///     添加响应格式化.
         /// </summary>
-        /// <param name="mvcBuilder">来自于 AddControllers.</param>
+        /// <param name="aspireBuilder">服务.</param>
         /// <returns>mvc builder.</returns>
-        public static IMvcBuilder AddResponseFormat(IMvcBuilder mvcBuilder)
+        public static IAspireBuilder AddResponseFormat(this IAspireBuilder aspireBuilder)
         {
-            if (mvcBuilder == null) throw new ArgumentNullException(nameof(mvcBuilder));
+            if (aspireBuilder == null) throw new ArgumentNullException(nameof(aspireBuilder));
 
-            mvcBuilder.AddMvcOptions(options => { options.Filters.Add<ResponseFormatFilterAttribute>(); });
+            aspireBuilder.MvcBuilder.AddMvcOptions(options =>
+            {
+                options.Filters.Add<ResponseFormatFilterAttribute>();
+            });
 
-            return mvcBuilder;
+            return aspireBuilder;
         }
 
         // ReSharper disable once ClassNeverInstantiated.Local
@@ -29,13 +32,13 @@ namespace Microsoft.Extensions.DependencyInjection
             public override void OnActionExecuted(ActionExecutedContext context)
             {
                 if (context == null) throw new ArgumentNullException(nameof(context));
-                if (context.Exception != null) return; // 异常交给后面的内容处理
+                if (context.Exception != null) return;
 
                 if (context.Result is ObjectResult result)
                     context.Result = new ObjectResult(new
                     {
                         success = true,
-                        Result = result
+                        Result = result.Value
                     });
 
                 base.OnActionExecuted(context);

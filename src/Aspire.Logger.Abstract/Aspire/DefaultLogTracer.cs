@@ -3,7 +3,7 @@
 namespace Aspire
 {
     /// <inheritdoc />
-    public class DefaultLogTracer : IlogTracer
+    public class DefaultLogTracer : ILogTracer
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="DefaultLogTracer" /> class.

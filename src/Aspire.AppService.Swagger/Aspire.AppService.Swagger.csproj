@@ -5,6 +5,10 @@
     <RootNamespace />
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Aspire.AppService.Swagger.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Aspire.Account\Aspire.Account.csproj" />
     <ProjectReference Include="..\Aspire.AppService\Aspire.AppService.csproj" />

@@ -6,7 +6,7 @@
     public interface IAspireBuilder
     {
         /// <summary>
-        ///     IMvcBuilder.
+        ///     Gets iMvcBuilder.
         /// </summary>
         IMvcBuilder MvcBuilder { get; }
 
