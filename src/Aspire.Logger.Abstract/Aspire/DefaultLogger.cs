@@ -115,7 +115,7 @@ namespace Aspire
         {
             logger.Log(
                 level,
-                "[{traceId}] [ms:{ms}] {message} {exception}[{f1}][{f2}] at [{callerMemberName}] from {callerFilePath} in [{callerLineNumber}]line",
+                "[{traceId}] [{ms}]ms [{f1}][{f2}] {message} {exception} at [{callerMemberName}] from [{callerFilePath}] in [{callerLineNumber}]line",
                 logTracer.TraceId,
                 $"{(DateTime.Now - logTracer.CreatedAt).TotalMilliseconds,6:0.#}",
                 $"{f1,10}",

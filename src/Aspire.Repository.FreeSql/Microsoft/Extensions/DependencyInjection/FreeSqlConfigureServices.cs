@@ -37,7 +37,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
             aspireBuilder.ServiceCollection.AddSingleton(freeSql);
             aspireBuilder.ServiceCollection.AddScoped(typeof(IRepositoryFreeSql<,,>), typeof(FreeSqlRepository<,,>));
-            aspireBuilder.ServiceCollection.AddScoped(typeof(RepositoryUtility<,>), typeof(FreeSqlRepository<,,>));
             return aspireBuilder;
         }
     }
