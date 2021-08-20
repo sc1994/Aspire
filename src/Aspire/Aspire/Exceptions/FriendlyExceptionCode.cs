@@ -6,9 +6,9 @@
     public static class FriendlyExceptionCode
     {
         /// <summary>
-        ///     未知的异常.
+        ///     业务异常.
         /// </summary>
-        public const int Unknown = 0;
+        public const int BusinessException = 200001;
 
         /// <summary>
         ///     授权失效.

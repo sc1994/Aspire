@@ -29,7 +29,7 @@ namespace Microsoft.Extensions.DependencyInjection
             public override void OnActionExecuted(ActionExecutedContext context)
             {
                 if (context == null) throw new ArgumentNullException(nameof(context));
-                if (context.Exception != null) return;
+                if (context.Exception != null) return; // 异常交给后面的内容处理
 
                 if (context.Result is ObjectResult result)
                     context.Result = new ObjectResult(new

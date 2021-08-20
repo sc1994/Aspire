@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <RootNamespace />
   </PropertyGroup>
 
@@ -10,10 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Aspire.Repository.FreeSql.Entity\Aspire.Repository.FreeSql.Entity.csproj" />
     <ProjectReference Include="..\Aspire\Aspire.csproj" />
     <ProjectReference Include="..\Aspire.Account\Aspire.Account.csproj" />
+    <ProjectReference Include="..\Aspire.AppService\Aspire.AppService.csproj" />
     <ProjectReference Include="..\Aspire.Repository.Abstract\Aspire.Repository.Abstract.csproj" />
+    <ProjectReference Include="..\Aspire.Repository.FreeSql.Entity\Aspire.Repository.FreeSql.Entity.csproj" />
   </ItemGroup>
 
   <ItemGroup>

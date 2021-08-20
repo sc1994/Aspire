@@ -20,18 +20,20 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         ///     添加请求日志.
         /// </summary>
-        /// <param name="mvcBuilder">来自于 AddControllers.</param>
+        /// <param name="aspireBuilder">服务.</param>
         /// <param name="headerKeyFilter">请求 header 的过滤.</param>
         /// <param name="hasBody">是否包含body.</param>
         /// <returns>mvc builder.</returns>
-        public static IMvcBuilder AddRequestLog(
-            this IMvcBuilder mvcBuilder,
+        public static IAspireBuilder AddAspireRequestLog(
+            this IAspireBuilder aspireBuilder,
             Func<KeyValuePair<string, StringValues>, bool> headerKeyFilter = null,
             bool hasBody = true)
         {
             hasBodyOption = hasBody;
             headerKeyFilterOption = headerKeyFilter;
-            return mvcBuilder.AddMvcOptions(options => { options.Filters.Add<RequestLogFilterAttribute>(); });
+            aspireBuilder.MvcBuilder.AddMvcOptions(options => { options.Filters.Add<RequestLogFilterAttribute>(); });
+
+            return aspireBuilder;
         }
 
         // ReSharper disable once ClassNeverInstantiated.Local

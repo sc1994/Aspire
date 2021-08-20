@@ -15,16 +15,19 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services">服务.</param>
         /// <param name="applicationAssembly">要使用 mapper 的类 所属的程序集.</param>
         /// <returns>当前服务.</returns>
-        public static IServiceCollection AddAspire(
+        public static IAspireBuilder AddAspire(
             this IServiceCollection services,
             Assembly applicationAssembly)
         {
+            var mvcBuilder = services.AddControllers();
+            services.AddHttpContextAccessor();
+
             services.AddDynamicWebApi(options => { options.AddAssemblyOptions(applicationAssembly); });
 
             services.AddScoped<IlogTracer, DefaultLogTracer>();
             services.AddScoped<ILogger, DefaultLogger>();
 
-            return services;
+            return new AspireBuilder(mvcBuilder, services);
         }
     }
 }

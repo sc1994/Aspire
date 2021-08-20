@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Aspire.AppService\Aspire.AppService.csproj" />
     <ProjectReference Include="..\Aspire.Logger.Abstract\Aspire.Logger.Abstract.csproj" />
     <ProjectReference Include="..\Aspire\Aspire.csproj" />  
   </ItemGroup>

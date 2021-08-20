@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Reflection;
 using Aspire;
+using Aspire.Domain.Account;
 using FreeSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,17 +31,19 @@ namespace template_1qaz2wsx3edc.HostApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services
-                .AddControllers()
-                .AddRequestLog(x => logHeaderKeys.Contains(x.Key))
-                .AddResponseLog();
+            services.AddScoped<CustomAccountManage>();
 
             var appServiceAssembly = Assembly.Load($"{typeof(Startup).Namespace?.Replace("HostApi", "AppService")}");
-            services.AddAspireSwagger(typeof(Startup).Namespace);
-            services.AddAspireAutoMapper(appServiceAssembly);
-            services.AddAspireFreeSql<IMainDatabase>(DataType.Sqlite, "Data Source = App_Data/main.db");
 
-            services.AddAspire(appServiceAssembly);
+            services
+                .AddAspire(appServiceAssembly)
+                .AddAspireSwagger(typeof(Startup).Namespace)
+                .AddAspireAutoMapper(appServiceAssembly)
+                .AddAspireFreeSql<IMainDatabase>(DataType.Sqlite, "Data Source = App_Data/main.db")
+                .AddAspireRequestLog(x => logHeaderKeys.Contains(x.Key))
+                .AddAspireResponseLog()
+                .AddAspireAuth<CustomAccount, CustomAccountManage>(provider =>
+                    provider.GetRequiredService<CustomAccountManage>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +61,32 @@ namespace template_1qaz2wsx3edc.HostApi
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+    }
+
+    public class CustomAccount : IAccount
+    {
+        public string CustomA { get; set; }
+        public string AccountId { get; set; }
+        public string Name { get; set; }
+        public string[] Roles { get; set; }
+    }
+
+    public class CustomAccountManage : IAccountManage<IAccount>
+    {
+        public IAccount GetAccountByIdAndPassword(string accountId, string password)
+        {
+            return new CustomAccount();
+        }
+
+        public string GetTokenByAccount(IAccount account)
+        {
+            return "1234";
+        }
+
+        public IAccount GetAccountByToken(string token)
+        {
+            return new CustomAccount();
         }
     }
 }

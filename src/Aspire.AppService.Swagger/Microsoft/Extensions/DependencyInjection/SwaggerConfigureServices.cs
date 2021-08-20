@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -13,14 +14,14 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         ///     添加 aspire 的 swagger.
         /// </summary>
-        /// <param name="services">服务.</param>
+        /// <param name="aspireBuilder">服务.</param>
         /// <param name="title">swagger doc title.</param>
         /// <returns>当前服务.</returns>
-        public static IServiceCollection AddAspireSwagger(
-            this IServiceCollection services,
+        public static IAspireBuilder AddAspireSwagger(
+            this IAspireBuilder aspireBuilder,
             string title)
         {
-            services.AddSwaggerGen(c =>
+            aspireBuilder.ServiceCollection.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
@@ -60,8 +61,20 @@ namespace Microsoft.Extensions.DependencyInjection
                 var xmlFile = AppDomain.CurrentDomain.FriendlyName + ".xml";
                 var xmlPath = Path.Combine(baseDirectory, xmlFile);
                 if (File.Exists(xmlPath)) c.IncludeXmlComments(xmlPath);
+
+                c.OperationFilter<AuthOperationFilter>();
             });
-            return services;
+            return aspireBuilder;
+        }
+
+        // ReSharper disable once ClassNeverInstantiated.Local
+        private class AuthOperationFilter : IOperationFilter
+        {
+            public void Apply(OpenApiOperation operation, OperationFilterContext context)
+            {
+                // TODO
+                // https://stackoverflow.com/questions/56745739/in-swagger-ui-how-can-i-remove-the-padlock-icon-from-anonymous-methods
+            }
         }
     }
 }

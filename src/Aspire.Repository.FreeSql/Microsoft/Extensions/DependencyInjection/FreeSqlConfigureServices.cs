@@ -14,14 +14,14 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         ///     添加 aspire 的 free sql.
         /// </summary>
-        /// <param name="services">服务.</param>
+        /// <param name="aspireBuilder">服务.</param>
         /// <param name="dataType">data type.</param>
         /// <param name="connectionString">数据库链接字符串.</param>
         /// <param name="curdAfterEvent">crud 之后的事件, 每次执行完成crud之后都会触发该方法.</param>
         /// <typeparam name="TDatabase">数据库.</typeparam>
         /// <returns>当前服务.</returns>
-        public static IServiceCollection AddAspireFreeSql<TDatabase>(
-            this IServiceCollection services,
+        public static IAspireBuilder AddAspireFreeSql<TDatabase>(
+            this IAspireBuilder aspireBuilder,
             DataType dataType,
             string connectionString,
             Action<object, CurdAfterEventArgs> curdAfterEvent = null)
@@ -35,10 +35,10 @@ namespace Microsoft.Extensions.DependencyInjection
 
             if (curdAfterEvent != null) freeSql.Aop.CurdAfter += (sender, args) => { curdAfterEvent(sender, args); };
 
-            services.AddSingleton(freeSql);
-            services.AddScoped(typeof(IRepositoryFreeSql<,,>), typeof(FreeSqlRepository<,,>));
-            services.AddScoped(typeof(RepositoryUtility<,>), typeof(FreeSqlRepository<,,>));
-            return services;
+            aspireBuilder.ServiceCollection.AddSingleton(freeSql);
+            aspireBuilder.ServiceCollection.AddScoped(typeof(IRepositoryFreeSql<,,>), typeof(FreeSqlRepository<,,>));
+            aspireBuilder.ServiceCollection.AddScoped(typeof(RepositoryUtility<,>), typeof(FreeSqlRepository<,,>));
+            return aspireBuilder;
         }
     }
 }

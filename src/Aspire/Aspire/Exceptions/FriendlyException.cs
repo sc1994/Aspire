@@ -32,7 +32,7 @@ namespace Aspire.Exceptions
         /// <param name="title">异常标题.</param>
         /// <param name="messages">异常消息集合.</param>
         public FriendlyException(string title, params string[] messages)
-            : this(FriendlyExceptionCode.Unknown, title, messages)
+            : this(FriendlyExceptionCode.BusinessException, title, messages)
         {
         }
 

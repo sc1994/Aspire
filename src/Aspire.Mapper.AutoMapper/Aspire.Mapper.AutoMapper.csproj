@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <RootNamespace />
   </PropertyGroup>
 
@@ -10,8 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Aspire.Mapper.Abstract\Aspire.Mapper.Abstract.csproj" />
     <ProjectReference Include="..\Aspire\Aspire.csproj" />
+    <ProjectReference Include="..\Aspire.AppService\Aspire.AppService.csproj" />
+    <ProjectReference Include="..\Aspire.Mapper.Abstract\Aspire.Mapper.Abstract.csproj" />
   </ItemGroup>
   
   <ItemGroup>

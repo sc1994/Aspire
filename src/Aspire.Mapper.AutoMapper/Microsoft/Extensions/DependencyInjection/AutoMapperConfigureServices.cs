@@ -13,14 +13,14 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         ///     添加 aspire 的 auto mapper.
         /// </summary>
-        /// <param name="services">服务.</param>
+        /// <param name="aspireBuilder">服务.</param>
         /// <param name="applicationAssembly">要使用 mapper 的类 所属的程序集.</param>
         /// <returns>当前服务.</returns>
-        public static IServiceCollection AddAspireAutoMapper(
-            this IServiceCollection services,
+        public static IAspireBuilder AddAspireAutoMapper(
+            this IAspireBuilder aspireBuilder,
             Assembly applicationAssembly)
         {
-            services.AddSingleton(_ => // 创建 auto mapper 的实例.
+            aspireBuilder.ServiceCollection.AddSingleton(_ => // 创建 auto mapper 的实例.
             {
                 return new MapperConfiguration(cfg =>
                 {
@@ -39,9 +39,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 }).CreateMapper();
             });
 
-            services.AddScoped<IAspireMapper, AspireAutoMapper>();
+            aspireBuilder.ServiceCollection.AddScoped<IAspireMapper, AspireAutoMapper>();
 
-            return services;
+            return aspireBuilder;
         }
     }
 }

@@ -16,15 +16,17 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         ///     添加响应日志.
         /// </summary>
-        /// <param name="mvcBuilder">来自于 AddControllers.</param>
+        /// <param name="aspireBuilder">服务.</param>
         /// <param name="hasBody">是否包含body.</param>
         /// <returns>mvc builder.</returns>
-        public static IMvcBuilder AddResponseLog(
-            this IMvcBuilder mvcBuilder,
+        public static IAspireBuilder AddAspireResponseLog(
+            this IAspireBuilder aspireBuilder,
             bool hasBody = true)
         {
             hasBodyOption = hasBody;
-            return mvcBuilder.AddMvcOptions(options => { options.Filters.Add<ResponseLogFilterAttribute>(); });
+            aspireBuilder.MvcBuilder.AddMvcOptions(options => { options.Filters.Add<ResponseLogFilterAttribute>(); });
+
+            return aspireBuilder;
         }
 
         // ReSharper disable once ClassNeverInstantiated.Local
