@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Serilog.Events;
 
 namespace Aspire.SeriLogger
@@ -113,16 +114,15 @@ namespace Aspire.SeriLogger
             Exception exception)
         {
             const string template =
-                "[{traceId}] [{ms}]ms [{f1}][{f2}]\r\n\tat [{callerMemberName}] from [{callerFilePath}] in [{callerLineNumber}]line\r\n\t{message} ";
+                "[{ms}]ms [{traceId}] [{f1}][{f2}]\r\n\t{message}\r\n\tat [{callerMemberName}] from [{callerFilePath}] in [{callerLineNumber}]line";
 
             var @params = new object[]
             {
-                logTracer.TraceId,
                 $"{(DateTime.Now - logTracer.CreatedAt).TotalMilliseconds,6:0.#}",
-                $"{f1,10}",
-                $"{f2,10}",
+                logTracer.TraceId,
+                $"{f1,18}",
+                $"{f2,18}",
                 message,
-                exception?.ToString(),
                 callerMemberName,
                 callerFilePath,
                 callerLineNumber
@@ -130,11 +130,11 @@ namespace Aspire.SeriLogger
 
             if (exception == null)
             {
-                logger.Write((LogEventLevel) level, template, @params);
+                logger.Write((LogEventLevel)level, template, @params);
             }
             else
             {
-                logger.Write((LogEventLevel) level, exception, template, @params);
+                logger.Write((LogEventLevel)level, exception, template, @params);
             }
         }
     }

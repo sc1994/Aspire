@@ -1,4 +1,3 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31512.422
@@ -44,15 +43,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D9F36F7F-6706-441E-B248-B35BACB2A929}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.AppService.Auth", "src\Aspire.AppService.Auth\Aspire.AppService.Auth.csproj", "{D6CB7B39-5127-4164-A746-18845D74DBA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.AppService.Auth", "src\Aspire.AppService.Auth\Aspire.AppService.Auth.csproj", "{D6CB7B39-5127-4164-A746-18845D74DBA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.AppService.RequestLog", "src\Aspire.AppService.RequestLog\Aspire.AppService.RequestLog.csproj", "{A874090B-E9BB-4C0C-B402-0023A455ED1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.AppService.RequestLog", "src\Aspire.AppService.RequestLog\Aspire.AppService.RequestLog.csproj", "{A874090B-E9BB-4C0C-B402-0023A455ED1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.AppService.ResponseLog", "src\Aspire.AppService.ResponseLog\Aspire.AppService.ResponseLog.csproj", "{0733C479-A85C-4656-A7F9-BECE58928186}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.AppService.ResponseLog", "src\Aspire.AppService.ResponseLog\Aspire.AppService.ResponseLog.csproj", "{0733C479-A85C-4656-A7F9-BECE58928186}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Logger.Serilog", "src\Aspire.Logger.Serilog\Aspire.Logger.Serilog.csproj", "{BCCB9ECD-3271-4533-AFE1-4D3264B19BB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Logger.Serilog", "src\Aspire.Logger.Serilog\Aspire.Logger.Serilog.csproj", "{BCCB9ECD-3271-4533-AFE1-4D3264B19BB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

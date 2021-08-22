@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+
 using Aspire;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -44,8 +46,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 string f1, f2;
                 if (context.ActionDescriptor is ControllerActionDescriptor contextActionDescriptor)
                 {
-                    f1 = contextActionDescriptor.ControllerName;
-                    f2 = contextActionDescriptor.ActionName;
+                    f1 = contextActionDescriptor.ControllerTypeInfo.Name;
+                    f2 = contextActionDescriptor.MethodInfo.Name;
                 }
                 else
                 {

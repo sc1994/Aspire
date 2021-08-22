@@ -1,13 +1,12 @@
-using System.Linq;
 using System.Reflection;
+
 using Aspire;
 using Aspire.Domain.Account;
+
 using FreeSql;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+
+using Serilog;
+
 using template_1qaz2wsx3edc.Entity.MainDatabase;
 
 #pragma warning disable 1591
@@ -34,13 +33,23 @@ namespace template_1qaz2wsx3edc.HostApi
             services.AddScoped<CustomAccountManage>();
 
             var appServiceAssembly = Assembly.Load($"{typeof(Startup).Namespace?.Replace("HostApi", "AppService")}");
+            var appDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data");
 
             services
                 .AddAspire(appServiceAssembly)
                 .AddAspireSwagger(typeof(Startup).Namespace)
                 .AddAspireAutoMapper(appServiceAssembly)
-                .AddAspireFreeSql<IMainDatabase>(DataType.Sqlite, "Data Source = App_Data/main.db")
-                .AddAspireSerilog(configuration => { })
+                .AddAspireFreeSql<IMainDatabase>(DataType.Sqlite, $"Data Source = {Path.Combine(appDataPath, "main.db")}")
+                .AddAspireSerilog(configuration =>
+                {
+                    configuration.MinimumLevel.Information();
+
+#if DEBUG
+                    configuration.WriteTo.Console();
+
+#endif
+                    configuration.WriteTo.File(Path.Combine(appDataPath, "logs", ".log"), rollingInterval: RollingInterval.Day);
+                })
                 .AddAspireRequestLog(x => logHeaderKeys.Contains(x.Key))
                 .AddAspireResponseLog()
                 .AddResponseFormat()
