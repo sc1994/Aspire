@@ -15,6 +15,6 @@ namespace Aspire
         /// <summary>
         ///     Gets 创建时间.
         /// </summary>
-        DateTime CreatedAt { get; }
+        long CreatedAt { get; }
     }
 }

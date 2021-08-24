@@ -1,5 +1,5 @@
-﻿using System;
-using Aspire.Entity.Audit;
+﻿using Aspire.Entity.Audit;
+
 using FreeSql.DataAnnotations;
 
 namespace Aspire.Entity
@@ -21,10 +21,11 @@ namespace Aspire.Entity
         protected const string AccountDbType = "varchar(64) NOT NULL";
 
         /// <inheritdoc />
-        [Column(DbType = AccountDbType)]
+        [Column(DbType = AccountDbType, CanUpdate = false)]
         public string Creator { get; set; }
 
         /// <inheritdoc />
+        [Column(CanUpdate = false)]
         public DateTime CreatedAt { get; set; }
 
         /// <inheritdoc />
@@ -45,7 +46,7 @@ namespace Aspire.Entity
         public string Updater { get; set; }
 
         /// <inheritdoc />
-        [Column(IsPrimary = true, IsIdentity = true)]
+        [Column(IsPrimary = true, IsIdentity = true, CanUpdate = false)]
         public TPrimaryKey Id { get; set; }
     }
 }

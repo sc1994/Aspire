@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Aspire;
 using Aspire.SeriLogger;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -25,6 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 return loggerConfiguration.CreateLogger();
             });
             aspireBuilder.ServiceCollection.AddScoped<Aspire.ILogger, SeriLogger>();
+            aspireBuilder.ServiceCollection.AddScoped<ILogTracer, DefaultLogTracer>();
 
             return aspireBuilder;
         }

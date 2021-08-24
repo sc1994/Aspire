@@ -85,11 +85,11 @@ namespace Microsoft.Extensions.DependencyInjection
 
                 // 特性中配置了角色而账户中没有角色
                 if (account.Roles?.Any() != true)
-                    throw new FriendlyException("权限不足", "正在尝试访问不属于您权限的数据");
+                    throw new FriendlyException("权限不足", "正在访问不属于您权限的数据");
 
                 // 如果 用户角色和配置的角色全部不匹配则认为越权访问
                 if (auth.Roles.All(x => !account.Roles.Contains(x)) != true)
-                    throw new FriendlyException("权限不足", "正在尝试访问不属于您权限的数据");
+                    throw new FriendlyException("权限不足", "正在访问不属于您权限的数据");
 
                 return base.OnActionExecutionAsync(context, next);
             }

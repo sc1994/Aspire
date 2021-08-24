@@ -28,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "template", "template", "{3A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "template_1qaz2wsx3edc.AppService", "template\template_1qaz2wsx3edc.AppService\template_1qaz2wsx3edc.AppService.csproj", "{859F3C9C-D15A-4F2E-82FD-DBAA6267CD69}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "template_1qaz2wsx3edc.Core", "template\template_1qaz2wsx3edc.Core\template_1qaz2wsx3edc.Core.csproj", "{EEBC6B98-5777-4BEA-AF7E-DF7BA56BB3E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "template_1qaz2wsx3edc.Domain", "template\template_1qaz2wsx3edc.Domain\template_1qaz2wsx3edc.Domain.csproj", "{EEBC6B98-5777-4BEA-AF7E-DF7BA56BB3E7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "template_1qaz2wsx3edc.Entity", "template\template_1qaz2wsx3edc.Entity\template_1qaz2wsx3edc.Entity.csproj", "{141E68D7-67BD-4C8F-AB6C-C1A141B797BF}"
 EndProject

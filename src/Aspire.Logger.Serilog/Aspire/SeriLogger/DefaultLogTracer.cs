@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Aspire;
 
-namespace Aspire
+namespace Aspire.SeriLogger
 {
     /// <inheritdoc />
     public class DefaultLogTracer : ILogTracer
@@ -12,13 +12,13 @@ namespace Aspire
         public DefaultLogTracer()
         {
             TraceId = Guid.NewGuid().ToString();
-            CreatedAt = DateTime.Now;
+            CreatedAt = DateTime.Now.ToTimestamp();
         }
 
         /// <inheritdoc />
         public string TraceId { get; }
 
         /// <inheritdoc />
-        public DateTime CreatedAt { get; }
+        public long CreatedAt { get; }
     }
 }

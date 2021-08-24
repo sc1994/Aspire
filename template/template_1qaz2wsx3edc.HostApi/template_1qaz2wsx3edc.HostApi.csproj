@@ -9,9 +9,9 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
 	<PackageReference Include="Serilog.Sinks.Console" Version="4.0.0" />
+	<PackageReference Include="Serilog.Sinks.Elasticsearch" Version="8.4.1" />
     <PackageReference Include="FreeSql.Provider.Sqlite" Version="2.5.200" />
   </ItemGroup>
   
@@ -23,10 +23,7 @@
     <ProjectReference Include="..\..\src\Aspire.Logger.Serilog\Aspire.Logger.Serilog.csproj" />
     <ProjectReference Include="..\..\src\Aspire.Mapper.AutoMapper\Aspire.Mapper.AutoMapper.csproj" />
     <ProjectReference Include="..\template_1qaz2wsx3edc.AppService\template_1qaz2wsx3edc.AppService.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="App_Data" />
+    <ProjectReference Include="..\template_1qaz2wsx3edc.Domain\template_1qaz2wsx3edc.Domain.csproj" />
   </ItemGroup>
 
 

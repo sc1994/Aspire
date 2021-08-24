@@ -1,5 +1,4 @@
-﻿using System;
-using Aspire.Entity;
+﻿using Aspire.Entity;
 
 namespace template_1qaz2wsx3edc.Entity.MainDatabase
 {

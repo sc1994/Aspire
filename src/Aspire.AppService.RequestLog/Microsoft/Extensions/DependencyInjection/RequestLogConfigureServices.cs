@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using Aspire;
+﻿using Aspire;
 
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -70,7 +65,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     },
                     {
                         "path", context.HttpContext.Request.Path
-                    }
+                    },
                 };
 
                 var headers = context
@@ -82,14 +77,15 @@ namespace Microsoft.Extensions.DependencyInjection
                 if (headers.Any()) logMsg.Add("headers", headers);
 
                 if (hasBodyOption)
-                    logMsg.Add("body", context
+                    logMsg.Add("params", context
                         .ActionArguments
                         .ToDictionary(x => x.Key, x => x.Value));
 
                 logger.Info(
                     logMsg.ToJsonString(),
                     f1,
-                    f2);
+                    f2,
+                    "RequestLog");
                 return base.OnActionExecutionAsync(context, next);
             }
         }

@@ -26,8 +26,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddDynamicWebApi(options => { options.AddAssemblyOptions(applicationAssembly); });
 
-            services.AddScoped<ILogTracer, DefaultLogTracer>();
-
             return new AspireBuilder(mvcBuilder, services);
         }
     }

@@ -1,4 +1,5 @@
-﻿using static Newtonsoft.Json.JsonConvert;
+﻿using System;
+using static Newtonsoft.Json.JsonConvert;
 
 namespace Aspire
 {
@@ -7,6 +8,8 @@ namespace Aspire
     /// </summary>
     public static class ConvertHelper
     {
+        private static readonly DateTime StandardDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+
         /// <summary>
         ///     将 json 字符串转为 obj.
         /// </summary>
@@ -19,7 +22,7 @@ namespace Aspire
         }
 
         /// <summary>
-        ///     将 T 转为 json 字符串.
+        ///     将 <typeparamref name="T"/> 转为 json 字符串.
         /// </summary>
         /// <param name="obj">原始数据.</param>
         /// <typeparam name="T">原始数据类型.</typeparam>
@@ -28,6 +31,16 @@ namespace Aspire
             where T : class
         {
             return SerializeObject(obj);
+        }
+
+        /// <summary>
+        /// 将 <paramref name="dateTime"/> 转为 时间戳.
+        /// </summary>
+        /// <param name="dateTime">date time.</param>
+        /// <returns>时间戳.</returns>
+        public static long ToTimestamp(this DateTime dateTime)
+        {
+            return (long)Math.Round((dateTime - StandardDateTime).TotalMilliseconds, MidpointRounding.AwayFromZero);
         }
     }
 }

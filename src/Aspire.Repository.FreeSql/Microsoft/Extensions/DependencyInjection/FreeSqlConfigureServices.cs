@@ -1,5 +1,4 @@
-﻿using System;
-using Aspire;
+﻿using Aspire;
 using Aspire.Repository.FreeSql;
 using FreeSql;
 using FreeSql.Aop;

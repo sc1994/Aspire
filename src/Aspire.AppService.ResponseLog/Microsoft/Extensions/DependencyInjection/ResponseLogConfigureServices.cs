@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using Aspire;
+﻿using Aspire;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -60,7 +58,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 if (hasBodyOption && context.Result is ObjectResult objectResult)
                     logMsg.Add("body", objectResult.Value);
 
-                logger.Info(logMsg.ToJsonString(), f1, f2);
+                logger.Info(logMsg.ToJsonString(), f1, f2, "ResponseLog");
                 base.OnResultExecuted(context);
             }
         }
