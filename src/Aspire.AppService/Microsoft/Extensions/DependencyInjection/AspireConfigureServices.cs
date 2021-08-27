@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+
 using Panda.DynamicWebApi;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -23,7 +24,12 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddHttpContextAccessor();
 
-            services.AddDynamicWebApi(options => { options.AddAssemblyOptions(applicationAssembly); });
+            services.AddDynamicWebApi(options =>
+            {
+                options.AddAssemblyOptions(applicationAssembly);
+
+                // options.ActionRouteFactory = new ServiceActionRouteFactory(); TODO 自定义路由规则
+            });
 
             return new AspireBuilder(mvcBuilder, services);
         }

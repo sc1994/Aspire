@@ -142,13 +142,12 @@ namespace Aspire
         /// </summary>
         /// <param name="input">输入.</param>
         /// <returns>操作是否成功.</returns>
-        [HttpPost("CreateOrUpdate")]
         public virtual async Task<bool> CreateOrUpdateAsync(TCreateOrUpdateInputDto input)
         {
-            if (input.Id == null || input.Id.Equals(default(TPrimaryKey)))
+            if (input.Id == null || input.Id.Equals(default))
             {
                 var primaryKey = await CreateAsync(input);
-                return primaryKey != null && !primaryKey.Equals(default(TPrimaryKey));
+                return primaryKey != null && !primaryKey.Equals(default);
             }
             else
             {
