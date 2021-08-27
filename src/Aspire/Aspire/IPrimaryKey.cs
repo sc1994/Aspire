@@ -1,10 +1,13 @@
-﻿namespace Aspire.Entity
+﻿using System;
+
+namespace Aspire
 {
     /// <summary>
-    ///     实体基类.
+    /// 主键.
     /// </summary>
     /// <typeparam name="TPrimaryKey">主键类型.</typeparam>
-    public interface IEntityBase<TPrimaryKey>
+    public interface IPrimaryKey<TPrimaryKey>
+        where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         /// <summary>
         ///     Gets or sets 主键.

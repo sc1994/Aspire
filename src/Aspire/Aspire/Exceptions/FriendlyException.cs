@@ -24,6 +24,8 @@ namespace Aspire.Exceptions
         public FriendlyException(string title, Exception innerException)
             : base(title, innerException)
         {
+            Title = title ?? throw new ArgumentNullException(nameof(title));
+            Messages = new string[0];
         }
 
         /// <summary>
@@ -46,8 +48,8 @@ namespace Aspire.Exceptions
             : base(title)
         {
             Code = code;
-            Title = title;
-            Messages = messages;
+            Title = title ?? throw new ArgumentNullException(nameof(title));
+            Messages = messages ?? new string[0];
         }
 
         /// <summary>

@@ -24,11 +24,11 @@ namespace Aspire.SeriLogger
         /// <inheritdoc />
         public void Info(
             string message,
-            string f1 = null,
-            string f2 = null,
-            string f3 = null,
-            string callerFilePath = null,
-            string callerMemberName = null,
+            string? f1 = null,
+            string? f2 = null,
+            string? f3 = null,
+            string? callerFilePath = null,
+            string? callerMemberName = null,
             int callerLineNumber = 0)
         {
             Log(
@@ -46,11 +46,11 @@ namespace Aspire.SeriLogger
         /// <inheritdoc />
         public void Warn(
             string message,
-            string f1 = null,
-            string f2 = null,
-            string f3 = null,
-            string callerFilePath = null,
-            string callerMemberName = null,
+            string? f1 = null,
+            string? f2 = null,
+            string? f3 = null,
+            string? callerFilePath = null,
+            string? callerMemberName = null,
             int callerLineNumber = 0)
         {
             Log(
@@ -68,12 +68,12 @@ namespace Aspire.SeriLogger
         /// <inheritdoc />
         public void Warn(
             Exception exception,
-            string message = null,
-            string f1 = null,
-            string f2 = null,
-            string f3 = null,
-            string callerFilePath = null,
-            string callerMemberName = null,
+            string? message = null,
+            string? f1 = null,
+            string? f2 = null,
+            string? f3 = null,
+            string? callerFilePath = null,
+            string? callerMemberName = null,
             int callerLineNumber = 0)
         {
             Log(
@@ -91,12 +91,12 @@ namespace Aspire.SeriLogger
         /// <inheritdoc />
         public void Error(
             Exception exception,
-            string message = null,
-            string f1 = null,
-            string f2 = null,
-            string f3 = null,
-            string callerFilePath = null,
-            string callerMemberName = null,
+            string? message = null,
+            string? f1 = null,
+            string? f2 = null,
+            string? f3 = null,
+            string? callerFilePath = null,
+            string? callerMemberName = null,
             int callerLineNumber = 0)
         {
             Log(
@@ -113,18 +113,18 @@ namespace Aspire.SeriLogger
 
         private void Log(
             int level,
-            string callerFilePath,
-            string callerMemberName,
+            string? callerFilePath,
+            string? callerMemberName,
             int callerLineNumber,
-            string f1,
-            string f2,
-            string f3,
-            string message,
-            Exception exception)
+            string? f1,
+            string? f2,
+            string? f3,
+            string? message,
+            Exception? exception)
         {
             const string template = "[{ms,4}]ms [{traceId}] [{f1,16}][{f2,16}][{f3,16}]\r\n\t{message}\r\n\tat [{callerMemberName}] in [{callerFilePath}]:line {callerLineNumber}";
 
-            var @params = new object[]
+            var @params = new object?[]
             {
                 DateTime.Now.ToTimestamp() - logTracer.CreatedAt,
                 logTracer.TraceId,

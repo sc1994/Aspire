@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace />
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Aspire.Repository.FreeSql.Entity.xml</DocumentationFile>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Aspire.Entity\Aspire.Entity.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="FreeSql" Version="2.5.200" />
+  </ItemGroup>
+
+</Project>

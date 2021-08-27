@@ -1,4 +1,5 @@
 ﻿using System;
+
 using static Newtonsoft.Json.JsonConvert;
 
 namespace Aspire
@@ -14,11 +15,25 @@ namespace Aspire
         ///     将 json 字符串转为 obj.
         /// </summary>
         /// <param name="json">json string.</param>
+        /// <param name="default">不能转换或者转换失败的默认值.</param>
         /// <typeparam name="T">目标类型.</typeparam>
         /// <returns>目标数据.</returns>
-        public static T ToObjByJson<T>(this string json)
+        public static T? ToObjByJson<T>(this string json, T? @default = default)
         {
-            return DeserializeObject<T>(json);
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                return @default;
+            }
+
+            try
+            {
+                return DeserializeObject<T>(json);
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex);
+                return @default;
+            }
         }
 
         /// <summary>

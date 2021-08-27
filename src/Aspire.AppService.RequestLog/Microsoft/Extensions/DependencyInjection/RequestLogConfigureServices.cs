@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// </summary>
     public static class RequestLogConfigureServices
     {
-        private static Func<KeyValuePair<string, StringValues>, bool> headerKeyFilterOption;
+        private static Func<KeyValuePair<string, StringValues>, bool>? headerKeyFilterOption;
         private static bool hasBodyOption;
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>mvc builder.</returns>
         public static IAspireBuilder AddAspireRequestLog(
             this IAspireBuilder aspireBuilder,
-            Func<KeyValuePair<string, StringValues>, bool> headerKeyFilter = null,
+            Func<KeyValuePair<string, StringValues>, bool>? headerKeyFilter = null,
             bool hasBody = true)
         {
             hasBodyOption = hasBody;
@@ -54,7 +54,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
                 else
                 {
-                    f1 = context.ActionDescriptor.DisplayName;
+                    f1 = context.ActionDescriptor.DisplayName ?? string.Empty;
                     f2 = string.Empty;
                 }
 
@@ -72,7 +72,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     .HttpContext
                     .Request
                     .Headers
-                    .WhereIf(headerKeyFilterOption != null, headerKeyFilterOption)
+                    .WhereIf(headerKeyFilterOption != null, headerKeyFilterOption ?? throw new ArgumentNullException(nameof(headerKeyFilterOption)))
                     .ToDictionary(x => x.Key, x => x.Value);
                 if (headers.Any()) logMsg.Add("headers", headers);
 

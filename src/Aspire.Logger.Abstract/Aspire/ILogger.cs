@@ -20,11 +20,11 @@ namespace Aspire
         /// <param name="callerLineNumber">调用行数(无需传入).</param>
         void Info(
             string message,
-            string f1 = null,
-            string f2 = null,
-            string f3 = null,
-            [CallerFilePath] string callerFilePath = null,
-            [CallerMemberName] string callerMemberName = null,
+            string? f1 = null,
+            string? f2 = null,
+            string? f3 = null,
+            [CallerFilePath] string? callerFilePath = null,
+            [CallerMemberName] string? callerMemberName = null,
             [CallerLineNumber] int callerLineNumber = 0);
 
         /// <summary>
@@ -39,11 +39,11 @@ namespace Aspire
         /// <param name="callerLineNumber">调用行数(无需传入).</param>
         void Warn(
             string message,
-            string f1 = null,
-            string f2 = null,
-            string f3 = null,
-            [CallerFilePath] string callerFilePath = null,
-            [CallerMemberName] string callerMemberName = null,
+            string? f1 = null,
+            string? f2 = null,
+            string? f3 = null,
+            [CallerFilePath] string? callerFilePath = null,
+            [CallerMemberName] string? callerMemberName = null,
             [CallerLineNumber] int callerLineNumber = 0);
 
         /// <summary>
@@ -59,12 +59,12 @@ namespace Aspire
         /// <param name="callerLineNumber">调用行数(无需传入).</param>
         void Warn(
             Exception exception,
-            string message = null,
-            string f1 = null,
-            string f2 = null,
-            string f3 = null,
-            [CallerFilePath] string callerFilePath = null,
-            [CallerMemberName] string callerMemberName = null,
+            string? message = null,
+            string? f1 = null,
+            string? f2 = null,
+            string? f3 = null,
+            [CallerFilePath] string? callerFilePath = null,
+            [CallerMemberName] string? callerMemberName = null,
             [CallerLineNumber] int callerLineNumber = 0);
 
         /// <summary>
@@ -80,12 +80,12 @@ namespace Aspire
         /// <param name="callerLineNumber">调用行数(无需传入).</param>
         void Error(
             Exception exception,
-            string message = null,
-            string f1 = null,
-            string f2 = null,
-            string f3 = null,
-            [CallerFilePath] string callerFilePath = null,
-            [CallerMemberName] string callerMemberName = null,
+            string? message = null,
+            string? f1 = null,
+            string? f2 = null,
+            string? f3 = null,
+            [CallerFilePath] string? callerFilePath = null,
+            [CallerMemberName] string? callerMemberName = null,
             [CallerLineNumber] int callerLineNumber = 0);
     }
 }

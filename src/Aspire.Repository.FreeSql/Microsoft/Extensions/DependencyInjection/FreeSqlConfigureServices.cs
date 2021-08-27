@@ -1,5 +1,6 @@
 ﻿using Aspire;
 using Aspire.Repository.FreeSql;
+
 using FreeSql;
 using FreeSql.Aop;
 
@@ -17,13 +18,50 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="dataType">data type.</param>
         /// <param name="connectionString">数据库链接字符串.</param>
         /// <param name="curdAfterEvent">crud 之后的事件, 每次执行完成crud之后都会触发该方法.</param>
+        /// <returns>当前服务.</returns>
+        public static IAspireBuilder AddAspireFreeSql(
+            this IAspireBuilder aspireBuilder,
+            DataType dataType,
+            string connectionString,
+            Action<object, CurdAfterEventArgs>? curdAfterEvent = null)
+        {
+            var freeSql = new FreeSqlBuilder()
+                .UseConnectionString(dataType, connectionString)
+#if DEBUG
+                .UseAutoSyncStructure(true) // automatically synchronize the entity structure to the database
+#endif
+                .Build();
+
+            if (curdAfterEvent != null)
+            {
+                freeSql.Aop.CurdAfter += (sender, args) =>
+                {
+                    if (sender == null)
+                        throw new ArgumentNullException(nameof(sender));
+
+                    curdAfterEvent(sender, args);
+                };
+            }
+
+            aspireBuilder.ServiceCollection.AddSingleton(freeSql);
+            aspireBuilder.ServiceCollection.AddScoped(typeof(IRepositoryFreeSql<,,>), typeof(RepositoryFreeSql<,,>));
+            return aspireBuilder; // TODO 重复代码
+        }
+
+        /// <summary>
+        ///     添加 aspire 的 free sql.
+        /// </summary>
+        /// <param name="aspireBuilder">服务.</param>
+        /// <param name="dataType">data type.</param>
+        /// <param name="connectionString">数据库链接字符串.</param>
+        /// <param name="curdAfterEvent">crud 之后的事件, 每次执行完成crud之后都会触发该方法.</param>
         /// <typeparam name="TDatabase">数据库.</typeparam>
         /// <returns>当前服务.</returns>
         public static IAspireBuilder AddAspireFreeSql<TDatabase>(
             this IAspireBuilder aspireBuilder,
             DataType dataType,
             string connectionString,
-            Action<object, CurdAfterEventArgs> curdAfterEvent = null)
+            Action<object, CurdAfterEventArgs>? curdAfterEvent = null)
         {
             var freeSql = new FreeSqlBuilder()
                 .UseConnectionString(dataType, connectionString)
@@ -32,10 +70,19 @@ namespace Microsoft.Extensions.DependencyInjection
 #endif
                 .Build<TDatabase>();
 
-            if (curdAfterEvent != null) freeSql.Aop.CurdAfter += (sender, args) => { curdAfterEvent(sender, args); };
+            if (curdAfterEvent != null)
+            {
+                freeSql.Aop.CurdAfter += (sender, args) =>
+                {
+                    if (sender == null)
+                        throw new ArgumentNullException(nameof(sender));
+
+                    curdAfterEvent(sender, args);
+                };
+            }
 
             aspireBuilder.ServiceCollection.AddSingleton(freeSql);
-            aspireBuilder.ServiceCollection.AddScoped(typeof(IRepositoryFreeSql<,,>), typeof(FreeSqlRepository<,,>));
+            aspireBuilder.ServiceCollection.AddScoped(typeof(IRepositoryFreeSql<,,>), typeof(RepositoryFreeSql<,,>));
             return aspireBuilder;
         }
     }

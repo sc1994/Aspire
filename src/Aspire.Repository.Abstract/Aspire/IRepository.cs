@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using Aspire.Cruds;
 using Aspire.Entity;
 
@@ -10,9 +12,20 @@ namespace Aspire
     /// </summary>
     /// <typeparam name="TEntity">实体.</typeparam>
     /// <typeparam name="TOrmWhere">比如ef的IQueryable, freeSql的ISelect.</typeparam>
+    public interface IRepository<TEntity, TOrmWhere> : IRepository<TEntity, Guid, TOrmWhere>
+        where TEntity : IEntityBase
+    {
+    }
+
+    /// <summary>
+    ///     仓储.
+    /// </summary>
+    /// <typeparam name="TEntity">实体.</typeparam>
     /// <typeparam name="TPrimaryKey">实体主键.</typeparam>
-    public interface IRepository<TEntity, in TOrmWhere, TPrimaryKey> : ICrud<TEntity, TPrimaryKey>
+    /// <typeparam name="TOrmWhere">比如ef的IQueryable, freeSql的ISelect.</typeparam>
+    public interface IRepository<TEntity, TPrimaryKey, TOrmWhere> : ICrud<TEntity, TPrimaryKey>
         where TEntity : IEntityBase<TPrimaryKey>
+        where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         /// <summary>
         ///     分页列表.

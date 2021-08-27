@@ -36,9 +36,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "template_1qaz2wsx3edc.HostA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.AppService.Swagger", "src\Aspire.AppService.Swagger\Aspire.AppService.Swagger.csproj", "{C20C4F07-B434-46D8-B9D0-8173FE366D5F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Repository.Entity", "src\Aspire.Repository.Entity\Aspire.Repository.Entity.csproj", "{E3E64FAD-5CB0-43D9-BEF9-16BFACE42CE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Entity", "src\Aspire.Entity\Aspire.Entity.csproj", "{E3E64FAD-5CB0-43D9-BEF9-16BFACE42CE2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Repository.FreeSql.Entity", "src\Aspire.Repository.FreeSql.Entity\Aspire.Repository.FreeSql.Entity.csproj", "{C69BEC79-1E92-4179-9931-2C005AE9CA9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Entity.FreeSql", "src\Aspire.Entity.FreeSql\Aspire.Entity.FreeSql.csproj", "{C69BEC79-1E92-4179-9931-2C005AE9CA9C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D9F36F7F-6706-441E-B248-B35BACB2A929}"
 	ProjectSection(SolutionItems) = preProject

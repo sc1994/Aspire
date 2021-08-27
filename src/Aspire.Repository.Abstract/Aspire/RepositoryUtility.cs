@@ -11,16 +11,17 @@ namespace Aspire
     ///     仓储实用工具.
     /// </summary>
     /// <typeparam name="TEntity">实体.</typeparam>
-    /// <typeparam name="TOrmWhere">orm where.</typeparam>
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
-    public abstract class RepositoryUtility<TEntity, TOrmWhere, TPrimaryKey>
-        : IRepository<TEntity, TOrmWhere, TPrimaryKey>
+    /// <typeparam name="TOrmWhere">orm where.</typeparam>
+    public abstract class RepositoryUtility<TEntity, TPrimaryKey, TOrmWhere>
+        : IRepository<TEntity, TPrimaryKey, TOrmWhere>
         where TEntity : IEntityBase<TPrimaryKey>
+        where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         private readonly IAccount account;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="RepositoryUtility{TEntity, TOrmWhere, TPrimaryKey}" /> class.
+        ///     Initializes a new instance of the <see cref="RepositoryUtility{TEntity, TPrimaryKey, TOrmWhere}" /> class.
         /// </summary>
         /// <param name="account">当前用户.</param>
         protected RepositoryUtility(IAccount account)
@@ -34,11 +35,16 @@ namespace Aspire
             if (input == null) throw new ArgumentNullException(nameof(input));
 
             var first = await CreateBatchAsync(input).FirstOrDefaultAsync();
+            if (first == null)
+            {
+                return default(TPrimaryKey);
+            }
+
             return first.Id;
         }
 
         /// <inheritdoc />
-        public virtual async Task<TEntity> GetAsync(TPrimaryKey primaryKey)
+        public virtual async Task<TEntity?> GetAsync(TPrimaryKey primaryKey)
         {
             if (primaryKey == null) throw new ArgumentNullException(nameof(primaryKey));
 

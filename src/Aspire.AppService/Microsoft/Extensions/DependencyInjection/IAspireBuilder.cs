@@ -6,12 +6,12 @@
     public interface IAspireBuilder
     {
         /// <summary>
-        ///     Gets iMvcBuilder.
+        ///     Gets IMvcBuilder.
         /// </summary>
         IMvcBuilder MvcBuilder { get; }
 
         /// <summary>
-        ///     Gets iServiceCollection.
+        ///     Gets IServiceCollection.
         /// </summary>
         IServiceCollection ServiceCollection { get; }
     }

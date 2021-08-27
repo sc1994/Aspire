@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace />
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -18,7 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Aspire.Account\Aspire.Account.csproj" />
-    <ProjectReference Include="..\Aspire.Repository.Entity\Aspire.Repository.Entity.csproj" />
+    <ProjectReference Include="..\Aspire.Entity\Aspire.Entity.csproj" />
     <ProjectReference Include="..\Aspire\Aspire.csproj" />
   </ItemGroup>
 

@@ -27,7 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IAspireBuilder AddAspireAuth<TAccount, TAccountManage>(
             this IAspireBuilder aspireBuilder,
             Func<IServiceProvider, TAccountManage> implementation)
-            where TAccount : class, IAccount
+            where TAccount : class, IAccount, new()
             where TAccountManage : class, IAccountManage<IAccount>
         {
             // 注册 manage
@@ -35,15 +35,15 @@ namespace Microsoft.Extensions.DependencyInjection
             aspireBuilder.ServiceCollection.AddScoped<IAccountManage<IAccount>, TAccountManage>();
 
             // 注册 账户
-            aspireBuilder.ServiceCollection.AddScoped(provider =>
+            aspireBuilder.ServiceCollection.AddScoped<TAccount>(provider =>
             {
                 var httpContext = provider.GetRequiredService<IHttpContextAccessor>();
 
                 if (httpContext.HttpContext == null)
-                    return default;
+                    return new TAccount();
 
                 if (!httpContext.HttpContext.Request.Headers.TryGetValue("Authorization", out var auth))
-                    return default;
+                    return new TAccount();
 
                 var accountManage = provider.GetRequiredService<IAccountManage<TAccount>>();
                 return accountManage.GetAccountByToken(auth);
@@ -63,7 +63,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 var account = context.HttpContext.RequestServices.GetRequiredService<IAccount>();
 
-                AuthAttribute auth = null;
+                AuthAttribute? auth = null;
 
                 // 优先查找 action 上的特性.
                 if (context.ActionDescriptor is ControllerActionDescriptor contextActionDescriptor)
@@ -76,7 +76,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 if (auth == null)
                     return base.OnActionExecutionAsync(context, next);
 
-                if (account == default)
+                if (account?.AccountId == default)
                     throw new FriendlyException(FriendlyExceptionCode.AuthorizationFailure, "请登录", "授权信息不存在或授权信息失效");
 
                 // 特性中没有配置角色 则不需要验证登陆人的角色

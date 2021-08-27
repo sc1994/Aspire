@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace />
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -21,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Aspire.AppService.Auth\Aspire.AppService.Auth.csproj" />
     <ProjectReference Include="..\Aspire.AppService\Aspire.AppService.csproj" />
     <ProjectReference Include="..\Aspire.Logger.Abstract\Aspire.Logger.Abstract.csproj" />
   </ItemGroup>

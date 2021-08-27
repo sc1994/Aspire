@@ -49,14 +49,14 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
                 else
                 {
-                    f1 = context.ActionDescriptor.DisplayName;
+                    f1 = context.ActionDescriptor.DisplayName ?? string.Empty;
                     f2 = string.Empty;
                 }
 
                 var logMsg = new Dictionary<string, object>();
 
                 if (hasBodyOption && context.Result is ObjectResult objectResult)
-                    logMsg.Add("body", objectResult.Value);
+                    logMsg.Add("body", objectResult.Value ?? new object());
 
                 logger.Info(logMsg.ToJsonString(), f1, f2, "ResponseLog");
                 base.OnResultExecuted(context);

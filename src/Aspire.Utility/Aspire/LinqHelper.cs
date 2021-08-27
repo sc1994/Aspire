@@ -17,9 +17,9 @@ namespace Aspire
         /// <param name="predicate">predicate.</param>
         /// <typeparam name="T">数据类型.</typeparam>
         /// <returns>第一个或者默认值.</returns>
-        public static async Task<T> FirstOrDefaultAsync<T>(
+        public static async Task<T?> FirstOrDefaultAsync<T>(
             this Task<IEnumerable<T>> source,
-            Func<T, bool> predicate = null)
+            Func<T, bool>? predicate = null)
         {
             if (source is null) return default;
 
