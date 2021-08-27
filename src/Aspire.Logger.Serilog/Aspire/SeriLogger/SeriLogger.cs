@@ -1,6 +1,4 @@
-﻿using System;
-
-using Serilog.Events;
+﻿using Serilog.Events;
 
 namespace Aspire.SeriLogger
 {

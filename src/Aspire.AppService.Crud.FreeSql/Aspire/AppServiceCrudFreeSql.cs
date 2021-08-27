@@ -8,10 +8,11 @@ namespace Aspire
     ///     app service crud 继承此类 将会在自动在接口中暴露出单表的crud接口.
     /// </summary>
     /// <typeparam name="TEntity">实体.</typeparam>
-    public abstract class AppServiceCrudFreeSql<TEntity> : AppServiceCrudFreeSql<
+    public abstract class AppServiceCrudFreeSql<
+        TEntity> : AppServiceCrudFreeSql<
         TEntity,
         Guid>
-        where TEntity : IEntityBase
+        where TEntity : class, IEntityBase
     {
         /// <summary>
         ///     Initializes a new instance of the
@@ -21,7 +22,7 @@ namespace Aspire
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected AppServiceCrudFreeSql(IRepository<TEntity, ISelect<TEntity>> repository, IAspireMapper aspireMapper)
+        protected AppServiceCrudFreeSql(IRepositoryFreeSql<TEntity> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -37,9 +38,8 @@ namespace Aspire
         TPrimaryKey> : AppServiceCrudFreeSql<
         TEntity,
         TPrimaryKey,
-        ISelect<TEntity>,
         TEntity>
-        where TEntity : IEntityBase<TPrimaryKey>
+        where TEntity : class, IEntityBase<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         /// <summary>
@@ -50,7 +50,7 @@ namespace Aspire
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected AppServiceCrudFreeSql(IRepository<TEntity, TPrimaryKey, ISelect<TEntity>> repository, IAspireMapper aspireMapper)
+        protected AppServiceCrudFreeSql(IRepositoryFreeSql<TEntity, TPrimaryKey> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -68,10 +68,9 @@ namespace Aspire
         TQueryFilterDto> : AppServiceCrudFreeSql<
         TEntity,
         TPrimaryKey,
-        ISelect<TEntity>,
         TQueryFilterDto,
         TEntity>
-        where TEntity : IEntityBase<TPrimaryKey>
+        where TEntity : class, IEntityBase<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         /// <summary>
@@ -82,7 +81,7 @@ namespace Aspire
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected AppServiceCrudFreeSql(IRepository<TEntity, TPrimaryKey, ISelect<TEntity>> repository, IAspireMapper aspireMapper)
+        protected AppServiceCrudFreeSql(IRepositoryFreeSql<TEntity, TPrimaryKey> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -102,11 +101,10 @@ namespace Aspire
         TOutputOrInputDto> : AppServiceCrudFreeSql<
         TEntity,
         TPrimaryKey,
-        ISelect<TEntity>,
         TQueryFilterDto,
         TOutputOrInputDto,
         TOutputOrInputDto>
-        where TEntity : IEntityBase<TPrimaryKey>
+        where TEntity : class, IEntityBase<TPrimaryKey>
         where TOutputOrInputDto : IPrimaryKey<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
@@ -118,7 +116,7 @@ namespace Aspire
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected AppServiceCrudFreeSql(IRepository<TEntity, TPrimaryKey, ISelect<TEntity>> repository, IAspireMapper aspireMapper)
+        protected AppServiceCrudFreeSql(IRepositoryFreeSql<TEntity, TPrimaryKey> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -144,19 +142,19 @@ namespace Aspire
         TQueryFilterDto,
         TOutputDto,
         TCreateOrUpdateInputDto>
-        where TEntity : IEntityBase<TPrimaryKey>
+        where TEntity : class, IEntityBase<TPrimaryKey>
         where TCreateOrUpdateInputDto : IPrimaryKey<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         /// <summary>
         ///     Initializes a new instance of the
         ///     <see
-        ///         cref="AppServiceCrudFreeSql{        TEntity,         TPrimaryKey,         TOrmWhere,         TQueryFilterDto,         TOutputDto,         TCreateOrUpdateInputDto}" />
+        ///         cref="AppServiceCrudFreeSql{        TEntity,         TPrimaryKey,         TQueryFilterDto,         TOutputDto,         TCreateOrUpdateInputDto}" />
         ///     class.
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected AppServiceCrudFreeSql(IRepository<TEntity, TPrimaryKey, ISelect<TEntity>> repository, IAspireMapper aspireMapper)
+        protected AppServiceCrudFreeSql(IRepositoryFreeSql<TEntity, TPrimaryKey> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -185,19 +183,19 @@ namespace Aspire
         TOutputDto,
         TCreateInputDto,
         TUpdateInputDto>
-        where TEntity : IEntityBase<TPrimaryKey>
+        where TEntity : class, IEntityBase<TPrimaryKey>
         where TUpdateInputDto : IPrimaryKey<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         /// <summary>
         ///     Initializes a new instance of the
         ///     <see
-        ///         cref="AppServiceCrud{        TEntity,         TPrimaryKey,         TOrmWhere,         TQueryFilterDto,         TOutputDto,         TCreateInputDto,         TUpdateInputDto}" />
+        ///         cref="AppServiceCrudFreeSql{        TEntity,         TPrimaryKey,         TQueryFilterDto,         TOutputDto,         TCreateInputDto,         TUpdateInputDto}" />
         ///     class.
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected AppServiceCrudFreeSql(IRepository<TEntity, TPrimaryKey, ISelect<TEntity>> repository, IAspireMapper aspireMapper)
+        protected AppServiceCrudFreeSql(IRepositoryFreeSql<TEntity, TPrimaryKey> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }

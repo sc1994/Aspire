@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Aspire;
 using Panda.DynamicWebApi;
 
 namespace Microsoft.Extensions.DependencyInjection

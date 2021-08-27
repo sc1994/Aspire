@@ -54,7 +54,9 @@ namespace Aspire.Entity
 
         /// <inheritdoc />
         [Column(IsPrimary = true, IsIdentity = true, CanUpdate = false, IsNullable = false)]
-        public TPrimaryKey Id { get; set; }
+        public TPrimaryKey Id { get => id ?? throw new ArgumentNullException(nameof(Id)); set => id = value; }
+
+        private TPrimaryKey? id;
     }
 
     /// <summary>

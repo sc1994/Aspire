@@ -72,21 +72,21 @@ namespace Aspire
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
     /// <typeparam name="TOrmWhere">orm where.</typeparam>
     /// <typeparam name="TQueryFilterDto">查询过滤dto.</typeparam>
-    /// <typeparam name="TCommonDto">通用dto.</typeparam>
+    /// <typeparam name="TOutputOrInputDto">输入或输出dto.</typeparam>
     public abstract class AppServiceCrud<
         TEntity,
         TPrimaryKey,
         TOrmWhere,
         TQueryFilterDto,
-        TCommonDto> : AppServiceCrud<
+        TOutputOrInputDto> : AppServiceCrud<
         TEntity,
         TPrimaryKey,
         TOrmWhere,
         TQueryFilterDto,
-        TCommonDto,
-        TCommonDto>
+        TOutputOrInputDto,
+        TOutputOrInputDto>
         where TEntity : IEntityBase<TPrimaryKey>
-        where TCommonDto : IPrimaryKey<TPrimaryKey>
+        where TOutputOrInputDto : IPrimaryKey<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         /// <summary>
@@ -142,6 +142,7 @@ namespace Aspire
         /// </summary>
         /// <param name="input">输入.</param>
         /// <returns>操作是否成功.</returns>
+        [HttpPost("CreateOrUpdate")]
         public virtual async Task<bool> CreateOrUpdateAsync(TCreateOrUpdateInputDto input)
         {
             if (input.Id == null || input.Id.Equals(default(TPrimaryKey)))
@@ -198,7 +199,7 @@ namespace Aspire
         }
 
         /// <inheritdoc />
-        public virtual async Task<TPrimaryKey> CreateAsync(TCreateInputDto input)
+        public virtual async Task<TPrimaryKey?> CreateAsync(TCreateInputDto input)
         {
             var entity = MapToEntity(input);
             return await repository.CreateAsync(entity);
@@ -211,9 +212,11 @@ namespace Aspire
         }
 
         /// <inheritdoc />
-        public virtual async Task<TOutputDto> GetAsync(TPrimaryKey primaryKey)
+        public virtual async Task<TOutputDto?> GetAsync(TPrimaryKey primaryKey)
         {
             var entity = await repository.GetAsync(primaryKey);
+            if (entity == null) return default;
+
             return MapToDto(entity);
         }
 
@@ -231,11 +234,10 @@ namespace Aspire
         /// <param name="index">页索引.</param>
         /// <param name="size">页大小.</param>
         /// <returns>A <see cref="Task{TResult}" /> representing the result of the asynchronous operation.</returns>
-        [HttpPost("{index}_{size}")]
         public virtual async Task<PagingOutputDto<TOutputDto>> PagingQueryAsync(
             [FromBody] TQueryFilterDto input,
-            [FromQuery] int index = 1,
-            [FromQuery] int size = 10)
+            int index = 1,
+            int size = 10)
         {
             if (input == null) throw new ArgumentNullException(nameof(input));
 
@@ -261,7 +263,7 @@ namespace Aspire
         /// <returns>dto.</returns>
         protected TOutputDto MapToDto(TEntity entity)
         {
-            return aspireMapper.MapTo<TOutputDto>(entity);
+            return aspireMapper.MapTo<TOutputDto>(entity ?? throw new ArgumentNullException(nameof(entity)));
         }
 
         /// <summary>
@@ -271,7 +273,7 @@ namespace Aspire
         /// <returns>dto集合.</returns>
         protected IEnumerable<TOutputDto> MapToDto(IEnumerable<TEntity> entities)
         {
-            return aspireMapper.MapTo<IEnumerable<TOutputDto>>(entities);
+            return aspireMapper.MapTo<IEnumerable<TOutputDto>>(entities ?? throw new ArgumentNullException(nameof(entities)));
         }
 
         /// <summary>
@@ -291,7 +293,7 @@ namespace Aspire
         /// <returns>实体.</returns>
         protected TEntity MapToEntity(TUpdateInputDto updateInputDto)
         {
-            return aspireMapper.MapTo<TEntity>(updateInputDto);
+            return aspireMapper.MapTo<TEntity>(updateInputDto ?? throw new ArgumentNullException(nameof(updateInputDto)));
         }
     }
 }

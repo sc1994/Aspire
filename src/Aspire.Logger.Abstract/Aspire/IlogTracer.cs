@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Aspire
+﻿namespace Aspire
 {
     /// <summary>
     ///     日志追踪值.

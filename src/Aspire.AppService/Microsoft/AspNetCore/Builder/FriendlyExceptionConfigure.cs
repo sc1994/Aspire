@@ -17,7 +17,7 @@ namespace Microsoft.AspNetCore.Builder
         /// </summary>
         /// <param name="app">app.</param>
         /// <returns>current app.</returns>
-        public static IApplicationBuilder UseFriendlyException(this IApplicationBuilder app)
+        public static IApplicationBuilder UseAspireFriendlyException(this IApplicationBuilder app)
         {
             app.Use(async (cxt, next) =>
             {
@@ -27,34 +27,29 @@ namespace Microsoft.AspNetCore.Builder
                 }
                 catch (FriendlyException friendlyException)
                 {
-                    ExceptionLog(cxt, friendlyException);
-                    cxt.Response.ContentType = "application/json;charset=UTF-8";
-                    await cxt.Response.WriteAsync(new
-                    {
-                        success = false,
-                        title = friendlyException.Title,
-                        message = friendlyException.Messages,
-#if DEBUG
-                        stackTrace = friendlyException.StackTrace
-#endif
-                    }.ToJsonString());
+                    await WriteExceptionAsync(cxt, friendlyException, friendlyException.Title);
                 }
                 catch (Exception exception)
                 {
-                    ExceptionLog(cxt, exception);
-                    cxt.Response.ContentType = "application/json;charset=UTF-8";
-                    await cxt.Response.WriteAsync(new
-                    {
-                        success = false,
-                        title = "系统异常, 请稍后重试",
-                        message = exception.Message,
-#if DEBUG
-                        stackTrace = exception.StackTrace
-#endif
-                    }.ToJsonString());
+                    await WriteExceptionAsync(cxt, exception);
                 }
             });
             return app;
+        }
+
+        private static async Task WriteExceptionAsync(HttpContext cxt, Exception exception, string? title = null)
+        {
+            ExceptionLog(cxt, exception);
+            cxt.Response.ContentType = "application/json;charset=UTF-8";
+            await cxt.Response.WriteAsync(new
+            {
+                success = false,
+                title = title ?? exception.GetType().Name,
+                messages = exception.Message.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries),
+#if DEBUG
+                stackTrace = exception.StackTrace?.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries),
+#endif
+            }.ToJsonString());
         }
 
         private static void ExceptionLog(HttpContext cxt, Exception exception)
@@ -75,12 +70,12 @@ namespace Microsoft.AspNetCore.Builder
                 var msg = string.Join("\r\n", new[]
                 {
                     friendlyException.Title
-                }.Concat(friendlyException.Messages.Select(x => "\t" + x))); // 拼接消息内容 , 混合标题和内容到一个文档
-                logger.Warn(friendlyException, msg, controllerName, actionName, "FriendlyException");
+                }.Concat(friendlyException.Message.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).Select(x => "\t" + x))); // 拼接消息内容 , 混合标题和内容到一个文档
+                logger.Warn(friendlyException, msg, controllerName, actionName, nameof(FriendlyExceptionCode.BusinessException));
             }
             else
             {
-                logger.Error(exception, exception.Message, controllerName, actionName, "SystemException");
+                logger.Error(exception, exception.Message, controllerName, actionName, nameof(FriendlyExceptionCode.SystemException));
             }
         }
     }

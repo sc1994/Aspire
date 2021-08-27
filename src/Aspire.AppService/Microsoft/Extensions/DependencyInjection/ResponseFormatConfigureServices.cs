@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -14,7 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="aspireBuilder">服务.</param>
         /// <returns>mvc builder.</returns>
-        public static IAspireBuilder AddResponseFormat(this IAspireBuilder aspireBuilder)
+        public static IAspireBuilder AddAspireResponseFormat(this IAspireBuilder aspireBuilder)
         {
             if (aspireBuilder == null) throw new ArgumentNullException(nameof(aspireBuilder));
 

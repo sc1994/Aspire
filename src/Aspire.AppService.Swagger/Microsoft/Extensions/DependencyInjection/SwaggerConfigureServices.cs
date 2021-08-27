@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
+
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -29,6 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     Version = "v1"
                 });
 
+                // TODO 验证是否需要加小锁标记
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "设置 Authorization.",
@@ -55,14 +54,13 @@ namespace Microsoft.Extensions.DependencyInjection
                         new List<string>()
                     }
                 });
+                c.OperationFilter<AuthOperationFilter>();
 
                 c.DocInclusionPredicate((_, _) => true);
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 var xmlFile = AppDomain.CurrentDomain.FriendlyName + ".xml";
                 var xmlPath = Path.Combine(baseDirectory, xmlFile);
                 if (File.Exists(xmlPath)) c.IncludeXmlComments(xmlPath);
-
-                c.OperationFilter<AuthOperationFilter>();
             });
             return aspireBuilder;
         }

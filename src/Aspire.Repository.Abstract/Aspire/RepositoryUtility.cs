@@ -30,14 +30,14 @@ namespace Aspire
         }
 
         /// <inheritdoc />
-        public virtual async Task<TPrimaryKey> CreateAsync(TEntity input)
+        public virtual async Task<TPrimaryKey?> CreateAsync(TEntity input)
         {
             if (input == null) throw new ArgumentNullException(nameof(input));
 
             var first = await CreateBatchAsync(input).FirstOrDefaultAsync();
             if (first == null)
             {
-                return default(TPrimaryKey);
+                return default;
             }
 
             return first.Id;

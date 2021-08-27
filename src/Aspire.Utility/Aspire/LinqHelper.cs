@@ -37,7 +37,7 @@ namespace Aspire
         /// <param name="source">数组.</param>
         /// <param name="action">处理每一项的方法.</param>
         /// <typeparam name="T">数组项类型.</typeparam>
-        public static void ForEach<T>(this T[] source, Action<T> action)
+        public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
         {
             foreach (var item in source) action(item);
         }

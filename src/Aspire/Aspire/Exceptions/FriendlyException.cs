@@ -25,7 +25,6 @@ namespace Aspire.Exceptions
             : base(title, innerException)
         {
             Title = title ?? throw new ArgumentNullException(nameof(title));
-            Messages = new string[0];
         }
 
         /// <summary>
@@ -45,11 +44,10 @@ namespace Aspire.Exceptions
         /// <param name="title">异常标题.</param>
         /// <param name="messages">异常消息集合.</param>
         public FriendlyException(int code, string title, params string[] messages)
-            : base(title)
+            : base(string.Join("\r\n", messages))
         {
             Code = code;
             Title = title ?? throw new ArgumentNullException(nameof(title));
-            Messages = messages ?? new string[0];
         }
 
         /// <summary>
@@ -61,10 +59,5 @@ namespace Aspire.Exceptions
         ///     Gets Title.
         /// </summary>
         public string Title { get; }
-
-        /// <summary>
-        ///     Gets Messages.
-        /// </summary>
-        public string[] Messages { get; }
     }
 }

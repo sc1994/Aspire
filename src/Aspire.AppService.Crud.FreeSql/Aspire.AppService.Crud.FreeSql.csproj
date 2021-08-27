@@ -13,6 +13,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\Aspire.AppService.Crud\Aspire.AppService.Crud.csproj" />
+    <ProjectReference Include="..\Aspire.Repository.FreeSql\Aspire.Repository.FreeSql.csproj" />
   </ItemGroup>
   
   <ItemGroup>

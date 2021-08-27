@@ -1,6 +1,4 @@
-﻿using Aspire;
-
-namespace Aspire.SeriLogger
+﻿namespace Aspire.SeriLogger
 {
     /// <inheritdoc />
     public class DefaultLogTracer : ILogTracer

@@ -7,12 +7,12 @@ namespace Aspire.Cruds
     /// </summary>
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
     /// <typeparam name="TCreateInput">创建输入.</typeparam>
-    /// <typeparam name="TGetOutput">输出.</typeparam>
+    /// <typeparam name="TOutputDto">输出.</typeparam>
     /// <typeparam name="TUpdateInput">更新输入.</typeparam>
     public interface ICrudSingle<
         TPrimaryKey,
         in TCreateInput,
-        TGetOutput,
+        TOutputDto,
         in TUpdateInput>
     {
         /// <summary>
@@ -20,14 +20,14 @@ namespace Aspire.Cruds
         /// </summary>
         /// <param name="input">创建输入.</param>
         /// <returns>新增的数据主键.</returns>
-        Task<TPrimaryKey> CreateAsync(TCreateInput input);
+        Task<TPrimaryKey?> CreateAsync(TCreateInput input);
 
         /// <summary>
         ///     根据主键获取数据.
         /// </summary>
         /// <param name="primaryKey">主键.</param>
         /// <returns>主键对应的数据.</returns>
-        Task<TGetOutput> GetAsync(TPrimaryKey primaryKey);
+        Task<TOutputDto?> GetAsync(TPrimaryKey primaryKey);
 
         /// <summary>
         ///     根据更新输入更新数据.

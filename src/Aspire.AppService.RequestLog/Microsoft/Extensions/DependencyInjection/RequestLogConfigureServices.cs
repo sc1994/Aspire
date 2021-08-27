@@ -72,7 +72,9 @@ namespace Microsoft.Extensions.DependencyInjection
                     .HttpContext
                     .Request
                     .Headers
-                    .WhereIf(headerKeyFilterOption != null, headerKeyFilterOption ?? throw new ArgumentNullException(nameof(headerKeyFilterOption)))
+#pragma warning disable CS8604 // Possible null reference argument.
+                    .WhereIf(headerKeyFilterOption != null, headerKeyFilterOption)
+#pragma warning restore CS8604 // Possible null reference argument.
                     .ToDictionary(x => x.Key, x => x.Value);
                 if (headers.Any()) logMsg.Add("headers", headers);
 
