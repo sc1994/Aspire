@@ -18,7 +18,7 @@ namespace Aspire.Cruds
         /// </summary>
         /// <param name="primaryKeys">主键集合.</param>
         /// <returns>实体.</returns>
-        Task<IEnumerable<TEntity>> GetListByAsync(params TPrimaryKey[] primaryKeys);
+        Task<IEnumerable<TEntity>> GetListAsync(params TPrimaryKey[] primaryKeys);
 
         /// <summary>
         ///     根据主键和实体示例更新数据.

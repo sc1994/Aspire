@@ -1,5 +1,5 @@
+using System.Linq.Expressions;
 using Aspire.Entity;
-
 using FreeSql;
 
 namespace Aspire.Repository.FreeSql
@@ -30,7 +30,7 @@ namespace Aspire.Repository.FreeSql
     /// <typeparam name="TEntity">实体.</typeparam>
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
     public class RepositoryFreeSql<TEntity, TPrimaryKey>
-        : RepositoryUtility<TEntity, TPrimaryKey, ISelect<TEntity>>, IRepositoryFreeSql<TEntity, TPrimaryKey>
+        : RepositoryUtility<TEntity, TPrimaryKey, Expression<Func<TEntity, bool>>>, IRepositoryFreeSql<TEntity, TPrimaryKey>
         where TEntity : class, IEntityBase<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
@@ -49,14 +49,15 @@ namespace Aspire.Repository.FreeSql
 
         /// <inheritdoc />
         public override async Task<(long TotalCount, IEnumerable<TEntity> List)> PagingListAsync(
-            ISelect<TEntity> where, int pageIndex, int pageSize)
+            Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize)
         {
-            var listAsync = where
+            var w = Select().Where(where);
+            var listAsync = w
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
 
-            var totalAsync = where.CountAsync();
+            var totalAsync = w.CountAsync();
 
             return (await totalAsync, await listAsync);
         }
@@ -66,7 +67,31 @@ namespace Aspire.Repository.FreeSql
         {
             if (IsAuditSoftDelete()) return freeSql.Select<TEntity>();
 
-            return freeSql.Select<TEntity>().Where("Deleted = 0");
+            return freeSql.Select<TEntity>().Where("Deleted = 0").OrderByDescending(x => x.Id);
+        }
+
+        /// <inheritdoc />
+        public override async Task<IEnumerable<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> where)
+        {
+            return await Select().Where(where).ToListAsync();
+        }
+
+        /// <inheritdoc />
+        public override async Task<long> CountAsync(Expression<Func<TEntity, bool>> where)
+        {
+            return await Select().Where(where).CountAsync();
+        }
+
+        /// <inheritdoc />
+        public override async Task<bool> ExistAsync(Expression<Func<TEntity, bool>> where)
+        {
+            return await Select().Where(where).CountAsync() > 0;
+        }
+
+        /// <inheritdoc />
+        public override async Task<bool> ExistAsync(TPrimaryKey primaryKey)
+        {
+            return await Select().Where(x => x.Id.Equals(primaryKey)).CountAsync() == 1;
         }
 
         /// <inheritdoc />
@@ -125,7 +150,7 @@ namespace Aspire.Repository.FreeSql
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
     /// <typeparam name="TDatabase">使用的数据库(针对free sql的多数据形式).</typeparam>
     public class RepositoryFreeSql<TEntity, TPrimaryKey, TDatabase>
-        : RepositoryUtility<TEntity, TPrimaryKey, ISelect<TEntity>>, IRepositoryFreeSql<TEntity, TPrimaryKey, TDatabase>
+        : RepositoryUtility<TEntity, TPrimaryKey, Expression<Func<TEntity, bool>>>, IRepositoryFreeSql<TEntity, TPrimaryKey, TDatabase>
         where TEntity : class, IEntityBase<TPrimaryKey, TDatabase>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
@@ -144,14 +169,15 @@ namespace Aspire.Repository.FreeSql
 
         /// <inheritdoc />
         public override async Task<(long TotalCount, IEnumerable<TEntity> List)> PagingListAsync(
-            ISelect<TEntity> where, int pageIndex, int pageSize)
+            Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize)
         {
-            var listAsync = where
+            var w = Select().Where(where);
+            var listAsync = w
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
 
-            var totalAsync = where.CountAsync();
+            var totalAsync = w.CountAsync();
 
             return (await totalAsync, await listAsync);
         }
@@ -162,6 +188,30 @@ namespace Aspire.Repository.FreeSql
             if (IsAuditSoftDelete()) return freeSql.Select<TEntity>();
 
             return freeSql.Select<TEntity>().Where("Deleted = 0");
+        }
+
+        /// <inheritdoc />
+        public override async Task<IEnumerable<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> where)
+        {
+            return await Select().Where(where).ToListAsync();
+        }
+
+        /// <inheritdoc />
+        public override async Task<long> CountAsync(Expression<Func<TEntity, bool>> where)
+        {
+            return await Select().Where(where).CountAsync();
+        }
+
+        /// <inheritdoc />
+        public override async Task<bool> ExistAsync(Expression<Func<TEntity, bool>> where)
+        {
+            return await Select().Where(where).CountAsync() > 0;
+        }
+
+        /// <inheritdoc />
+        public override async Task<bool> ExistAsync(TPrimaryKey primaryKey)
+        {
+            return await Select().Where(x => x.Id.Equals(primaryKey)).CountAsync() == 1;
         }
 
         /// <inheritdoc />

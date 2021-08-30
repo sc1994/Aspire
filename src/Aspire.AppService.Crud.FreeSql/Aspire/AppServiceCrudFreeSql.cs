@@ -1,6 +1,5 @@
 using Aspire.Entity;
-
-using FreeSql;
+using System.Linq.Expressions;
 
 namespace Aspire
 {
@@ -138,7 +137,7 @@ namespace Aspire
         TCreateOrUpdateInputDto> : AppServiceCrud<
         TEntity,
         TPrimaryKey,
-        ISelect<TEntity>,
+        Expression<Func<TEntity, bool>>,
         TQueryFilterDto,
         TOutputDto,
         TCreateOrUpdateInputDto>
@@ -178,7 +177,7 @@ namespace Aspire
         TUpdateInputDto> : AppServiceCrud<
         TEntity,
         TPrimaryKey,
-        ISelect<TEntity>,
+        Expression<Func<TEntity, bool>>,
         TQueryFilterDto,
         TOutputDto,
         TCreateInputDto,

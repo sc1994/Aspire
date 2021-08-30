@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Aspire.Entity;
 using Aspire.Entity.Audit;
 
@@ -48,7 +49,7 @@ namespace Aspire
         {
             if (primaryKey == null) throw new ArgumentNullException(nameof(primaryKey));
 
-            var first = await GetListByAsync(primaryKey).FirstOrDefaultAsync();
+            var first = await GetListAsync(primaryKey).FirstOrDefaultAsync();
             return first;
         }
 
@@ -93,7 +94,7 @@ namespace Aspire
         }
 
         /// <inheritdoc />
-        public virtual async Task<IEnumerable<TEntity>> GetListByAsync(params TPrimaryKey[] primaryKeys)
+        public virtual async Task<IEnumerable<TEntity>> GetListAsync(params TPrimaryKey[] primaryKeys)
         {
             return await GetListByPrimaryKeysAsync(primaryKeys);
         }
@@ -154,6 +155,18 @@ namespace Aspire
             TOrmWhere where,
             int pageIndex,
             int pageSize);
+
+        /// <inheritdoc />
+        public abstract Task<IEnumerable<TEntity>> GetListAsync(TOrmWhere where);
+
+        /// <inheritdoc />
+        public abstract Task<long> CountAsync(TOrmWhere where);
+
+        /// <inheritdoc />
+        public abstract Task<bool> ExistAsync(TOrmWhere where);
+
+        /// <inheritdoc />
+        public abstract Task<bool> ExistAsync(TPrimaryKey primaryKey);
 
         /// <summary>
         ///     是否审计软删除.

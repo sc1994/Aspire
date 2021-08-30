@@ -1,5 +1,5 @@
-﻿using Aspire.Entity;
-
+﻿using System.Linq.Expressions;
+using Aspire.Entity;
 using FreeSql;
 
 namespace Aspire
@@ -20,7 +20,7 @@ namespace Aspire
     /// <typeparam name="TEntity">实体.</typeparam>
     /// <typeparam name="TPrimaryKey">实体主键.</typeparam>
     public interface IRepositoryFreeSql<TEntity, TPrimaryKey>
-        : IRepository<TEntity, TPrimaryKey, ISelect<TEntity>>
+        : IRepository<TEntity, TPrimaryKey, Expression<Func<TEntity, bool>>>
         where TEntity : class, IEntityBase<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
@@ -38,7 +38,7 @@ namespace Aspire
     /// <typeparam name="TPrimaryKey">实体主键.</typeparam>
     /// <typeparam name="TDatabase">指定当前操作的数据库.</typeparam>
     public interface IRepositoryFreeSql<TEntity, TPrimaryKey, TDatabase>
-        : IRepository<TEntity, TPrimaryKey, ISelect<TEntity>>
+        : IRepository<TEntity, TPrimaryKey, Expression<Func<TEntity, bool>>>
         where TEntity : class, IEntityBase<TPrimaryKey, TDatabase>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
