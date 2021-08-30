@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Aspire.Repository.FreeSql.Entity.xml</DocumentationFile>
+    <DocumentationFile>Aspire.Entity.FreeSql.xml</DocumentationFile>
   </PropertyGroup>
   
   <ItemGroup>
