@@ -8,22 +8,20 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Aspire.AppService.Crud.xml</DocumentationFile>
+    <DocumentationFile>Aspire.Application.Auth.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Entity\Aspire.Entity\Aspire.Entity.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Aspire.Crud\Aspire.Curd.csproj" />
-    <ProjectReference Include="..\..\Mapper\Aspire.Mapper.Abstract\Aspire.Mapper.Abstract.csproj" />
-    <ProjectReference Include="..\..\Repository\Aspire.Repository.Abstract\Aspire.Repository.Abstract.csproj" />
-    <ProjectReference Include="..\Aspire.AppService\Aspire.AppService.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Authorization\Aspire.Account\Aspire.Account.csproj" />
+    <ProjectReference Include="..\Aspire.Application\Aspire.Application.csproj" />
   </ItemGroup>
 
 </Project>

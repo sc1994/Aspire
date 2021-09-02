@@ -18,4 +18,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Logger\Aspire.Logger.Abstract\Aspire.Logger.Abstract.csproj" />
+    <ProjectReference Include="..\Aspire.Middleware\Aspire.Middleware.csproj" />
+  </ItemGroup>
+
 </Project>

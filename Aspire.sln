@@ -7,11 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2BD200C1-9E1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{B95502D1-2D3D-42F9-92A0-A01BF8921160}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.AppService", "src\Application\Aspire.AppService\Aspire.AppService.csproj", "{D3E4EA44-05E2-4F37-82D3-6616BF92DB8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Application", "src\Application\Aspire.Application\Aspire.Application.csproj", "{D3E4EA44-05E2-4F37-82D3-6616BF92DB8B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.AppService.Crud", "src\Application\Aspire.AppService.Crud\Aspire.AppService.Crud.csproj", "{9A3D12D9-BE47-4B8C-BD1B-C82DDFE9E4BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Application.Crud", "src\Application\Aspire.Application.Crud\Aspire.Application.Crud.csproj", "{9A3D12D9-BE47-4B8C-BD1B-C82DDFE9E4BD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.AppService.Crud.FreeSql", "src\Application\Aspire.AppService.Crud.FreeSql\Aspire.AppService.Crud.FreeSql.csproj", "{3933D1BF-48D9-431B-A198-62B3FA825EAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Application.Crud.FreeSql", "src\Application\Aspire.Application.Crud.FreeSql\Aspire.Application.Crud.FreeSql.csproj", "{3933D1BF-48D9-431B-A198-62B3FA825EAD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authorization", "Authorization", "{12D76D8C-C618-4796-B3D9-048996BEFFC9}"
 EndProject
@@ -61,11 +61,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Verify", "Verify", "{08C318
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Verify", "src\Verify\Aspire.Verify\Aspire.Verify.csproj", "{2FD65E19-9A45-47C1-AC79-A0E533C8BA4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Middleware.Auth", "src\Middleware\Aspire.Middleware.Auth\Aspire.Middleware.Auth.csproj", "{836D6139-BC1F-490C-BCC9-A848855A939A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Middleware.Auth", "src\Middleware\Aspire.Middleware.Auth\Aspire.Middleware.Auth.csproj", "{836D6139-BC1F-490C-BCC9-A848855A939A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Middleware.RequestLog", "src\Middleware\Aspire.Middleware.RequestLog\Aspire.Middleware.RequestLog.csproj", "{CA0CB505-1BB6-484E-86E2-B4653EE50D63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Middleware.RequestLog", "src\Middleware\Aspire.Middleware.RequestLog\Aspire.Middleware.RequestLog.csproj", "{CA0CB505-1BB6-484E-86E2-B4653EE50D63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Middleware.ResponseLog", "src\Middleware\Aspire.Middleware.ResponseLog\Aspire.Middleware.ResponseLog.csproj", "{F18A0D35-5934-4FC9-BDB1-56676C35A110}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Middleware.ResponseLog", "src\Middleware\Aspire.Middleware.ResponseLog\Aspire.Middleware.ResponseLog.csproj", "{F18A0D35-5934-4FC9-BDB1-56676C35A110}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Application.Auth", "src\Application\Aspire.Application.Auth\Aspire.Application.Auth.csproj", "{A0495E32-1FB0-4C83-A764-D870A6B19A4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -161,6 +163,10 @@ Global
 		{F18A0D35-5934-4FC9-BDB1-56676C35A110}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F18A0D35-5934-4FC9-BDB1-56676C35A110}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F18A0D35-5934-4FC9-BDB1-56676C35A110}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0495E32-1FB0-4C83-A764-D870A6B19A4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0495E32-1FB0-4C83-A764-D870A6B19A4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0495E32-1FB0-4C83-A764-D870A6B19A4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0495E32-1FB0-4C83-A764-D870A6B19A4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -197,6 +203,7 @@ Global
 		{836D6139-BC1F-490C-BCC9-A848855A939A} = {35CC9230-8AFA-4A13-99F9-1CE6F37FF7D1}
 		{CA0CB505-1BB6-484E-86E2-B4653EE50D63} = {35CC9230-8AFA-4A13-99F9-1CE6F37FF7D1}
 		{F18A0D35-5934-4FC9-BDB1-56676C35A110} = {35CC9230-8AFA-4A13-99F9-1CE6F37FF7D1}
+		{A0495E32-1FB0-4C83-A764-D870A6B19A4F} = {B95502D1-2D3D-42F9-92A0-A01BF8921160}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CFDF950F-C37B-49A4-A267-EB7FEA97A410}

@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Aspire.AppService.Crud.FreeSql.xml</DocumentationFile>
+    <DocumentationFile>Aspire.Application.Crud.FreeSql.xml</DocumentationFile>
   </PropertyGroup>
   
   <ItemGroup>
@@ -23,7 +23,7 @@
     <ProjectReference Include="..\..\Entity\Aspire.Entity\Aspire.Entity.csproj" />
     <ProjectReference Include="..\..\Mapper\Aspire.Mapper.Abstract\Aspire.Mapper.Abstract.csproj" />
     <ProjectReference Include="..\..\Repository\Aspire.Repository.FreeSql\Aspire.Repository.FreeSql.csproj" />
-    <ProjectReference Include="..\Aspire.AppService.Crud\Aspire.AppService.Crud.csproj" />
+    <ProjectReference Include="..\Aspire.Application.Crud\Aspire.Application.Crud.csproj" />
   </ItemGroup>
 
 </Project>

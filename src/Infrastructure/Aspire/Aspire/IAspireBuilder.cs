@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Extensions.DependencyInjection
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace Microsoft.Extensions.DependencyInjection
 {
     /// <summary>
     ///     包含了构建aspire扩展程序所需要的内容.

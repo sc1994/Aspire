@@ -15,10 +15,10 @@ namespace Aspire
     /// <typeparam name="TEntity">实体.</typeparam>
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
     /// <typeparam name="TOrmWhere">orm where.</typeparam>
-    public abstract class AppServiceCrud<
+    public abstract class ApplicationCrud<
         TEntity,
         TPrimaryKey,
-        TOrmWhere> : AppServiceCrud<
+        TOrmWhere> : ApplicationCrud<
         TEntity,
         TPrimaryKey,
         TOrmWhere,
@@ -27,11 +27,11 @@ namespace Aspire
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AppServiceCrud{        TEntity,         TPrimaryKey,         TOrmWhere}"/> class.
+        /// Initializes a new instance of the <see cref="ApplicationCrud{        TEntity,         TPrimaryKey,         TOrmWhere}"/> class.
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected AppServiceCrud(IRepository<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
+        protected ApplicationCrud(IRepository<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -44,11 +44,11 @@ namespace Aspire
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
     /// <typeparam name="TOrmWhere">orm where.</typeparam>
     /// <typeparam name="TQueryFilterDto">查询过滤dto.</typeparam>
-    public abstract class AppServiceCrud<
+    public abstract class ApplicationCrud<
         TEntity,
         TPrimaryKey,
         TOrmWhere,
-        TQueryFilterDto> : AppServiceCrud<
+        TQueryFilterDto> : ApplicationCrud<
         TEntity,
         TPrimaryKey,
         TOrmWhere,
@@ -58,11 +58,11 @@ namespace Aspire
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AppServiceCrud{        TEntity,         TPrimaryKey,         TOrmWhere,         TQueryFilterDto}"/> class.
+        /// Initializes a new instance of the <see cref="ApplicationCrud{        TEntity,         TPrimaryKey,         TOrmWhere,         TQueryFilterDto}"/> class.
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected AppServiceCrud(IRepository<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
+        protected ApplicationCrud(IRepository<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -76,12 +76,12 @@ namespace Aspire
     /// <typeparam name="TOrmWhere">orm where.</typeparam>
     /// <typeparam name="TQueryFilterDto">查询过滤dto.</typeparam>
     /// <typeparam name="TOutputOrInputDto">输入或输出dto.</typeparam>
-    public abstract class AppServiceCrud<
+    public abstract class ApplicationCrud<
         TEntity,
         TPrimaryKey,
         TOrmWhere,
         TQueryFilterDto,
-        TOutputOrInputDto> : AppServiceCrud<
+        TOutputOrInputDto> : ApplicationCrud<
         TEntity,
         TPrimaryKey,
         TOrmWhere,
@@ -93,11 +93,11 @@ namespace Aspire
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AppServiceCrud{        TEntity,         TPrimaryKey,         TOrmWhere,         TQueryFilterDto,         TCommonDto}"/> class.
+        /// Initializes a new instance of the <see cref="ApplicationCrud{        TEntity,         TPrimaryKey,         TOrmWhere,         TQueryFilterDto,         TCommonDto}"/> class.
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected AppServiceCrud(IRepository<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
+        protected ApplicationCrud(IRepository<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -112,13 +112,13 @@ namespace Aspire
     /// <typeparam name="TQueryFilterDto">查询过滤dto.</typeparam>
     /// <typeparam name="TOutputDto">输出dto.</typeparam>
     /// <typeparam name="TCreateOrUpdateInputDto">创建或者更新输入dto.</typeparam>
-    public abstract class AppServiceCrud<
+    public abstract class ApplicationCrud<
         TEntity,
         TPrimaryKey,
         TOrmWhere,
         TQueryFilterDto,
         TOutputDto,
-        TCreateOrUpdateInputDto> : AppServiceCrud<
+        TCreateOrUpdateInputDto> : ApplicationCrud<
         TEntity,
         TPrimaryKey,
         TOrmWhere,
@@ -131,11 +131,11 @@ namespace Aspire
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AppServiceCrud{        TEntity,         TPrimaryKey,         TOrmWhere,         TQueryFilterDto,         TOutputDto,         TCreateOrUpdateInputDto}"/> class.
+        /// Initializes a new instance of the <see cref="ApplicationCrud{        TEntity,         TPrimaryKey,         TOrmWhere,         TQueryFilterDto,         TOutputDto,         TCreateOrUpdateInputDto}"/> class.
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected AppServiceCrud(IRepository<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
+        protected ApplicationCrud(IRepository<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -169,7 +169,7 @@ namespace Aspire
     /// <typeparam name="TOutputDto">输出dto.</typeparam>
     /// <typeparam name="TCreateInputDto">创建输入dto.</typeparam>
     /// <typeparam name="TUpdateInputDto">更新输入dto.</typeparam>
-    public abstract class AppServiceCrud<
+    public abstract class ApplicationCrud<
         TEntity,
         TPrimaryKey,
         TOrmWhere,
@@ -177,7 +177,7 @@ namespace Aspire
         TOutputDto,
         TCreateInputDto,
         TUpdateInputDto> :
-        AppServiceBase,
+        ApplicationBase,
         ICrudSingle<TPrimaryKey, TCreateInputDto, TOutputDto, TUpdateInputDto>
         where TEntity : IEntityBase<TPrimaryKey>
         where TUpdateInputDto : IPrimaryKey<TPrimaryKey>
@@ -189,12 +189,12 @@ namespace Aspire
         /// <summary>
         ///     Initializes a new instance of the
         ///     <see
-        ///         cref="AppServiceCrud{        TEntity,         TPrimaryKey,         TOrmWhere,         TQueryFilterDto,         TOutputDto,         TCreateInputDto,         TUpdateInputDto}" />
+        ///         cref="ApplicationCrud{        TEntity,         TPrimaryKey,         TOrmWhere,         TQueryFilterDto,         TOutputDto,         TCreateInputDto,         TUpdateInputDto}" />
         ///     class.
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected AppServiceCrud(IRepository<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
+        protected ApplicationCrud(IRepository<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
         {
             this.repository = repository;
             this.aspireMapper = aspireMapper;

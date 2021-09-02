@@ -8,21 +8,22 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Aspire.AppService.xml</DocumentationFile>
+    <DocumentationFile>Aspire.Application.Crud.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Panda.DynamicWebApi" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
+    <ProjectReference Include="..\..\Entity\Aspire.Entity\Aspire.Entity.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Aspire.Crud\Aspire.Curd.csproj" />
+    <ProjectReference Include="..\..\Mapper\Aspire.Mapper.Abstract\Aspire.Mapper.Abstract.csproj" />
+    <ProjectReference Include="..\..\Repository\Aspire.Repository.Abstract\Aspire.Repository.Abstract.csproj" />
+    <ProjectReference Include="..\Aspire.Application\Aspire.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\Aspire\Aspire.csproj" />
-    <ProjectReference Include="..\..\Logger\Aspire.Logger.Abstract\Aspire.Logger.Abstract.csproj" />
   </ItemGroup>
 
 </Project>

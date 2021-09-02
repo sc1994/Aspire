@@ -8,16 +8,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Aspire.Middleware.xml</DocumentationFile>
+    <DocumentationFile>Aspire.Application.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Aspire.Middleware.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-	<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-	<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Panda.DynamicWebApi" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -26,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\Aspire\Aspire.csproj" />
+    <ProjectReference Include="..\..\Logger\Aspire.Logger.Abstract\Aspire.Logger.Abstract.csproj" />
   </ItemGroup>
 
 </Project>

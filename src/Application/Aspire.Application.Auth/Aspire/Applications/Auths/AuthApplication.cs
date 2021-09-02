@@ -1,20 +1,20 @@
 ﻿using Aspire.Domain.Account;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Aspire.AppService.Auths
+namespace Aspire.Application.Auths
 {
     /// <summary>
     ///     认证的 服务.
     /// </summary>
-    public class AuthAppService : AppServiceBase
+    public class AuthApplication : ApplicationBase
     {
         private readonly IAccountManage<IAccount> accountManage;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AuthAppService" /> class.
+        ///     Initializes a new instance of the <see cref="AuthApplication" /> class.
         /// </summary>
         /// <param name="accountManage">账户管理.</param>
-        public AuthAppService(IAccountManage<IAccount> accountManage)
+        public AuthApplication(IAccountManage<IAccount> accountManage)
         {
             this.accountManage = accountManage;
         }

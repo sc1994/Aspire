@@ -14,7 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
     /// <summary>
     ///     鉴/授权 服务配置.
     /// </summary>
-    public static class AuthAppServiceConfigureServices
+    public static class AuthApplicationConfigureServices
     {
         /// <summary>
         ///     添加 鉴/授权 的 app service.
