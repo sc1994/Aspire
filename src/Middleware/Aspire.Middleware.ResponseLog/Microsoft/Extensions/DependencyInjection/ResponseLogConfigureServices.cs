@@ -24,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
             bool hasBody = true)
         {
             hasBodyOption = hasBody;
-            aspireBuilder.MvcBuilder.AddMvcOptions(options => { options.Filters.Add<ResponseLogFilterAttribute>(); });
+            aspireBuilder.MvcBuilder.AddMvcOptions(options => { options.Filters.Add<ResponseLogFilterAttribute>(int.MinValue + 10); });
 
             return aspireBuilder;
         }

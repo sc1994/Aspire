@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
+
 using Serilog;
 using Serilog.Events;
 
@@ -22,6 +24,21 @@ namespace Aspire.SeriLogger
         }
 
         /// <inheritdoc />
+        public void Debug(string message, string? f1 = null, string? f2 = null, string? f3 = null, [CallerFilePath] string? callerFilePath = null, [CallerMemberName] string? callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
+        {
+            Log(
+               LogEventLevel.Debug,
+               callerFilePath,
+               callerMemberName,
+               callerLineNumber,
+               f1,
+               f2,
+               f3,
+               message,
+               null);
+        }
+
+        /// <inheritdoc />
         public void Info(
             string message,
             string? f1 = null,
@@ -32,7 +49,7 @@ namespace Aspire.SeriLogger
             int callerLineNumber = 0)
         {
             Log(
-                2,
+                LogEventLevel.Information,
                 callerFilePath,
                 callerMemberName,
                 callerLineNumber,
@@ -54,7 +71,7 @@ namespace Aspire.SeriLogger
             int callerLineNumber = 0)
         {
             Log(
-                3,
+                LogEventLevel.Warning,
                 callerFilePath,
                 callerMemberName,
                 callerLineNumber,
@@ -77,7 +94,7 @@ namespace Aspire.SeriLogger
             int callerLineNumber = 0)
         {
             Log(
-                3,
+                LogEventLevel.Warning,
                 callerFilePath,
                 callerMemberName,
                 callerLineNumber,
@@ -100,7 +117,7 @@ namespace Aspire.SeriLogger
             int callerLineNumber = 0)
         {
             Log(
-                4,
+                LogEventLevel.Error,
                 callerFilePath,
                 callerMemberName,
                 callerLineNumber,
@@ -112,7 +129,7 @@ namespace Aspire.SeriLogger
         }
 
         private void Log(
-            int level,
+            LogEventLevel level,
             string? callerFilePath,
             string? callerMemberName,
             int callerLineNumber,
@@ -139,11 +156,11 @@ namespace Aspire.SeriLogger
 
             if (exception == null)
             {
-                logger.Write((LogEventLevel)level, template, @params);
+                logger.Write(level, template, @params);
             }
             else
             {
-                logger.Write((LogEventLevel)level, exception, template, @params);
+                logger.Write(level, exception, template, @params);
             }
         }
     }

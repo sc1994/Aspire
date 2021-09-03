@@ -9,21 +9,18 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Aspire.Repository.FreeSql.xml</DocumentationFile>
+    <DocumentationFile>Aspire.Core.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FreeSql" Version="2.5.200" />
+	<PackageReference Include="Panda.DynamicWebApi" Version="1.1.1" />
+	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
+	<PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Application\Aspire.Application.Core\Aspire.Application.Core.csproj" />
-    <ProjectReference Include="..\..\Entity\Aspire.Entity\Aspire.Entity.csproj" />
-    <ProjectReference Include="..\Aspire.Repository.Abstract\Aspire.Repository.Abstract.csproj" />
   </ItemGroup>
 
 </Project>

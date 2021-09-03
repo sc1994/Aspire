@@ -2,9 +2,11 @@
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+
 using Aspire;
 using Aspire.Domain.Account;
 using Aspire.Exceptions;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -51,7 +53,7 @@ namespace Microsoft.Extensions.DependencyInjection
             aspireBuilder.ServiceCollection.AddScoped<IAccount, TAccount>();
 
             // 添加过滤器
-            aspireBuilder.MvcBuilder.AddMvcOptions(options => { options.Filters.Add<AuthFilterAttribute>(); });
+            aspireBuilder.MvcBuilder.AddMvcOptions(options => { options.Filters.Add<AuthFilterAttribute>(int.MaxValue - 11); });
 
             return aspireBuilder;
         }

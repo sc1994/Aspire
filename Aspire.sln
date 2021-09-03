@@ -69,6 +69,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Middleware.ResponseL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Application.Auth", "src\Application\Aspire.Application.Auth\Aspire.Application.Auth.csproj", "{A0495E32-1FB0-4C83-A764-D870A6B19A4F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Application.Core", "src\Application\Aspire.Application.Core\Aspire.Application.Core.csproj", "{7B184813-882B-4910-AEE2-92D603FE1991}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -167,6 +169,10 @@ Global
 		{A0495E32-1FB0-4C83-A764-D870A6B19A4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0495E32-1FB0-4C83-A764-D870A6B19A4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0495E32-1FB0-4C83-A764-D870A6B19A4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B184813-882B-4910-AEE2-92D603FE1991}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B184813-882B-4910-AEE2-92D603FE1991}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B184813-882B-4910-AEE2-92D603FE1991}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B184813-882B-4910-AEE2-92D603FE1991}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -204,6 +210,7 @@ Global
 		{CA0CB505-1BB6-484E-86E2-B4653EE50D63} = {35CC9230-8AFA-4A13-99F9-1CE6F37FF7D1}
 		{F18A0D35-5934-4FC9-BDB1-56676C35A110} = {35CC9230-8AFA-4A13-99F9-1CE6F37FF7D1}
 		{A0495E32-1FB0-4C83-A764-D870A6B19A4F} = {B95502D1-2D3D-42F9-92A0-A01BF8921160}
+		{7B184813-882B-4910-AEE2-92D603FE1991} = {B95502D1-2D3D-42F9-92A0-A01BF8921160}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CFDF950F-C37B-49A4-A267-EB7FEA97A410}

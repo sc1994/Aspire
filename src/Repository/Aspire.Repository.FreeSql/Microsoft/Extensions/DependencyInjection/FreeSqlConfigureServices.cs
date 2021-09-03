@@ -47,6 +47,7 @@ namespace Microsoft.Extensions.DependencyInjection
             aspireBuilder.ServiceCollection.AddScoped(typeof(IRepositoryFreeSql<,,>), typeof(RepositoryFreeSql<,,>));
             aspireBuilder.ServiceCollection.AddScoped(typeof(IRepositoryFreeSql<,>), typeof(RepositoryFreeSql<,>));
             aspireBuilder.ServiceCollection.AddScoped(typeof(IRepositoryFreeSql<>), typeof(RepositoryFreeSql<>));
+
             return aspireBuilder; // TODO 重复代码
         }
 

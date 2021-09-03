@@ -5,6 +5,7 @@
     <RootNamespace />
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
+    <Version>0.0.100</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -23,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Application\Aspire.Application.Core\Aspire.Application.Core.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Aspire\Aspire.csproj" />
     <ProjectReference Include="..\Aspire.Logger.Abstract\Aspire.Logger.Abstract.csproj" />
   </ItemGroup>

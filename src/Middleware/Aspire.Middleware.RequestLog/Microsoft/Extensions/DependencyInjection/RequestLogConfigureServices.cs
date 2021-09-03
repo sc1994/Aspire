@@ -28,7 +28,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             hasBodyOption = hasBody;
             headerKeyFilterOption = headerKeyFilter;
-            aspireBuilder.MvcBuilder.AddMvcOptions(options => { options.Filters.Add<RequestLogFilterAttribute>(); });
+            aspireBuilder.MvcBuilder.AddMvcOptions(options => { options.Filters.Add<RequestLogFilterAttribute>(int.MaxValue - 10); });
 
             return aspireBuilder;
         }
