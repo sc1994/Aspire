@@ -45,7 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Repository.Abstract"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Repository.FreeSql", "src\Repository\Aspire.Repository.FreeSql\Aspire.Repository.FreeSql.csproj", "{C6FDB184-DF2D-4456-AF59-17A66EC78F56}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Curd", "src\Infrastructure\Aspire.Crud\Aspire.Curd.csproj", "{93ED1588-B042-44DB-80B3-FD525CC04BDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Crud", "src\Infrastructure\Aspire.Crud\Aspire.Crud.csproj", "{93ED1588-B042-44DB-80B3-FD525CC04BDB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Middleware", "Middleware", "{35CC9230-8AFA-4A13-99F9-1CE6F37FF7D1}"
 EndProject

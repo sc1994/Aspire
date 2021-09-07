@@ -157,6 +157,9 @@ namespace Aspire
             int pageSize);
 
         /// <inheritdoc />
+        public abstract Task<TEntity?> GetAsync(TOrmWhere where);
+
+        /// <inheritdoc />
         public abstract Task<IEnumerable<TEntity>> GetListAsync(TOrmWhere where);
 
         /// <inheritdoc />

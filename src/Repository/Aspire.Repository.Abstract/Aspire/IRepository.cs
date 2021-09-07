@@ -42,6 +42,13 @@ namespace Aspire
         /// </summary>
         /// <param name="where">过滤内容.</param>
         /// <returns>列表.</returns>
+        Task<TEntity?> GetAsync(TOrmWhere where);
+
+        /// <summary>
+        ///     根据过滤条件获取列表.
+        /// </summary>
+        /// <param name="where">过滤内容.</param>
+        /// <returns>列表.</returns>
         Task<IEnumerable<TEntity>> GetListAsync(TOrmWhere where);
 
         /// <summary>

@@ -5,7 +5,7 @@
     <RootNamespace />
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
-    <Version>0.0.100</Version>
+    <Version>0.0.107</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -1,11 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
 	<TargetFramework>net6.0</TargetFramework>
     <RootNamespace />
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
-    <Version>0.0.100</Version>
+    <Version>0.0.107</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Application\Aspire.Application.Core\Aspire.Application.Core.csproj" />
+    <ProjectReference Include="..\..\Entity\Aspire.Entity.FreeSql\Aspire.Entity.FreeSql.csproj" />
     <ProjectReference Include="..\..\Entity\Aspire.Entity\Aspire.Entity.csproj" />
     <ProjectReference Include="..\Aspire.Repository.Abstract\Aspire.Repository.Abstract.csproj" />
   </ItemGroup>

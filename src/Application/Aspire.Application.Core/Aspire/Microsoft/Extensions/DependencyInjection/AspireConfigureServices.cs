@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
+﻿using System.Reflection;
 using Microsoft.OpenApi.Models;
 using Panda.DynamicWebApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -13,6 +10,13 @@ namespace Microsoft.Extensions.DependencyInjection
     /// </summary>
     public static class AspireConfigureServices
     {
+        private static string? assemblyName;
+
+        /// <summary>
+        /// Gets 程序集名称(作为swagger 的 title).
+        /// </summary>
+        internal static string? AssemblyName { get => assemblyName; private set => assemblyName = value; }
+
         /// <summary>
         ///     添加 aspire 的 dynamic web api.
         /// </summary>
@@ -81,11 +85,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
             return new AspireBuilder(mvcBuilder, services);
         }
-
-        /// <summary>
-        /// 程序集名称(作为swagger 的 title).
-        /// </summary>
-        internal static string? AssemblyName;
 
         private class AuthOperationFilter : IOperationFilter
         {
