@@ -15,7 +15,7 @@ namespace Microsoft.AspNetCore.Builder
         public static IApplicationBuilder UseAspireSwagger(this IApplicationBuilder app)
         {
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{AspireConfigureServices.AssemblyName} v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{AppDomain.CurrentDomain.FriendlyName} v1"));
             return app;
         }
     }

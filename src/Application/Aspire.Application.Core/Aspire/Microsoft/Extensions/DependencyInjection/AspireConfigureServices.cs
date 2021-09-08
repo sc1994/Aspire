@@ -47,7 +47,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = AssemblyName = applicationAssembly.FullName,
+                    Title = AssemblyName = AppDomain.CurrentDomain.FriendlyName,
                     Version = "v1"
                 });
 
@@ -78,7 +78,13 @@ namespace Microsoft.Extensions.DependencyInjection
                         new List<string>()
                     }
                 });
+
                 c.OperationFilter<AuthOperationFilter>();
+
+                c.TagActionsBy(tagSelector =>
+                {
+                    return new[] { GetFriendlyControllerName(tagSelector.GroupName ?? "Default") };
+                });
 
                 c.DocInclusionPredicate((_, _) => true);
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -88,6 +94,16 @@ namespace Microsoft.Extensions.DependencyInjection
             });
 
             return new AspireBuilder(mvcBuilder, services);
+        }
+
+        private static string GetFriendlyControllerName(string controllerName)
+        {
+            if (controllerName != "Application")
+            {
+                return controllerName.Replace("Application", string.Empty);
+            }
+
+            return controllerName;
         }
 
         private class AuthOperationFilter : IOperationFilter
@@ -101,6 +117,25 @@ namespace Microsoft.Extensions.DependencyInjection
 
         private class ServiceActionRouteFactory : IActionRouteFactory
         {
+            public string CreateActionRouteModel(string areaName, string controllerName, ActionModel action)
+            {
+                var actionName = action.ActionName;
+                if ((action.ActionMethod.Name == "CreateOrUpdateAsync"
+                    || action.ActionMethod.Name == "CreateOrUpdate")
+                    && actionName == "OrUpdate")
+                {
+                    actionName = "CreateOrUpdate";
+                }
+
+                return Path
+                    .Combine(
+                        GetApiPreFix(action),
+                        areaName ?? string.Empty,
+                        GetFriendlyControllerName(controllerName),
+                        actionName)
+                    .Replace("\\", "/");
+            }
+
             private static string GetApiPreFix(ActionModel action)
             {
                 if (AppConsts.AssemblyDynamicWebApiOptions.TryGetValue(action.Controller.ControllerType.Assembly, out var value)
@@ -110,15 +145,6 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
 
                 return AppConsts.DefaultApiPreFix;
-            }
-
-            public string CreateActionRouteModel(string areaName, string controllerName, ActionModel action)
-            {
-                return Path.Combine(
-                    GetApiPreFix(action),
-                    areaName,
-                    controllerName.Replace("Application", string.Empty),
-                    action.ActionName);
             }
         }
     }
