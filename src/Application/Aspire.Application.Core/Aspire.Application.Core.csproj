@@ -5,12 +5,16 @@
     <RootNamespace />
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
-    <Version>0.0.107</Version>
+    <Version>0.0.108</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Aspire.Core.xml</DocumentationFile>
+    <DocumentationFile>Aspire.Application.Core.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Aspire.Application.Core.xml" />
+  </ItemGroup>
 
   <ItemGroup>
 	<PackageReference Include="Panda.DynamicWebApi" Version="1.1.1" />

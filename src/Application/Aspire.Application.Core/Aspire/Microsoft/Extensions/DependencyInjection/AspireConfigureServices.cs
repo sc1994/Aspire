@@ -1,6 +1,10 @@
 ﻿using System.Reflection;
+
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.OpenApi.Models;
+
 using Panda.DynamicWebApi;
+
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -36,7 +40,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 options.AddAssemblyOptions(applicationAssembly);
 
-                // options.ActionRouteFactory = new ServiceActionRouteFactory(); TODO 自定义路由规则
+                options.ActionRouteFactory = new ServiceActionRouteFactory();
             });
 
             services.AddSwaggerGen(c =>
@@ -92,6 +96,29 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 // TODO
                 // https://stackoverflow.com/questions/56745739/in-swagger-ui-how-can-i-remove-the-padlock-icon-from-anonymous-methods
+            }
+        }
+
+        private class ServiceActionRouteFactory : IActionRouteFactory
+        {
+            private static string GetApiPreFix(ActionModel action)
+            {
+                if (AppConsts.AssemblyDynamicWebApiOptions.TryGetValue(action.Controller.ControllerType.Assembly, out var value)
+                    && !string.IsNullOrWhiteSpace(value?.ApiPrefix))
+                {
+                    return value.ApiPrefix;
+                }
+
+                return AppConsts.DefaultApiPreFix;
+            }
+
+            public string CreateActionRouteModel(string areaName, string controllerName, ActionModel action)
+            {
+                return Path.Combine(
+                    GetApiPreFix(action),
+                    areaName,
+                    controllerName.Replace("Application", string.Empty),
+                    action.ActionName);
             }
         }
     }
