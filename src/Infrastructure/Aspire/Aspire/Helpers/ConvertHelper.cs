@@ -2,7 +2,7 @@
 
 using static Newtonsoft.Json.JsonConvert;
 
-namespace Aspire
+namespace Aspire.Helpers
 {
     /// <summary>
     ///     转换 帮助类.

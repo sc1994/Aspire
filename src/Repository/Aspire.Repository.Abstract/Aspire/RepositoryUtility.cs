@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using Aspire.Entity;
 using Aspire.Entity.Audit;
+using Aspire.Helpers;
 
 namespace Aspire
 {

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Application\Aspire.Application.Core\Aspire.Application.Core.csproj" />
+    <ProjectReference Include="..\..\src\Application\Aspire.Application\Aspire.Application.csproj" />
+    <ProjectReference Include="..\..\src\Infrastructure\Aspire.Crud\Aspire.Crud.csproj" />
+  </ItemGroup>
+
+</Project>

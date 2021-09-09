@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 
 using Aspire.Entity;
+using Aspire.Helpers;
 
 using FreeSql;
 

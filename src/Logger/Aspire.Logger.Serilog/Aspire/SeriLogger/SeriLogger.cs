@@ -1,7 +1,7 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
-using Serilog;
+using Aspire.Helpers;
+
 using Serilog.Events;
 
 namespace Aspire.SeriLogger

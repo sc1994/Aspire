@@ -97,3 +97,5 @@ Console.WriteLine(stdOutBuffer.ToString());
 Console.WriteLine(stdErrBuffer.ToString());
 
 Console.WriteLine("Done");
+
+Console.ReadLine();

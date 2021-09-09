@@ -1,12 +1,11 @@
-
-
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddAspire(Assembly.Load("ServicesAndApplications"));
+builder.Services
+    .AddAspire(Assembly.Load("MapAuto"));
 
 var app = builder.Build();
 

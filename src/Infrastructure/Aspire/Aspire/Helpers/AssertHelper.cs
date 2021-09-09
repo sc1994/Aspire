@@ -1,4 +1,4 @@
-﻿namespace Aspire
+﻿namespace Aspire.Helpers
 {
     /// <summary>
     ///     断言.

@@ -1,5 +1,8 @@
 ﻿using System.Reflection;
 
+using Aspire;
+using Aspire.Helpers;
+
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.OpenApi.Models;
 
@@ -15,11 +18,6 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class AspireConfigureServices
     {
         private static string? assemblyName;
-
-        /// <summary>
-        /// Gets 程序集名称(作为swagger 的 title).
-        /// </summary>
-        internal static string? AssemblyName { get => assemblyName; private set => assemblyName = value; }
 
         /// <summary>
         ///     添加 aspire 的 dynamic web api.
@@ -47,7 +45,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = AssemblyName = AppDomain.CurrentDomain.FriendlyName,
+                    Title = AppDomain.CurrentDomain.FriendlyName,
                     Version = "v1"
                 });
 
@@ -92,6 +90,34 @@ namespace Microsoft.Extensions.DependencyInjection
                 var xmlPath = Path.Combine(baseDirectory, xmlFile);
                 if (File.Exists(xmlPath)) c.IncludeXmlComments(xmlPath);
             });
+
+            // 扫描的类会比较多
+            applicationAssembly
+                .GetReferencedAssemblies()
+                .SelectMany(x => Assembly.Load(x).GetTypes())
+                .Select(type => (type, type.GetCustomAttribute<InjectToAttribute>()))
+                .ForEach(x =>
+                {
+                    if (x.Item2 == null) return;
+
+                    switch (x.Item2.Lifecycle)
+                    {
+                        case Lifecycle.Singleton:
+                            if (x.Item2.ImplementationInstance == null) services.AddSingleton(x.type);
+                            else services.AddSingleton(x.type, x.Item2.ImplementationInstance);
+                            break;
+                        case Lifecycle.Scoped:
+                            if (x.Item2.ImplementationInstance == null) services.AddScoped(x.type);
+                            else services.AddScoped(x.type, x.Item2.ImplementationInstance);
+                            break;
+                        case Lifecycle.Transient:
+                            if (x.Item2.ImplementationInstance == null) services.AddTransient(x.type);
+                            else services.AddTransient(x.type, x.Item2.ImplementationInstance);
+                            break;
+                        default:
+                            throw new ArgumentException(nameof(x.Item2.Lifecycle));
+                    }
+                });
 
             return new AspireBuilder(mvcBuilder, services);
         }

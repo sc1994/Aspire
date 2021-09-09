@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{B466C962-4D28-4254-8D24-47BE10DF353F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PackNupkgs", "tools\PackNupkgs\PackNupkgs.csproj", "{F7BE3C66-D039-4A67-909A-9F8B4A8046D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PackNupkgs", "PackNupkgs\PackNupkgs.csproj", "{F7BE3C66-D039-4A67-909A-9F8B4A8046D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

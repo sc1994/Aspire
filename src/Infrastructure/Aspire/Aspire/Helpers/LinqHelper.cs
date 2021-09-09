@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Aspire
+namespace Aspire.Helpers
 {
     /// <summary>
     ///     linq 帮助类.
