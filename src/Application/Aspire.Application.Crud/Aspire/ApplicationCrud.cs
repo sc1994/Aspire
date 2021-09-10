@@ -31,7 +31,7 @@ namespace Aspire
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected ApplicationCrud(IRepository<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
+        protected ApplicationCrud(IRepositoryBase<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -62,7 +62,7 @@ namespace Aspire
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected ApplicationCrud(IRepository<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
+        protected ApplicationCrud(IRepositoryBase<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -97,7 +97,7 @@ namespace Aspire
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected ApplicationCrud(IRepository<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
+        protected ApplicationCrud(IRepositoryBase<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -135,7 +135,7 @@ namespace Aspire
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected ApplicationCrud(IRepository<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
+        protected ApplicationCrud(IRepositoryBase<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -184,7 +184,7 @@ namespace Aspire
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         private readonly IAspireMapper aspireMapper;
-        private readonly IRepository<TEntity, TPrimaryKey, TOrmWhere> repository;
+        private readonly IRepositoryBase<TEntity, TPrimaryKey, TOrmWhere> repository;
 
         /// <summary>
         ///     Initializes a new instance of the
@@ -194,7 +194,7 @@ namespace Aspire
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected ApplicationCrud(IRepository<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
+        protected ApplicationCrud(IRepositoryBase<TEntity, TPrimaryKey, TOrmWhere> repository, IAspireMapper aspireMapper)
         {
             this.repository = repository;
             this.aspireMapper = aspireMapper;

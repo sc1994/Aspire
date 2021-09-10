@@ -12,7 +12,7 @@ namespace Aspire
     /// </summary>
     /// <typeparam name="TEntity">实体.</typeparam>
     /// <typeparam name="TOrmWhere">比如ef的IQueryable, freeSql的ISelect.</typeparam>
-    public interface IRepository<TEntity, TOrmWhere> : IRepository<TEntity, Guid, TOrmWhere>
+    public interface IRepositoryBase<TEntity, TOrmWhere> : IRepositoryBase<TEntity, Guid, TOrmWhere>
         where TEntity : IEntityBase
     {
     }
@@ -23,7 +23,7 @@ namespace Aspire
     /// <typeparam name="TEntity">实体.</typeparam>
     /// <typeparam name="TPrimaryKey">实体主键.</typeparam>
     /// <typeparam name="TOrmWhere">比如ef的IQueryable, freeSql的ISelect.</typeparam>
-    public interface IRepository<TEntity, TPrimaryKey, TOrmWhere> : ICrud<TEntity, TPrimaryKey>
+    public interface IRepositoryBase<TEntity, TPrimaryKey, TOrmWhere> : ICrud<TEntity, TPrimaryKey>
         where TEntity : IEntityBase<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
@@ -34,7 +34,7 @@ namespace Aspire
         /// <param name="pageIndex">page index.</param>
         /// <param name="pageSize">page size.</param>
         /// <returns>total count , list.</returns>
-        Task<(long TotalCount, IEnumerable<TEntity> List)>
+        Task<(long totalCount, IEnumerable<TEntity> list)>
             PagingListAsync(TOrmWhere where, int pageIndex, int pageSize);
 
         /// <summary>

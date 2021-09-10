@@ -32,12 +32,15 @@ namespace Microsoft.Extensions.DependencyInjection
                         .SelectMany(x => Assembly.Load(x).GetTypes())
                         .ForEach(type =>
                         {
-                            var mapperCase = type.GetCustomAttribute<MapToAttribute>();
-                            if (mapperCase is null) return;
+                            var mapperCaseList = type.GetCustomAttributes<MapToAttribute>();
+                            if (mapperCaseList?.Any() != true) return;
 
-                            cfg.CreateProfile(
-                                $"{type.FullName}_mutually_{mapperCase.MapToType.FullName}",
-                                profileConfig => { profileConfig.CreateMap(type, mapperCase.MapToType).ReverseMap(); });
+                            foreach (var mapperCase in mapperCaseList)
+                            {
+                                cfg.CreateProfile(
+                                    $"{type.FullName}_mutually_{mapperCase.MapToType.FullName}",
+                                    profileConfig => { profileConfig.CreateMap(type, mapperCase.MapToType).ReverseMap(); });
+                            }
                         });
                     cfg.AddMaps(applicationAssembly);
                 }).CreateMapper();

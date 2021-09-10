@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Entity\Aspire.Entity\Aspire.Entity.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Aspire.Crud\Aspire.Crud.csproj" />
+    <ProjectReference Include="..\..\Authorization\Aspire.Account\Aspire.Account.csproj" />
+    <ProjectReference Include="..\Aspire.Repository.Abstract\Aspire.Repository.Abstract.csproj" />
   </ItemGroup>
 
 </Project>

@@ -22,7 +22,7 @@ namespace Aspire
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected ApplicationCrudFreeSql(IRepositoryFreeSql<TEntity> repository, IAspireMapper aspireMapper)
+        protected ApplicationCrudFreeSql(IRepository<TEntity> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -49,7 +49,7 @@ namespace Aspire
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected ApplicationCrudFreeSql(IRepositoryFreeSql<TEntity, TPrimaryKey> repository, IAspireMapper aspireMapper)
+        protected ApplicationCrudFreeSql(IRepository<TEntity, TPrimaryKey> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -79,7 +79,7 @@ namespace Aspire
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected ApplicationCrudFreeSql(IRepositoryFreeSql<TEntity, TPrimaryKey> repository, IAspireMapper aspireMapper)
+        protected ApplicationCrudFreeSql(IRepository<TEntity, TPrimaryKey> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -113,7 +113,7 @@ namespace Aspire
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected ApplicationCrudFreeSql(IRepositoryFreeSql<TEntity, TPrimaryKey> repository, IAspireMapper aspireMapper)
+        protected ApplicationCrudFreeSql(IRepository<TEntity, TPrimaryKey> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -151,7 +151,7 @@ namespace Aspire
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected ApplicationCrudFreeSql(IRepositoryFreeSql<TEntity, TPrimaryKey> repository, IAspireMapper aspireMapper)
+        protected ApplicationCrudFreeSql(IRepository<TEntity, TPrimaryKey> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }
@@ -192,7 +192,7 @@ namespace Aspire
         /// </summary>
         /// <param name="repository">仓储实例.</param>
         /// <param name="aspireMapper">mapper实例.</param>
-        protected ApplicationCrudFreeSql(IRepositoryFreeSql<TEntity, TPrimaryKey> repository, IAspireMapper aspireMapper)
+        protected ApplicationCrudFreeSql(IRepository<TEntity, TPrimaryKey> repository, IAspireMapper aspireMapper)
             : base(repository, aspireMapper)
         {
         }

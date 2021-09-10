@@ -13,7 +13,7 @@ namespace Aspire.Repository.FreeSql
     ///     free sql 仓储实现.
     /// </summary>
     /// <typeparam name="TEntity">实体.</typeparam>
-    public class RepositoryFreeSql<TEntity> : RepositoryFreeSql<TEntity, Guid>, IRepositoryFreeSql<TEntity>
+    public class RepositoryFreeSql<TEntity> : RepositoryFreeSql<TEntity, Guid>, IRepository<TEntity>
         where TEntity : class, IEntityBase
     {
         /// <summary>
@@ -21,8 +21,8 @@ namespace Aspire.Repository.FreeSql
         /// </summary>
         /// <param name="freeSql">free sql.</param>
         /// <param name="account">当前用户.</param>
-        public RepositoryFreeSql(IFreeSql freeSql, IAccount account)
-            : base(freeSql, account)
+        public RepositoryFreeSql(IFreeSql freeSql)
+            : base(freeSql)
         {
         }
     }
@@ -33,8 +33,7 @@ namespace Aspire.Repository.FreeSql
     /// <typeparam name="TEntity">实体.</typeparam>
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
     public class RepositoryFreeSql<TEntity, TPrimaryKey>
-        : RepositoryUtility<TEntity, TPrimaryKey, ISelect<TEntity>>,
-          IRepositoryFreeSql<TEntity, TPrimaryKey>
+          : IRepository<TEntity, TPrimaryKey>
         where TEntity : class, IEntityBase<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
@@ -45,8 +44,7 @@ namespace Aspire.Repository.FreeSql
         /// </summary>
         /// <param name="freeSql">free sql.</param>
         /// <param name="account">当前用户.</param>
-        public RepositoryFreeSql(IFreeSql freeSql, IAccount account)
-            : base(account)
+        public RepositoryFreeSql(IFreeSql freeSql)
         {
             this.freeSql = freeSql;
         }
@@ -67,7 +65,7 @@ namespace Aspire.Repository.FreeSql
         }
 
         /// <inheritdoc ref="PagingListAsync" />
-        public virtual async Task<(long TotalCount, IEnumerable<TEntity> List)> PagingListAsync(
+        public virtual async Task<(long totalCount, IEnumerable<TEntity> list)> PagingListAsync(
             Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize)
         {
             return await PagingListAsync(Select().Where(where), pageIndex, pageSize);
@@ -176,7 +174,7 @@ namespace Aspire.Repository.FreeSql
         /// </summary>
         /// <param name="freeSql">free sql.</param>
         /// <param name="account">当前用户.</param>
-        public RepositoryFreeSql(IFreeSql freeSql, IAccount account)
+        public RepositoryFreeSql(IFreeSql freeSql)
             : base(freeSql, account)
         {
         }

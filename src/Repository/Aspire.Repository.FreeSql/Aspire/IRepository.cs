@@ -10,8 +10,8 @@ namespace Aspire
     ///     仓储.
     /// </summary>
     /// <typeparam name="TEntity">实体.</typeparam>
-    public interface IRepositoryFreeSql<TEntity>
-        : IRepositoryFreeSql<TEntity, Guid>
+    public interface IRepository<TEntity>
+        : IRepository<TEntity, Guid>
         where TEntity : class, IEntityBase
     {
     }
@@ -21,8 +21,8 @@ namespace Aspire
     /// </summary>
     /// <typeparam name="TEntity">实体.</typeparam>
     /// <typeparam name="TPrimaryKey">实体主键.</typeparam>
-    public interface IRepositoryFreeSql<TEntity, TPrimaryKey>
-        : IRepository<TEntity, TPrimaryKey, ISelect<TEntity>>
+    public interface IRepository<TEntity, TPrimaryKey>
+        : IRepositoryBase<TEntity, TPrimaryKey, ISelect<TEntity>>
         where TEntity : class, IEntityBase<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
@@ -80,8 +80,8 @@ namespace Aspire
     /// <typeparam name="TEntity">实体.</typeparam>
     /// <typeparam name="TPrimaryKey">实体主键.</typeparam>
     /// <typeparam name="TDatabase">指定当前操作的数据库.</typeparam>
-    public interface IRepositoryFreeSql<TEntity, TPrimaryKey, TDatabase>
-        : IRepositoryFreeSql<TEntity, TPrimaryKey>
+    public interface IRepository<TEntity, TPrimaryKey, TDatabase>
+        : IRepository<TEntity, TPrimaryKey>
         where TEntity : class, IEntityBase<TPrimaryKey, TDatabase>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {

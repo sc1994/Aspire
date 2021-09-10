@@ -16,7 +16,7 @@ namespace Aspire
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
     /// <typeparam name="TOrmWhere">orm where.</typeparam>
     public abstract class RepositoryUtility<TEntity, TPrimaryKey, TOrmWhere>
-        : IRepository<TEntity, TPrimaryKey, TOrmWhere>
+        : IRepositoryBase<TEntity, TPrimaryKey, TOrmWhere>
         where TEntity : IEntityBase<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
@@ -152,7 +152,7 @@ namespace Aspire
         }
 
         /// <inheritdoc />
-        public abstract Task<(long TotalCount, IEnumerable<TEntity> List)> PagingListAsync(
+        public abstract Task<(long totalCount, IEnumerable<TEntity> list)> PagingListAsync(
             TOrmWhere where,
             int pageIndex,
             int pageSize);

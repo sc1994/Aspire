@@ -50,11 +50,11 @@ public class ClassB
     public string? Title { get; set; }
 }
 
-public class ClassAProfile : Profile
-{
-    public ClassAProfile()
-    {
-        CreateMap<ClassA, ClassB>().ForMember(x => x.Title, x => x.MapFrom(m => m.Description));
-        CreateMap<ClassB, ClassA>().ForMember(x => x.Description, x => x.MapFrom(m => m.Title));
-    }
-}
+//public class ClassAProfile : Profile
+//{
+//    public ClassAProfile()
+//    {
+//        CreateMap<ClassA, ClassB>().ForMember(x => x.Title, x => x.MapFrom(m => m.Description));
+//        CreateMap<ClassB, ClassA>().ForMember(x => x.Description, x => x.MapFrom(m => m.Title));
+//    }
+//}

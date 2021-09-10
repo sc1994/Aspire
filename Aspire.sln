@@ -79,6 +79,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjectionAuto", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapAuto", "examples\MapAuto\MapAuto.csproj", "{EA31EC04-FD26-4AD9-BC57-3FE018B62B28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Repository.Audit", "src\Repository\Aspire.Repository.Audit\Aspire.Repository.Audit.csproj", "{85CDA9B3-04D4-4611-B29B-35BFFE8033BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -193,6 +195,10 @@ Global
 		{EA31EC04-FD26-4AD9-BC57-3FE018B62B28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA31EC04-FD26-4AD9-BC57-3FE018B62B28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA31EC04-FD26-4AD9-BC57-3FE018B62B28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85CDA9B3-04D4-4611-B29B-35BFFE8033BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85CDA9B3-04D4-4611-B29B-35BFFE8033BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85CDA9B3-04D4-4611-B29B-35BFFE8033BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85CDA9B3-04D4-4611-B29B-35BFFE8033BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -234,6 +240,7 @@ Global
 		{888BEBC7-404D-486B-AE53-CDB2ECE7BA30} = {F47A7DA1-9B55-4BD4-9135-A39B5835816A}
 		{B62573F5-C10E-48D9-913D-825A30A7ECA1} = {F47A7DA1-9B55-4BD4-9135-A39B5835816A}
 		{EA31EC04-FD26-4AD9-BC57-3FE018B62B28} = {F47A7DA1-9B55-4BD4-9135-A39B5835816A}
+		{85CDA9B3-04D4-4611-B29B-35BFFE8033BB} = {2AA99AF8-8293-49A5-916A-FFCB5566BF04}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CFDF950F-C37B-49A4-A267-EB7FEA97A410}
