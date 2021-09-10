@@ -27,9 +27,9 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 return new MapperConfiguration(cfg =>
                 {
-                    cfg.AddMaps(applicationAssembly);
                     applicationAssembly
-                        .GetTypes()
+                        .GetReferencedAssemblies()
+                        .SelectMany(x => Assembly.Load(x).GetTypes())
                         .ForEach(type =>
                         {
                             var mapperCase = type.GetCustomAttribute<MapToAttribute>();
@@ -39,6 +39,7 @@ namespace Microsoft.Extensions.DependencyInjection
                                 $"{type.FullName}_mutually_{mapperCase.MapToType.FullName}",
                                 profileConfig => { profileConfig.CreateMap(type, mapperCase.MapToType).ReverseMap(); });
                         });
+                    cfg.AddMaps(applicationAssembly);
                 }).CreateMapper();
             });
 

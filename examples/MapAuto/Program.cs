@@ -5,7 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services
-    .AddAspire(Assembly.Load("MapAuto"));
+    .AddAspire(Assembly.Load("MapAuto"))
+    .AddAspireAutoMapper(Assembly.Load("MapAuto"));
 
 var app = builder.Build();
 
