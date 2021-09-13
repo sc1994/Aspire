@@ -39,7 +39,7 @@ namespace Aspire
         /// <param name="pageIndex">page index.</param>
         /// <param name="pageSize">page size.</param>
         /// <returns>total count , list.</returns>
-        Task<(long TotalCount, IEnumerable<TEntity> List)> PagingListAsync(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize);
+        Task<(long totalCount, IEnumerable<TEntity> list)> PagingListAsync(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize);
 
         /// <summary>
         ///     根据过滤条件获取列表.

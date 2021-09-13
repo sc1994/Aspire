@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace />
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
@@ -9,11 +9,10 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Aspire.Repository.FreeSql.xml</DocumentationFile>
+    <DocumentationFile>Aspire.Repository.Audit.Account.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FreeSql" Version="2.5.200" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -21,9 +20,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Application\Aspire.Application.Core\Aspire.Application.Core.csproj" />
-    <ProjectReference Include="..\..\Entity\Aspire.Entity.FreeSql\Aspire.Entity.FreeSql.csproj" />
+    <ProjectReference Include="..\..\Authorization\Aspire.Account\Aspire.Account.csproj" />
+    <ProjectReference Include="..\..\Entity\Aspire.Entity.Account\Aspire.Entity.Account.csproj" />
     <ProjectReference Include="..\Aspire.Repository.Audit\Aspire.Repository.Audit.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Aspire\" />
   </ItemGroup>
 
 </Project>

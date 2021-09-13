@@ -7,8 +7,6 @@ using FreeSql;
 
 namespace Aspire.Repository.FreeSql
 {
-    // TODO 重复代码
-
     /// <summary>
     ///     free sql 仓储实现.
     /// </summary>
@@ -20,7 +18,6 @@ namespace Aspire.Repository.FreeSql
         ///     Initializes a new instance of the <see cref="RepositoryFreeSql{TEntity}" /> class.
         /// </summary>
         /// <param name="freeSql">free sql.</param>
-        /// <param name="account">当前用户.</param>
         public RepositoryFreeSql(IFreeSql freeSql)
             : base(freeSql)
         {
@@ -33,7 +30,7 @@ namespace Aspire.Repository.FreeSql
     /// <typeparam name="TEntity">实体.</typeparam>
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
     public class RepositoryFreeSql<TEntity, TPrimaryKey>
-          : IRepository<TEntity, TPrimaryKey>
+          : RepositoryUtility<TEntity, TPrimaryKey, ISelect<TEntity>>, IRepository<TEntity, TPrimaryKey>
         where TEntity : class, IEntityBase<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
@@ -43,52 +40,9 @@ namespace Aspire.Repository.FreeSql
         ///     Initializes a new instance of the <see cref="RepositoryFreeSql{TEntity, TPrimaryKey}" /> class.
         /// </summary>
         /// <param name="freeSql">free sql.</param>
-        /// <param name="account">当前用户.</param>
         public RepositoryFreeSql(IFreeSql freeSql)
         {
             this.freeSql = freeSql;
-        }
-
-        /// <inheritdoc />
-        public override async Task<(long TotalCount, IEnumerable<TEntity> List)> PagingListAsync(
-            ISelect<TEntity> where, int pageIndex, int pageSize)
-        {
-            var w = where;
-            var listAsync = w
-                .Skip((pageIndex - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
-
-            var totalAsync = w.CountAsync();
-
-            return (await totalAsync, await listAsync);
-        }
-
-        /// <inheritdoc ref="PagingListAsync" />
-        public virtual async Task<(long totalCount, IEnumerable<TEntity> list)> PagingListAsync(
-            Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize)
-        {
-            return await PagingListAsync(Select().Where(where), pageIndex, pageSize);
-        }
-
-        /// <inheritdoc />
-        public ISelect<TEntity> Select()
-        {
-            if (IsAuditSoftDelete()) return freeSql.Select<TEntity>();
-
-            return freeSql.Select<TEntity>().Where("Deleted = 0").OrderByDescending(x => x.Id);
-        }
-
-        /// <inheritdoc />
-        public override async Task<TEntity?> GetAsync(ISelect<TEntity> where)
-        {
-            return await where.FirstAsync();
-        }
-
-        /// <inheritdoc />
-        public override async Task<IEnumerable<TEntity>> GetListAsync(ISelect<TEntity> where)
-        {
-            return await where.ToListAsync();
         }
 
         /// <inheritdoc />
@@ -107,6 +61,46 @@ namespace Aspire.Repository.FreeSql
         public override async Task<bool> ExistAsync(TPrimaryKey primaryKey)
         {
             return await Select().Where(x => x.Id.Equals(primaryKey)).CountAsync() == 1;
+        }
+
+        /// <inheritdoc />
+        public override async Task<TEntity?> GetAsync(ISelect<TEntity> where)
+        {
+            return await where.FirstAsync();
+        }
+
+        /// <inheritdoc />
+        public override async Task<IEnumerable<TEntity>> GetListAsync(ISelect<TEntity> where)
+        {
+            return await where.ToListAsync();
+        }
+
+        /// <inheritdoc />
+        public virtual async Task<(long totalCount, IEnumerable<TEntity> list)> PagingListAsync(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize)
+        {
+            return await PagingListAsync(Select().Where(where), pageIndex, pageSize);
+        }
+
+        /// <inheritdoc />
+        public override async Task<(long totalCount, IEnumerable<TEntity> list)> PagingListAsync(ISelect<TEntity> where, int pageIndex, int pageSize)
+        {
+            var w = where;
+            var listAsync = w
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var totalAsync = w.CountAsync();
+
+            return (await totalAsync, await listAsync);
+        }
+
+        /// <inheritdoc />
+        public ISelect<TEntity> Select()
+        {
+            if (IsAuditSoftDelete()) return freeSql.Select<TEntity>();
+
+            return freeSql.Select<TEntity>().Where("Deleted = 0").OrderByDescending(x => x.Id);
         }
 
         /// <inheritdoc />
@@ -173,9 +167,8 @@ namespace Aspire.Repository.FreeSql
         ///     Initializes a new instance of the <see cref="RepositoryFreeSql{TEntity, TPrimaryKey, TDatabase}"/> class.
         /// </summary>
         /// <param name="freeSql">free sql.</param>
-        /// <param name="account">当前用户.</param>
         public RepositoryFreeSql(IFreeSql freeSql)
-            : base(freeSql, account)
+            : base(freeSql)
         {
         }
     }

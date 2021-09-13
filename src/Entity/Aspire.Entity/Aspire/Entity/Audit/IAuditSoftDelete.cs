@@ -16,10 +16,5 @@ namespace Aspire.Entity.Audit
         ///     Gets or sets 删除时间.
         /// </summary>
         DateTime DeletedAt { get; set; }
-
-        /// <summary>
-        ///     Gets or sets 删除人.
-        /// </summary>
-        string Deleter { get; set; }
     }
 }

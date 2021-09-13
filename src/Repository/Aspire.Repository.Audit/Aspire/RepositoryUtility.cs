@@ -20,17 +20,6 @@ namespace Aspire
         where TEntity : IEntityBase<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
-        private readonly IAccount account;
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="RepositoryUtility{TEntity, TPrimaryKey, TOrmWhere}" /> class.
-        /// </summary>
-        /// <param name="account">当前用户.</param>
-        protected RepositoryUtility(IAccount account)
-        {
-            this.account = account;
-        }
-
         /// <inheritdoc />
         public virtual async Task<TPrimaryKey?> CreateAsync(TEntity input)
         {
@@ -75,23 +64,9 @@ namespace Aspire
         {
             if (entities?.Any() != true) return new List<TEntity>();
 
-            IEnumerable<TEntity> newEntities;
-            if (typeof(TEntity).GetInterface(nameof(IAuditCreate)) != null)
-                newEntities = entities.Select(x =>
-                {
-                    var createAudit = x as IAuditCreate;
-                    if (createAudit == null)
-                        throw new NullReferenceException(
-                            $"将 {typeof(TEntity)} 显示转换成 {nameof(IAuditCreate)} 产生了 null 结果");
+            SetAuditCreateValue(ref entities);
 
-                    createAudit.Creator = account.AccountId;
-                    createAudit.CreatedAt = DateTime.Now;
-                    return x;
-                });
-            else
-                newEntities = entities;
-
-            return await CreateByEntitiesAsync(newEntities);
+            return await CreateByEntitiesAsync(entities);
         }
 
         /// <inheritdoc />
@@ -105,23 +80,9 @@ namespace Aspire
         {
             if (entities?.Any() != true) return 0;
 
-            IEnumerable<TEntity> newEntities;
-            if (typeof(TEntity).GetInterface(nameof(IAuditUpdate)) != null)
-                newEntities = entities.Select(x =>
-                {
-                    var updateAudit = x as IAuditUpdate;
-                    if (updateAudit == null)
-                        throw new NullReferenceException(
-                            $"将 {typeof(TEntity)} 显示转换成 {nameof(IAuditUpdate)} 产生了 null 结果");
+            SetAuditUpdateValue(ref entities);
 
-                    updateAudit.Updater = account.AccountId;
-                    updateAudit.UpdatedAt = DateTime.Now;
-                    return x;
-                });
-            else
-                newEntities = entities;
-
-            return await UpdateByEntitiesAsync(newEntities);
+            return await UpdateByEntitiesAsync(entities);
         }
 
         /// <inheritdoc />
@@ -129,26 +90,15 @@ namespace Aspire
         {
             if (primaryKeys?.Any() != true) return 0;
 
-            if (IsAuditSoftDelete()) return await DeleteByPrimaryKeysAsync(primaryKeys);
+            if (!IsAuditSoftDelete()) return await DeleteByPrimaryKeysAsync(primaryKeys);
 
             // 做查询删除
-            var entities = await GetListByPrimaryKeysAsync(primaryKeys);
+            var entities = (await GetListByPrimaryKeysAsync(primaryKeys))?.ToArray();
             if (entities?.Any() != true) return 0;
 
-            var deleteEntities = entities.Select(x =>
-            {
-                var deleteAudit = x as IAuditSoftDelete;
-                if (deleteAudit == null)
-                    throw new NullReferenceException(
-                        $"将 {typeof(TEntity)} 显示转换成 {nameof(IAuditUpdate)} 产生了 null 结果");
+            SetAuditDeleteValue(ref entities);
 
-                deleteAudit.Deleted = true;
-                deleteAudit.Deleter = account.AccountId;
-                deleteAudit.DeletedAt = DateTime.Now;
-                return x;
-            });
-
-            return await UpdateByEntitiesAsync(deleteEntities);
+            return await UpdateByEntitiesAsync(entities);
         }
 
         /// <inheritdoc />
@@ -176,9 +126,63 @@ namespace Aspire
         ///     是否审计软删除.
         /// </summary>
         /// <returns>是否.</returns>
-        protected bool IsAuditSoftDelete()
+        protected virtual bool IsAuditSoftDelete()
         {
             return typeof(TEntity).GetInterface(nameof(IAuditSoftDelete)) != null;
+        }
+
+        /// <summary>
+        /// 设置 create 审计值.
+        /// </summary>
+        /// <param name="entities">实体集合.</param>
+        protected virtual void SetAuditCreateValue(ref TEntity[] entities)
+        {
+            if (typeof(TEntity).GetInterface(nameof(IAuditCreate)) != null)
+                entities.ForEach(x =>
+                {
+                    var createAudit = x as IAuditCreate;
+                    if (createAudit == null)
+                        throw new NullReferenceException(
+                            $"将 {typeof(TEntity)} 显示转换成 {nameof(IAuditCreate)} 产生了 null 结果");
+
+                    createAudit.CreatedAt = DateTime.Now;
+                });
+        }
+
+        /// <summary>
+        /// 设置 update 审计值.
+        /// </summary>
+        /// <param name="entities">实体集合.</param>
+        protected virtual void SetAuditUpdateValue(ref TEntity[] entities)
+        {
+            if (typeof(TEntity).GetInterface(nameof(IAuditUpdate)) != null)
+                entities.ForEach(x =>
+                {
+                    var updateAudit = x as IAuditUpdate;
+                    if (updateAudit == null)
+                        throw new NullReferenceException(
+                            $"将 {typeof(TEntity)} 显示转换成 {nameof(IAuditUpdate)} 产生了 null 结果");
+
+                    updateAudit.UpdatedAt = DateTime.Now;
+                });
+        }
+
+        /// <summary>
+        /// 设置 delete 审计值.
+        /// </summary>
+        /// <param name="entities">实体集合.</param>
+        protected virtual void SetAuditDeleteValue(ref TEntity[] entities)
+        {
+            entities.ForEach(x =>
+            {
+                var deleteAudit = x as IAuditSoftDelete;
+                if (deleteAudit == null)
+                    throw new NullReferenceException(
+                        $"将 {typeof(TEntity)} 显示转换成 {nameof(IAuditUpdate)} 产生了 null 结果");
+
+                deleteAudit.Deleted = true;
+                deleteAudit.DeletedAt = DateTime.Now;
+            });
         }
 
         /// <summary>

@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Aspire.Repository.Abstract.xml</DocumentationFile>
+    <DocumentationFile>Aspire.Repository.Audit.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

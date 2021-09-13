@@ -73,13 +73,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Application.Core", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{F47A7DA1-9B55-4BD4-9135-A39B5835816A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicesAndApplications", "examples\ServicesAndApplications\ServicesAndApplications.csproj", "{888BEBC7-404D-486B-AE53-CDB2ECE7BA30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServicesAndApplications", "examples\ServicesAndApplications\ServicesAndApplications.csproj", "{888BEBC7-404D-486B-AE53-CDB2ECE7BA30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjectionAuto", "examples\DependencyInjectionAuto\DependencyInjectionAuto.csproj", "{B62573F5-C10E-48D9-913D-825A30A7ECA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DependencyInjectionAuto", "examples\DependencyInjectionAuto\DependencyInjectionAuto.csproj", "{B62573F5-C10E-48D9-913D-825A30A7ECA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapAuto", "examples\MapAuto\MapAuto.csproj", "{EA31EC04-FD26-4AD9-BC57-3FE018B62B28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapAuto", "examples\MapAuto\MapAuto.csproj", "{EA31EC04-FD26-4AD9-BC57-3FE018B62B28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Repository.Audit", "src\Repository\Aspire.Repository.Audit\Aspire.Repository.Audit.csproj", "{85CDA9B3-04D4-4611-B29B-35BFFE8033BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Repository.Audit", "src\Repository\Aspire.Repository.Audit\Aspire.Repository.Audit.csproj", "{85CDA9B3-04D4-4611-B29B-35BFFE8033BB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Entity.Account", "src\Entity\Aspire.Entity.Account\Aspire.Entity.Account.csproj", "{76EFDCE8-F5D6-47CC-A9B3-F6749E2172A2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Entity.FreeSql.Account", "src\Entity\Aspire.Entity.FreeSql.Account\Aspire.Entity.FreeSql.Account.csproj", "{6EE45BFA-12D4-42AE-A0A0-4F277740C6BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.Repository.Audit.Account", "src\Repository\Aspire.Repository.Audit.Account\Aspire.Repository.Audit.Account.csproj", "{4E91F4A7-F9A8-4714-9D7B-57527AD4F862}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -199,6 +205,18 @@ Global
 		{85CDA9B3-04D4-4611-B29B-35BFFE8033BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85CDA9B3-04D4-4611-B29B-35BFFE8033BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85CDA9B3-04D4-4611-B29B-35BFFE8033BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76EFDCE8-F5D6-47CC-A9B3-F6749E2172A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76EFDCE8-F5D6-47CC-A9B3-F6749E2172A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76EFDCE8-F5D6-47CC-A9B3-F6749E2172A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76EFDCE8-F5D6-47CC-A9B3-F6749E2172A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EE45BFA-12D4-42AE-A0A0-4F277740C6BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EE45BFA-12D4-42AE-A0A0-4F277740C6BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EE45BFA-12D4-42AE-A0A0-4F277740C6BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EE45BFA-12D4-42AE-A0A0-4F277740C6BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E91F4A7-F9A8-4714-9D7B-57527AD4F862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E91F4A7-F9A8-4714-9D7B-57527AD4F862}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E91F4A7-F9A8-4714-9D7B-57527AD4F862}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E91F4A7-F9A8-4714-9D7B-57527AD4F862}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -241,6 +259,9 @@ Global
 		{B62573F5-C10E-48D9-913D-825A30A7ECA1} = {F47A7DA1-9B55-4BD4-9135-A39B5835816A}
 		{EA31EC04-FD26-4AD9-BC57-3FE018B62B28} = {F47A7DA1-9B55-4BD4-9135-A39B5835816A}
 		{85CDA9B3-04D4-4611-B29B-35BFFE8033BB} = {2AA99AF8-8293-49A5-916A-FFCB5566BF04}
+		{76EFDCE8-F5D6-47CC-A9B3-F6749E2172A2} = {7A104DE1-715A-4B4E-B3F3-14281B5C5314}
+		{6EE45BFA-12D4-42AE-A0A0-4F277740C6BC} = {7A104DE1-715A-4B4E-B3F3-14281B5C5314}
+		{4E91F4A7-F9A8-4714-9D7B-57527AD4F862} = {2AA99AF8-8293-49A5-916A-FFCB5566BF04}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CFDF950F-C37B-49A4-A267-EB7FEA97A410}

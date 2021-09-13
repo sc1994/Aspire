@@ -5,11 +5,11 @@ namespace Aspire.Entity.Audit
     /// <summary>
     ///     更新审计.
     /// </summary>
-    public interface IAuditUpdate
+    public interface IAuditUpdateAccount
     {
         /// <summary>
-        ///     Gets or sets 更新时间.
+        ///     Gets or sets 更新人.
         /// </summary>
-        DateTime UpdatedAt { get; set; }
+        string Updater { get; set; }
     }
 }
