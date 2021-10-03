@@ -2,11 +2,9 @@
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-
 using Aspire;
 using Aspire.Domain.Account;
 using Aspire.Exceptions;
-
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;

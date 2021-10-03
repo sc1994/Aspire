@@ -3,6 +3,8 @@ using Aspire;
 
 using DependencyInjectionAuto.Domains;
 
+using System;
+
 namespace DependencyInjectionAuto.Applications;
 
 public class DependencyInjectionApplication : ApplicationBase

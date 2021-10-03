@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Aspire;
 using Aspire.Exceptions;
 using Aspire.Helpers;
-
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.DependencyInjection;

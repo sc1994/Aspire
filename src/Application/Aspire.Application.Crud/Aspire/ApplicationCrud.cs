@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Aspire.Cruds;
 using Aspire.Dto;
 using Aspire.Entity;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aspire

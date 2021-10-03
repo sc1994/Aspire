@@ -1,7 +1,8 @@
-﻿using System;
-using Aspire.Entity.Audit;
+﻿using Aspire.Entity.Audit;
 
 using FreeSql.DataAnnotations;
+
+using System;
 
 namespace Aspire.Entity
 {

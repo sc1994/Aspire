@@ -1,4 +1,5 @@
 ﻿using Aspire.Domain.Account;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aspire.Application.Auths

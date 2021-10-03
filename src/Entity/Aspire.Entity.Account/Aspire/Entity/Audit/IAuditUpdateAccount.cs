@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Aspire.Entity.Audit
+﻿namespace Aspire.Entity.Audit
 {
     /// <summary>
     ///     更新审计.

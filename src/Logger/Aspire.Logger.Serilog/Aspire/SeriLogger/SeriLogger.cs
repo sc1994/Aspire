@@ -1,7 +1,6 @@
-﻿using System.Runtime.CompilerServices;
-
+﻿using System;
+using System.Runtime.CompilerServices;
 using Aspire.Helpers;
-
 using Serilog.Events;
 
 namespace Aspire.SeriLogger
@@ -24,7 +23,14 @@ namespace Aspire.SeriLogger
         }
 
         /// <inheritdoc />
-        public void Debug(string message, string? f1 = null, string? f2 = null, string? f3 = null, [CallerFilePath] string? callerFilePath = null, [CallerMemberName] string? callerMemberName = null, [CallerLineNumber] int callerLineNumber = 0)
+        public void Debug(
+            string message,
+            string? f1 = null,
+            string? f2 = null,
+            string? f3 = null,
+            [CallerFilePath] string? callerFilePath = null,
+            [CallerMemberName] string? callerMemberName = null,
+            [CallerLineNumber] int callerLineNumber = 0)
         {
             Log(
                LogEventLevel.Debug,

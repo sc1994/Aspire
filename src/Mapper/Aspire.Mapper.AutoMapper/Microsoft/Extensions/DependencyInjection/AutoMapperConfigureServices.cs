@@ -1,9 +1,8 @@
-﻿using System.Reflection;
-
+﻿using System.Linq;
+using System.Reflection;
 using Aspire;
 using Aspire.AutoMapper;
 using Aspire.Helpers;
-
 using AutoMapper;
 
 namespace Microsoft.Extensions.DependencyInjection

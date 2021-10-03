@@ -1,4 +1,5 @@
-﻿using Aspire;
+﻿using System;
+using Aspire;
 using Aspire.SeriLogger;
 
 namespace Microsoft.Extensions.DependencyInjection

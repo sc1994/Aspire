@@ -1,13 +1,13 @@
-﻿using System.Reflection;
-
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using Aspire;
 using Aspire.Helpers;
-
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.OpenApi.Models;
-
 using Panda.DynamicWebApi;
-
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -17,8 +17,6 @@ namespace Microsoft.Extensions.DependencyInjection
     /// </summary>
     public static class AspireConfigureServices
     {
-        private static string? assemblyName;
-
         /// <summary>
         ///     添加 aspire 的 dynamic web api.
         /// </summary>

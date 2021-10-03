@@ -1,8 +1,6 @@
 ﻿
 using Aspire;
 
-using AutoMapper;
-
 namespace MapAuto.Applications;
 
 public class MapperApplication : ApplicationBase

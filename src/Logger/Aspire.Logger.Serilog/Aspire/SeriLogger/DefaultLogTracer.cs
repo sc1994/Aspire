@@ -1,4 +1,5 @@
-﻿using Aspire.Helpers;
+﻿using System;
+using Aspire.Helpers;
 
 namespace Aspire.SeriLogger
 {
