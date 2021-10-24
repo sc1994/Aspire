@@ -5,6 +5,11 @@ using CliWrap;
 
 using System.Text;
 using System.Text.RegularExpressions;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Threading;
 
 Console.WriteLine("Startup");
 
@@ -86,7 +91,7 @@ stdOutBuffer.Clear();
 stdErrBuffer.Clear();
 
 result = await Cli.Wrap("dotnet")
-   .WithArguments(new[] { "pack", "Aspire.sln", "--no-build", "--no-restore", "--output", "nupkgs" })
+   .WithArguments(new[] { "pack", "Aspire.sln", "--no-build", "--no-restore", "--output", "../smart-lamp/nupkgs" })
    .WithWorkingDirectory(solution)
    .WithStandardOutputPipe(PipeTarget.ToStringBuilder(stdOutBuffer))
    .WithStandardErrorPipe(PipeTarget.ToStringBuilder(stdErrBuffer))

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Application\Aspire.Application.Core\Aspire.Application.Core.csproj" />
+    <ProjectReference Include="..\..\src\Application\Aspire.Application.Auth\Aspire.Application.Auth.csproj" />
+    <ProjectReference Include="..\..\src\Middleware\Aspire.Middleware.Auth\Aspire.Middleware.Auth.csproj" />
+  </ItemGroup>
+
+</Project>

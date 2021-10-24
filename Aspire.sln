@@ -95,6 +95,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthAndAccount", "examples\AuthAndAccount\AuthAndAccount.csproj", "{F5A67284-64A2-4534-B1E2-0DC639190C9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -225,6 +227,10 @@ Global
 		{4E91F4A7-F9A8-4714-9D7B-57527AD4F862}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E91F4A7-F9A8-4714-9D7B-57527AD4F862}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E91F4A7-F9A8-4714-9D7B-57527AD4F862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5A67284-64A2-4534-B1E2-0DC639190C9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5A67284-64A2-4534-B1E2-0DC639190C9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5A67284-64A2-4534-B1E2-0DC639190C9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5A67284-64A2-4534-B1E2-0DC639190C9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -270,6 +276,7 @@ Global
 		{76EFDCE8-F5D6-47CC-A9B3-F6749E2172A2} = {7A104DE1-715A-4B4E-B3F3-14281B5C5314}
 		{6EE45BFA-12D4-42AE-A0A0-4F277740C6BC} = {7A104DE1-715A-4B4E-B3F3-14281B5C5314}
 		{4E91F4A7-F9A8-4714-9D7B-57527AD4F862} = {2AA99AF8-8293-49A5-916A-FFCB5566BF04}
+		{F5A67284-64A2-4534-B1E2-0DC639190C9C} = {F47A7DA1-9B55-4BD4-9135-A39B5835816A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CFDF950F-C37B-49A4-A267-EB7FEA97A410}

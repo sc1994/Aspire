@@ -28,11 +28,11 @@ namespace Microsoft.Extensions.DependencyInjection
             this IAspireBuilder aspireBuilder,
             Func<IServiceProvider, TAccountManage> implementation)
             where TAccount : class, IAccount, new()
-            where TAccountManage : class, IAccountManage<IAccount>
+            where TAccountManage : class, IAccountManage<TAccount>
         {
             // 注册 manage
             aspireBuilder.ServiceCollection.AddScoped(implementation);
-            aspireBuilder.ServiceCollection.AddScoped<IAccountManage<IAccount>, TAccountManage>();
+            aspireBuilder.ServiceCollection.AddScoped<IAccountManage<TAccount>, TAccountManage>();
 
             // 注册 账户
             aspireBuilder.ServiceCollection.AddScoped<TAccount>(provider =>

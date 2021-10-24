@@ -7,15 +7,16 @@ namespace Aspire.Application.Auths
     /// <summary>
     ///     认证的 服务.
     /// </summary>
-    public class AuthApplication : ApplicationBase
+    public abstract class AuthApplication<TAccount> : ApplicationBase
+        where TAccount : class, IAccount, new()
     {
-        private readonly IAccountManage<IAccount> accountManage;
+        private readonly IAccountManage<TAccount> accountManage;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AuthApplication" /> class.
+        ///     Initializes a new instance of the <see cref="AuthApplication{TAccount}" /> class.
         /// </summary>
         /// <param name="accountManage">账户管理.</param>
-        public AuthApplication(IAccountManage<IAccount> accountManage)
+        public AuthApplication(IAccountManage<TAccount> accountManage)
         {
             this.accountManage = accountManage;
         }
@@ -26,7 +27,6 @@ namespace Aspire.Application.Auths
         /// <param name="accountId">账户Id.</param>
         /// <param name="password">密码.</param>
         /// <returns>token value.</returns>
-        [Auth("admin")]
         public string GetToken(string accountId, string password)
         {
             // TODO 参数验证
@@ -40,7 +40,7 @@ namespace Aspire.Application.Auths
         /// <param name="account">账户(来自于 di).</param>
         /// <returns>当前账户.</returns>
         [Auth]
-        public IAccount GetAccount([FromServices] IAccount account)
+        public TAccount GetAccount([FromServices] TAccount account)
         {
             return account;
         }
