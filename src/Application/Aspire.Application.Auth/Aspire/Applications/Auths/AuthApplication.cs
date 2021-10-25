@@ -1,4 +1,5 @@
-﻿using Aspire.Domain.Account;
+﻿using System.Threading.Tasks;
+using Aspire.Domain.Account;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,11 +28,11 @@ namespace Aspire.Application.Auths
         /// <param name="accountId">账户Id.</param>
         /// <param name="password">密码.</param>
         /// <returns>token value.</returns>
-        public string GetToken(string accountId, string password)
+        public async Task<string> GetTokenAsync(string accountId, string password)
         {
             // TODO 参数验证
-            var account = accountManage.GetAccountByIdAndPassword(accountId, password);
-            return accountManage.GetTokenByAccount(account);
+            var account = await accountManage.GetAccountByIdAndPasswordAsync(accountId, password);
+            return await accountManage.GetTokenByAccountAsync(account);
         }
 
         /// <summary>

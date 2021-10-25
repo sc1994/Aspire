@@ -1,6 +1,6 @@
 using Aspire.Application.Auths;
 using Aspire.Domain.Account;
-using AuthAndAccount.Domain;
+using AuthAndAccount.Core.Accounts;
 
 namespace AuthAndAccount.Application
 {

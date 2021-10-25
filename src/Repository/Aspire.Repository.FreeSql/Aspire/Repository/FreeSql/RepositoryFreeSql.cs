@@ -161,7 +161,7 @@ namespace Aspire.Repository.FreeSql
     /// <typeparam name="TPrimaryKey">主键.</typeparam>
     /// <typeparam name="TDatabase">使用的数据库(针对free sql的多数据形式).</typeparam>
     public class RepositoryFreeSql<TEntity, TPrimaryKey, TDatabase>
-        : RepositoryFreeSql<TEntity, TPrimaryKey>
+        : RepositoryFreeSql<TEntity, TPrimaryKey>, IRepository<TEntity, TPrimaryKey, TDatabase>
         where TEntity : class, IEntityBase<TPrimaryKey, TDatabase>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
@@ -169,7 +169,7 @@ namespace Aspire.Repository.FreeSql
         ///     Initializes a new instance of the <see cref="RepositoryFreeSql{TEntity, TPrimaryKey, TDatabase}"/> class.
         /// </summary>
         /// <param name="freeSql">free sql.</param>
-        public RepositoryFreeSql(IFreeSql freeSql)
+        public RepositoryFreeSql(IFreeSql<TDatabase> freeSql)
             : base(freeSql)
         {
         }
