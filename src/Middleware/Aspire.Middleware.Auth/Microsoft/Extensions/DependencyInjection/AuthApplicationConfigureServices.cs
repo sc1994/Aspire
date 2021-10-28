@@ -78,7 +78,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
                 var account = context.HttpContext.RequestServices.GetRequiredService<IAccount>();
 
-                if (account?.AccountId == default)
+                if (string.IsNullOrWhiteSpace(account?.AccountId))
                     throw new FriendlyException(FriendlyExceptionCode.AuthorizationFailure, "请登录", "授权信息不存在或授权信息失效");
 
                 // 特性中没有配置角色 则不需要验证登陆人的角色
@@ -90,7 +90,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     throw new FriendlyException("权限不足", "正在访问不属于您权限的数据");
 
                 // 如果 用户角色和配置的角色全部不匹配则认为越权访问
-                if (auth.Roles.All(x => !account.Roles.Contains(x)) != true)
+                if (!auth.Roles.Intersect(account.Roles).Any())
                     throw new FriendlyException("权限不足", "正在访问不属于您权限的数据");
 
                 return base.OnActionExecutionAsync(context, next);

@@ -8,7 +8,7 @@ namespace Microsoft.AspNetCore.Builder
     public static class SwaggerConfigure
     {
         /// <summary>
-        ///     使用 aspire 的 全局友好异常.
+        ///     使用 aspire 的 swagger.
         /// </summary>
         /// <param name="app">app.</param>
         /// <returns>current app.</returns>

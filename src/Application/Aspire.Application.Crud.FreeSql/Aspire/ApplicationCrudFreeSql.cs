@@ -182,7 +182,6 @@ namespace Aspire
         TCreateInputDto,
         TUpdateInputDto>
         where TEntity : class, IEntityBase<TPrimaryKey>
-        where TUpdateInputDto : IPrimaryKey<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         /// <summary>

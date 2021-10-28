@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Aspire.Cruds;
 using Aspire.Dto;
@@ -126,7 +127,6 @@ namespace Aspire
         TCreateOrUpdateInputDto,
         TCreateOrUpdateInputDto>
         where TEntity : IEntityBase<TPrimaryKey>
-        where TCreateOrUpdateInputDto : IPrimaryKey<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         /// <summary>
@@ -142,18 +142,19 @@ namespace Aspire
         /// <summary>
         /// 更新或者创建.
         /// </summary>
+        /// <param name="primaryKey">主键, 可不填.</param>
         /// <param name="input">输入.</param>
         /// <returns>操作是否成功.</returns>
-        public virtual async Task<bool> CreateOrUpdateAsync(TCreateOrUpdateInputDto input)
+        public virtual async Task<bool> CreateOrUpdateAsync(TPrimaryKey primaryKey, [FromBody] TCreateOrUpdateInputDto input)
         {
-            if (input.Id == null || input.Id.Equals(default))
+            if (primaryKey == null || primaryKey.Equals(default))
             {
-                var primaryKey = await CreateAsync(input);
-                return primaryKey != null && !primaryKey.Equals(default);
+                var tmp = await CreateAsync(input);
+                return tmp != null && !tmp.Equals(default);
             }
             else
             {
-                return (await UpdateAsync(input)) > 0;
+                return (await UpdateAsync(primaryKey, input)) > 0;
             }
         }
     }
@@ -179,7 +180,6 @@ namespace Aspire
         ApplicationBase,
         ICrudSingle<TPrimaryKey, TCreateInputDto, TOutputDto, TUpdateInputDto>
         where TEntity : IEntityBase<TPrimaryKey>
-        where TUpdateInputDto : IPrimaryKey<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         private readonly IAspireMapper aspireMapper;
@@ -207,13 +207,13 @@ namespace Aspire
         }
 
         /// <inheritdoc />
-        public virtual async Task<int> DeleteAsync(TPrimaryKey primaryKey)
+        public virtual async Task<int> DeleteAsync([Required] TPrimaryKey primaryKey)
         {
             return await repository.DeleteAsync(primaryKey);
         }
 
         /// <inheritdoc />
-        public virtual async Task<TOutputDto?> GetAsync(TPrimaryKey primaryKey)
+        public virtual async Task<TOutputDto?> GetAsync([Required] TPrimaryKey primaryKey)
         {
             var entity = await repository.GetAsync(primaryKey);
             if (entity == null) return default;
@@ -222,10 +222,10 @@ namespace Aspire
         }
 
         /// <inheritdoc />
-        public virtual Task<int> UpdateAsync(TUpdateInputDto input)
+        public virtual Task<int> UpdateAsync([Required] TPrimaryKey primaryKey, [FromBody] TUpdateInputDto input)
         {
             var entity = MapToEntity(input);
-            return repository.UpdateAsync(entity);
+            return repository.UpdateAsync(primaryKey, entity);
         }
 
         /// <summary>
@@ -237,8 +237,8 @@ namespace Aspire
         /// <returns>A <see cref="Task{TResult}" /> representing the result of the asynchronous operation.</returns>
         public virtual async Task<PagingOutputDto<TOutputDto>> PagingQueryAsync(
             [FromBody] TQueryFilterDto input,
-            int index = 1,
-            int size = 10)
+            [Required] int index = 1,
+            [Required] int size = 10)
         {
             if (input == null) throw new ArgumentNullException(nameof(input));
 

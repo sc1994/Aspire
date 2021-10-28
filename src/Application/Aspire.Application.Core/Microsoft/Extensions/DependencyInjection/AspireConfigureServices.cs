@@ -39,16 +39,16 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.ActionRouteFactory = new ServiceActionRouteFactory();
             });
 
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo
+                options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = AppDomain.CurrentDomain.FriendlyName,
                     Version = "v1"
                 });
 
                 // TODO 验证是否需要加小锁标记
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "设置 Authorization.",
                     Name = "Authorization",
@@ -57,7 +57,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     Scheme = "Bearer"
                 });
 
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
                         new OpenApiSecurityScheme
@@ -75,18 +75,21 @@ namespace Microsoft.Extensions.DependencyInjection
                     }
                 });
 
-                c.OperationFilter<AuthOperationFilter>();
+                options.OperationFilter<AuthOperationFilter>();
 
-                c.TagActionsBy(tagSelector =>
+                options.TagActionsBy(tagSelector =>
                 {
                     return new[] { GetFriendlyControllerName(tagSelector.GroupName ?? "Default") };
                 });
 
-                c.DocInclusionPredicate((_, _) => true);
+                options.DocInclusionPredicate((_, _) => true);
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 var xmlFile = AppDomain.CurrentDomain.FriendlyName + ".xml";
                 var xmlPath = Path.Combine(baseDirectory, xmlFile);
-                if (File.Exists(xmlPath)) c.IncludeXmlComments(xmlPath);
+                if (File.Exists(xmlPath))
+                {
+                    options.IncludeXmlComments(xmlPath);
+                }
             });
 
             // 扫描的类会比较多

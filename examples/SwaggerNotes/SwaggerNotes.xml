@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SwaggerNotes</name>
+    </assembly>
+    <members>
+        <member name="T:SwaggerNotes.Controllers.WeatherForecastController">
+            <summary>
+            注释 A
+            </summary>
+        </member>
+        <member name="M:SwaggerNotes.Controllers.WeatherForecastController.Get">
+            <summary>
+            注释B
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:SwaggerNotes.WeatherForecast.Date">
+            <summary>
+            注释 D.
+            </summary>
+        </member>
+        <member name="P:SwaggerNotes.WeatherForecast.TemperatureC">
+            <inheritdoc/>
+        </member>
+        <member name="P:SwaggerNotes.IWeatherForecast.TemperatureC">
+            <summary>
+            注释 X.
+            </summary>
+        </member>
+    </members>
+</doc>

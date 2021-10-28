@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (web)",
+            "name": "AuthAndAccount",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "build-AuthAndAccount",
             "program": "${workspaceFolder}/examples/AuthAndAccount/bin/Debug/net6.0/AuthAndAccount.dll",
             "args": [],
             "cwd": "${workspaceFolder}/examples/AuthAndAccount",
@@ -25,9 +25,24 @@
             }
         },
         {
-            "name": ".NET Core Attach",
+            "name": "SwaggerNotes",
             "type": "coreclr",
-            "request": "attach"
+            "request": "launch",
+            "preLaunchTask": "build-SwaggerNotes",
+            "program": "${workspaceFolder}/examples/SwaggerNotes/bin/Debug/net6.0/SwaggerNotes.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/examples/SwaggerNotes",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
         }
     ]
 }

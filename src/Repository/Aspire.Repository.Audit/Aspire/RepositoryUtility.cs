@@ -43,10 +43,11 @@ namespace Aspire
         }
 
         /// <inheritdoc />
-        public virtual async Task<int> UpdateAsync(TEntity input)
+        public virtual async Task<int> UpdateAsync(TPrimaryKey primaryKey, TEntity input)
         {
             if (input == null) throw new ArgumentNullException(nameof(input));
 
+            input.Id = primaryKey;
             return await UpdateBatchAsync(input);
         }
 

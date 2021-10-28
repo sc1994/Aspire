@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
+
 using Aspire.Domain.Account;
 
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +10,7 @@ namespace Aspire.Application.Auths
     /// <summary>
     ///     认证的 服务.
     /// </summary>
+    /// <typeparam name="TAccount">账户数据类型.</typeparam>
     public abstract class AuthApplication<TAccount> : ApplicationBase
         where TAccount : class, IAccount, new()
     {
@@ -28,9 +31,8 @@ namespace Aspire.Application.Auths
         /// <param name="accountId">账户Id.</param>
         /// <param name="password">密码.</param>
         /// <returns>token value.</returns>
-        public async Task<string> GetTokenAsync(string accountId, string password)
+        public virtual async Task<string> GetTokenAsync([Required] string accountId, [Required] string password)
         {
-            // TODO 参数验证
             var account = await accountManage.GetAccountByIdAndPasswordAsync(accountId, password);
             return await accountManage.GetTokenByAccountAsync(account);
         }
@@ -41,7 +43,7 @@ namespace Aspire.Application.Auths
         /// <param name="account">账户(来自于 di).</param>
         /// <returns>当前账户.</returns>
         [Auth]
-        public TAccount GetAccount([FromServices] TAccount account)
+        public virtual TAccount GetAccount([FromServices] TAccount account)
         {
             return account;
         }

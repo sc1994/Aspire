@@ -32,9 +32,10 @@ namespace Aspire.Cruds
         /// <summary>
         ///     根据更新输入更新数据.
         /// </summary>
+        /// <param name="primaryKey">主键.</param>
         /// <param name="input">更新输入.</param>
         /// <returns>受影响的数据行数.</returns>
-        Task<int> UpdateAsync(TUpdateInput input);
+        Task<int> UpdateAsync(TPrimaryKey primaryKey, TUpdateInput input);
 
         /// <summary>
         ///     根据主键删除数据.

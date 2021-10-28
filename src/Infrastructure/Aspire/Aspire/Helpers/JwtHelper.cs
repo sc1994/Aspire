@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace Aspire.Helpers
 {
     /// <summary>
-    /// Json Web Token
+    /// Json Web Token.
     /// </summary>
     public static class JwtHelper
     {
@@ -19,7 +19,7 @@ namespace Aspire.Helpers
         /// <param name="expirationSeconds">过期 秒.</param>
         /// <param name="secret">密钥.</param>
         /// <typeparam name="T">data 的类型.</typeparam>
-        /// <returns></returns>
+        /// <returns>jwt.</returns>
         public static string GenerateJwt<T>(
             T data,
             int expirationSeconds,
@@ -39,12 +39,12 @@ namespace Aspire.Helpers
         }
 
         /// <summary>
-        /// 解析 jwt
+        /// 解析 jwt.
         /// </summary>
         /// <param name="jwt">jwt字符串.</param>
         /// <param name="secret">密钥.</param>
         /// <typeparam name="T">解析后的数据类型.</typeparam>
-        /// <returns></returns>
+        /// <returns>解析的数据内容.</returns>
         public static T ParseJwt<T>(string jwt, string secret)
             where T : class
         {
@@ -52,12 +52,13 @@ namespace Aspire.Helpers
             {
                 throw new ArgumentException("jwt 应该为 Bearer 开头");
             }
+
             jwt = jwt.Substring("Bearer ".Length);
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
             tokenHandler.ValidateToken(
-                jwt, 
+                jwt,
                 new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
@@ -65,7 +66,7 @@ namespace Aspire.Helpers
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ClockSkew = TimeSpan.Zero // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
-                }, 
+                },
                 out var validatedToken);
 
             var jwtToken = (JwtSecurityToken)validatedToken;
