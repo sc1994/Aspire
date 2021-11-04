@@ -7,6 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddAspire(Assembly.Load(AppDomain.CurrentDomain.FriendlyName))
+    .AddAspireSerilog(configuration =>
+    {
+        
+    })
     .AddAspireAuth<Account, AccountManage>(provider =>
     {
         return provider.GetRequiredService<AccountManage>();
@@ -24,6 +28,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAspireFriendlyException();
 
 app.UseAuthorization();
 

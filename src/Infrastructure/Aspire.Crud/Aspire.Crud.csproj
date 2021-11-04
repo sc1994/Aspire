@@ -5,12 +5,16 @@
     <RootNamespace />
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
-    <Version>0.0.129</Version>
+    <Version>0.0.135</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>Aspire.Crud.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Aspire\Aspire.csproj" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">

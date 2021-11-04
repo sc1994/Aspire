@@ -28,6 +28,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 {
                     applicationAssembly
                         .GetReferencedAssemblies()
+                        .Append(applicationAssembly.GetName())
                         .SelectMany(x => Assembly.Load(x).GetTypes())
                         .ForEach(type =>
                         {

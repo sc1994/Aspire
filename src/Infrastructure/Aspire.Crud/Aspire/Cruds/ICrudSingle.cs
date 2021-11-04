@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Aspire.Cruds
 {
@@ -14,6 +15,8 @@ namespace Aspire.Cruds
         in TCreateInput,
         TOutputDto,
         in TUpdateInput>
+        where TOutputDto : IPrimaryKey<TPrimaryKey>
+        where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         /// <summary>
         ///     根据创建输入新增数据.

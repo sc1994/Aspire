@@ -9,7 +9,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Application\Aspire.Application.Core\Aspire.Application.Core.csproj" />
     <ProjectReference Include="..\..\src\Application\Aspire.Application.Auth\Aspire.Application.Auth.csproj" />
+    <ProjectReference Include="..\..\src\Middleware\Aspire.Middleware.FriendlyException\Aspire.Middleware.FriendlyException.csproj" />
     <ProjectReference Include="..\..\src\Middleware\Aspire.Middleware.Auth\Aspire.Middleware.Auth.csproj" />
+    <ProjectReference Include="..\..\src\Logger\Aspire.Logger.Serilog\Aspire.Logger.Serilog.csproj" />
   </ItemGroup>
 
 </Project>

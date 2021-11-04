@@ -11,7 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services
-    .AddAspire(Assembly.Load("ServicesAndApplications"));
+    .AddAspire(Assembly.Load("ServicesAndApplications"))
+    .AddAspireAutoMapper(Assembly.Load("ServicesAndApplications"))
+    .AddAspireFreeSql(FreeSql.DataType.Sqlite, "Data Source = App_Data/Business.db");
 
 var app = builder.Build();
 

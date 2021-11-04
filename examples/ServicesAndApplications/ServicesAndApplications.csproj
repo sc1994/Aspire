@@ -7,7 +7,20 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Application\Aspire.Application.Core\Aspire.Application.Core.csproj" />
+    <ProjectReference Include="..\..\src\Application\Aspire.Application.Crud.FreeSql\Aspire.Application.Crud.FreeSql.csproj" />
+    <ProjectReference Include="..\..\src\Application\Aspire.Application.Crud\Aspire.Application.Crud.csproj" />
     <ProjectReference Include="..\..\src\Application\Aspire.Application\Aspire.Application.csproj" />
+    <ProjectReference Include="..\..\src\Entity\Aspire.Entity.FreeSql\Aspire.Entity.FreeSql.csproj" />
+    <ProjectReference Include="..\..\src\Infrastructure\Aspire\Aspire.csproj" />
+    <ProjectReference Include="..\..\src\Mapper\Aspire.Mapper.AutoMapper\Aspire.Mapper.AutoMapper.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="FreeSql.Provider.Sqlite" Version="2.6.100" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
 
 </Project>

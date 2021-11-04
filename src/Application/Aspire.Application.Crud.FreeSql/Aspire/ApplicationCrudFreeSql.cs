@@ -143,6 +143,7 @@ namespace Aspire
         where TEntity : class, IEntityBase<TPrimaryKey>
         where TCreateOrUpdateInputDto : IPrimaryKey<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
+        where TOutputDto : IPrimaryKey<TPrimaryKey>
     {
         /// <summary>
         ///     Initializes a new instance of the
@@ -183,6 +184,7 @@ namespace Aspire
         TUpdateInputDto>
         where TEntity : class, IEntityBase<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
+        where TOutputDto : IPrimaryKey<TPrimaryKey>
     {
         /// <summary>
         ///     Initializes a new instance of the

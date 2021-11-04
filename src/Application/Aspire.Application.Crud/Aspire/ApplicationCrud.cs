@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using Aspire.Cruds;
 using Aspire.Dto;
@@ -128,6 +129,7 @@ namespace Aspire
         TCreateOrUpdateInputDto>
         where TEntity : IEntityBase<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
+        where TOutputDto : IPrimaryKey<TPrimaryKey>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationCrud{        TEntity,         TPrimaryKey,         TOrmWhere,         TQueryFilterDto,         TOutputDto,         TCreateOrUpdateInputDto}"/> class.
@@ -181,6 +183,7 @@ namespace Aspire
         ICrudSingle<TPrimaryKey, TCreateInputDto, TOutputDto, TUpdateInputDto>
         where TEntity : IEntityBase<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
+        where TOutputDto : IPrimaryKey<TPrimaryKey>
     {
         private readonly IAspireMapper aspireMapper;
         private readonly IRepositoryBase<TEntity, TPrimaryKey, TOrmWhere> repository;
@@ -207,12 +210,14 @@ namespace Aspire
         }
 
         /// <inheritdoc />
+        [HttpDelete("{primaryKey}")]
         public virtual async Task<int> DeleteAsync([Required] TPrimaryKey primaryKey)
         {
             return await repository.DeleteAsync(primaryKey);
         }
 
         /// <inheritdoc />
+        [HttpGet("{primaryKey}")]
         public virtual async Task<TOutputDto?> GetAsync([Required] TPrimaryKey primaryKey)
         {
             var entity = await repository.GetAsync(primaryKey);
@@ -222,6 +227,7 @@ namespace Aspire
         }
 
         /// <inheritdoc />
+        [HttpPut("{primaryKey}")]
         public virtual Task<int> UpdateAsync([Required] TPrimaryKey primaryKey, [FromBody] TUpdateInputDto input)
         {
             var entity = MapToEntity(input);
@@ -274,7 +280,9 @@ namespace Aspire
         /// <returns>dto集合.</returns>
         protected IEnumerable<TOutputDto> MapToDto(IEnumerable<TEntity> entities)
         {
-            return aspireMapper.MapTo<IEnumerable<TOutputDto>>(entities ?? throw new ArgumentNullException(nameof(entities)));
+            if (entities?.Any() != true) return Enumerable.Empty<TOutputDto>();
+
+            return entities.Select(x => aspireMapper.MapTo<TOutputDto>(x));
         }
 
         /// <summary>

@@ -28,7 +28,10 @@ namespace Microsoft.Extensions.DependencyInjection
             Assembly applicationAssembly)
         {
             var mvcBuilder = services.AddControllers();
-            mvcBuilder.AddNewtonsoftJson();
+            mvcBuilder.AddNewtonsoftJson(setupAction =>
+            {
+                setupAction.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+            });
 
             services.AddHttpContextAccessor();
 

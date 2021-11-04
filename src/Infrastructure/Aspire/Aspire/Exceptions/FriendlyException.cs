@@ -53,7 +53,7 @@ namespace Aspire.Exceptions
         /// <summary>
         ///     Gets code.
         /// </summary>
-        public int Code { get; }
+        public int Code { get; } = FriendlyExceptionCode.BusinessException;
 
         /// <summary>
         ///     Gets Title.

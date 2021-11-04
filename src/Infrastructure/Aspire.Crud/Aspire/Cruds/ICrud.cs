@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Aspire.Cruds
 {
     /// <inheritdoc />
     public interface ICrud<TEntity, TPrimaryKey> : ICrudSingle<TPrimaryKey, TEntity, TEntity, TEntity>
+        where TPrimaryKey : IEquatable<TPrimaryKey>
+        where TEntity : IPrimaryKey<TPrimaryKey>
     {
         /// <summary>
         ///     根据实体集合新增数据.

@@ -44,9 +44,17 @@ namespace Microsoft.AspNetCore.Builder
         {
             ExceptionLog(cxt, exception);
             cxt.Response.ContentType = "application/json;charset=UTF-8";
+
+            var code = FriendlyExceptionCode.SystemException;
+            if (exception is FriendlyException friendlyException)
+            {
+                code = friendlyException.Code;
+            }
+
             await cxt.Response.WriteAsync(new
             {
                 success = false,
+                code = code,
                 title = title ?? exception.GetType().Name,
                 messages = exception.Message.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries),
 #if DEBUG
