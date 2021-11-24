@@ -34,6 +34,12 @@ namespace Aspire
         ISelect<TEntity> Select();
 
         /// <summary>
+        /// free sql 的 update.
+        /// </summary>
+        /// <returns>free sql 的更新接口.</returns>
+        IUpdate<TEntity> Update();
+
+        /// <summary>
         ///     分页列表.
         /// </summary>
         /// <param name="where">where.</param>

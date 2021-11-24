@@ -152,6 +152,12 @@ namespace Aspire.Repository.FreeSql
 
             return await Select().Where(x => primaryKeys.Contains(x.Id)).ToListAsync();
         }
+
+        /// <inheritdoc />
+        public IUpdate<TEntity> Update()
+        {
+            return freeSql.Update<TEntity>();
+        }
     }
 
     /// <summary>
