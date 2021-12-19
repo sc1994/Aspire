@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Moq;
@@ -140,69 +142,81 @@ public class Repository_Test : Base_Test
             Assert.False(item);
     }
 
+    private (Repository<T, long> repo, T[] list) MockEntities<T>(bool isEmpty)
+        where T : IPrimaryKey<long>, new()
+    {
+        var repo = new Mock<Repository<T, long>>(Container);
+
+        if (isEmpty)
+            return (repo.Object, Array.Empty<T>());
+
+        return (repo.Object, new T[] {new()});
+    }
+
+
     [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public void TrySetCreated_Test(bool needSet)
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    [InlineData(false, true)]
+    [InlineData(false, false)]
+    public void TrySetCreated_Test(bool needSet, bool isEmpty)
     {
         if (needSet)
         {
-            var mock = new Mock<Repository<Test_Full_Entity, long>>(Container);
-            var list = new Test_Full_Entity[] {new()};
-            mock.Object.TrySetCreated(list);
-            Assert.Contains(list, x => !string.IsNullOrWhiteSpace(x.CreatedBy));
-            Assert.Contains(list, x => x.CreatedAt > Const.DefaultDateTime);
+            var (repo, list) = MockEntities<Test_Full_Entity>(isEmpty);
+            repo.TrySetCreated(list);
+            Assert.True(list.All(x => !string.IsNullOrWhiteSpace(x.CreatedBy)));
+            Assert.True(list.All(x => x.CreatedAt > Const.DefaultDateTime));
         }
         else
         {
-            var mock = new Mock<Repository<Test_Entity, long>>(Container);
-            var list = new Test_Entity[] {new()};
-            mock.Object.TrySetCreated(list);
+            var (repo, list) = MockEntities<Test_Entity>(isEmpty);
+            repo.TrySetCreated(list);
             // 没有异常就可以通过
         }
     }
 
     [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public void TrySetUpdated_Test(bool needSet)
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    [InlineData(false, true)]
+    [InlineData(false, false)]
+    public void TrySetUpdated_Test(bool needSet, bool isEmpty)
     {
         if (needSet)
         {
-            var mock = new Mock<Repository<Test_Full_Entity, long>>(Container);
-            var list = new Test_Full_Entity[] {new()};
-            mock.Object.TrySetUpdated(list);
-            Assert.Contains(list, x => !string.IsNullOrWhiteSpace(x.UpdatedBy));
-            Assert.Contains(list, x => x.UpdatedAt > Const.DefaultDateTime);
+            var (repo, list) = MockEntities<Test_Full_Entity>(isEmpty);
+            repo.TrySetUpdated(list);
+            Assert.True(list.All(x => !string.IsNullOrWhiteSpace(x.UpdatedBy)));
+            Assert.True(list.All( x => x.UpdatedAt > Const.DefaultDateTime));
         }
         else
         {
-            var mock = new Mock<Repository<Test_Entity, long>>(Container);
-            var list = new Test_Entity[] {new()};
-            mock.Object.TrySetUpdated(list);
+            var (repo, list) = MockEntities<Test_Entity>(isEmpty);
+            repo.TrySetUpdated(list);
             // 没有异常就可以通过
         }
     }
 
     [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public void TrySetDeleted_Test(bool needSet)
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    [InlineData(false, true)]
+    [InlineData(false, false)]
+    public void TrySetDeleted_Test(bool needSet, bool isEmpty)
     {
         if (needSet)
         {
-            var mock = new Mock<Repository<Test_Full_Entity, long>>(Container);
-            var list = new Test_Full_Entity[] {new()};
-            mock.Object.TrySetDeleted(list);
-            Assert.Contains(list, x => !string.IsNullOrWhiteSpace(x.DeletedBy));
-            Assert.Contains(list, x => x.DeletedAt > Const.DefaultDateTime);
-            Assert.Contains(list, x => x.IsDeleted);
+            var (repo, list) = MockEntities<Test_Full_Entity>(isEmpty);
+            repo.TrySetDeleted(list);
+            Assert.True(list.All( x => !string.IsNullOrWhiteSpace(x.DeletedBy)));
+            Assert.True(list.All( x => x.DeletedAt > Const.DefaultDateTime));
+            Assert.True(list.All( x => x.IsDeleted));
         }
         else
         {
-            var mock = new Mock<Repository<Test_Entity, long>>(Container);
-            var list = new Test_Entity[] {new()};
-            mock.Object.TrySetDeleted(list);
+            var (repo, list) = MockEntities<Test_Entity>(isEmpty);
+            repo.TrySetDeleted(list);
             // 没有异常就可以通过
         }
     }

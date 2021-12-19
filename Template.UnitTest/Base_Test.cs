@@ -28,5 +28,5 @@ public abstract class Base_Test
 
 public class CurrentUser_Test : ICurrentUser
 {
-    public string UserName { get; set; }
+    public string UserName { get; set; } = string.Empty;
 }

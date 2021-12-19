@@ -51,7 +51,8 @@ public class FreeSqlRepository_Test : Base_Test
 
     private IEnumerable<Test_Guid_Entity> MockExistedEntities(int count)
     {
-        return GetRepository<Test_Guid_Entity, Guid>().GetListAsync(x => !string.IsNullOrWhiteSpace(x.Name), limit: count).Result;
+        return GetRepository<Test_Guid_Entity, Guid>()
+            .GetListAsync(x => !string.IsNullOrWhiteSpace(x.Name), limit: count).Result;
     }
 
     private IRepository<TEntity, TPrimaryKey> GetRepository<TEntity, TPrimaryKey>()
@@ -60,9 +61,11 @@ public class FreeSqlRepository_Test : Base_Test
     {
         return typeof(TPrimaryKey).Name switch
         {
-            nameof(Int64) => (IRepository<TEntity, TPrimaryKey>) new FreeSqlRepository<Test_Long_Entity, long>(Container),
+            nameof(Int64) => (IRepository<TEntity, TPrimaryKey>) new FreeSqlRepository<Test_Long_Entity, long>(
+                Container),
             nameof(Int32) => (IRepository<TEntity, TPrimaryKey>) new FreeSqlRepository<Test_Int_Entity, int>(Container),
-            nameof(Guid) => (IRepository<TEntity, TPrimaryKey>) new FreeSqlRepository<Test_Guid_Entity, Guid>(Container),
+            nameof(Guid) =>
+                (IRepository<TEntity, TPrimaryKey>) new FreeSqlRepository<Test_Guid_Entity, Guid>(Container),
             _ => null
         } ?? throw new NullReferenceException();
     }
@@ -115,15 +118,7 @@ public class FreeSqlRepository_Test : Base_Test
     {
         // 确保有数据
         await CreateBatchAsync_Test(count);
-        Guid[] array = null;
-        if (count == 0)
-        {
-            array = Array.Empty<Guid>();
-        }
-        else
-        {
-            array = MockExistedEntities(count).Select(x => x.Id).ToArray();
-        }
+        var array = count == 0 ? Array.Empty<Guid>() : MockExistedEntities(count).Select(x => x.Id).ToArray();
 
         var repo = GetRepository<Test_Guid_Entity, Guid>();
 
