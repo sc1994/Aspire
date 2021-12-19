@@ -1,9 +1,0 @@
-{
-    "files.exclude": {
-        "**/Aspire*.xml": true
-    },
-    "cSpell.words": [
-        "Seri",
-        "Serilog"
-    ]
-}

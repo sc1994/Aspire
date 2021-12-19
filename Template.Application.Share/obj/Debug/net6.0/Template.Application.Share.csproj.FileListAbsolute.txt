@@ -1,0 +1,12 @@
+D:\MyConfiguration\suncheng\Desktop\Template\Template.Application.Share\bin\Debug\net6.0\Template.Application.Share.deps.json
+D:\MyConfiguration\suncheng\Desktop\Template\Template.Application.Share\bin\Debug\net6.0\Template.Application.Share.dll
+D:\MyConfiguration\suncheng\Desktop\Template\Template.Application.Share\bin\Debug\net6.0\ref\Template.Application.Share.dll
+D:\MyConfiguration\suncheng\Desktop\Template\Template.Application.Share\bin\Debug\net6.0\Template.Application.Share.pdb
+D:\MyConfiguration\suncheng\Desktop\Template\Template.Application.Share\obj\Debug\net6.0\Template.Application.Share.csproj.AssemblyReference.cache
+D:\MyConfiguration\suncheng\Desktop\Template\Template.Application.Share\obj\Debug\net6.0\Template.Application.Share.GeneratedMSBuildEditorConfig.editorconfig
+D:\MyConfiguration\suncheng\Desktop\Template\Template.Application.Share\obj\Debug\net6.0\Template.Application.Share.AssemblyInfoInputs.cache
+D:\MyConfiguration\suncheng\Desktop\Template\Template.Application.Share\obj\Debug\net6.0\Template.Application.Share.AssemblyInfo.cs
+D:\MyConfiguration\suncheng\Desktop\Template\Template.Application.Share\obj\Debug\net6.0\Template.Application.Share.csproj.CoreCompileInputs.cache
+D:\MyConfiguration\suncheng\Desktop\Template\Template.Application.Share\obj\Debug\net6.0\Template.Application.Share.dll
+D:\MyConfiguration\suncheng\Desktop\Template\Template.Application.Share\obj\Debug\net6.0\ref\Template.Application.Share.dll
+D:\MyConfiguration\suncheng\Desktop\Template\Template.Application.Share\obj\Debug\net6.0\Template.Application.Share.pdb
