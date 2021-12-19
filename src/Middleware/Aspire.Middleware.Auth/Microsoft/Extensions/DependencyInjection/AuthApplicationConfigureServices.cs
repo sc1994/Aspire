@@ -49,7 +49,7 @@ namespace Microsoft.Extensions.DependencyInjection
             };
 
             // 注册 账户
-            aspireBuilder.ServiceCollection.AddScoped<TAccount>(getAccountFunc);
+            aspireBuilder.ServiceCollection.AddScoped(getAccountFunc);
             aspireBuilder.ServiceCollection.AddScoped<IAccount>(getAccountFunc);
 
             // 添加过滤器

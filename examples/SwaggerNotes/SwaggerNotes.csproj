@@ -10,10 +10,6 @@
     <DocumentationFile>SwaggerNotes.xml</DocumentationFile>
   </PropertyGroup>
 
-  <Target Name="InheritDoc" AfterTargets="PostBuildEvent" Condition="$(GenerateDocumentationFile)">
-    <Exec Command="InheritDoc -o" IgnoreExitCode="True" ContinueOnError="true"/>
-  </Target>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\Application\Aspire.Application\Aspire.Application.csproj" />
     <ProjectReference Include="..\..\src\Application\Aspire.Application.Core\Aspire.Application.Core.csproj" />

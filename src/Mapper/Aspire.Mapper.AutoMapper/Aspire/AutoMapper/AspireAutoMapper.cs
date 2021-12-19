@@ -23,5 +23,11 @@ namespace Aspire.AutoMapper
         {
             return mapper.Map<TTarget>(source);
         }
+
+        /// <inheritdoc />
+        public void MapTo<TSource, TTarget>(TSource source, ref TTarget target)
+        {
+            target = mapper.Map<TSource, TTarget>(source, target);
+        }
     }
 }

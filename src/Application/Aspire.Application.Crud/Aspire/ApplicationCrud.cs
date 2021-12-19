@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Aspire.Cruds;
 using Aspire.Dto;
 using Aspire.Entity;
+using Aspire.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aspire
@@ -228,10 +229,14 @@ namespace Aspire
 
         /// <inheritdoc />
         [HttpPut("{primaryKey}")]
-        public virtual Task<int> UpdateAsync([Required] TPrimaryKey primaryKey, [FromBody] TUpdateInputDto input)
+        public virtual async Task<int> UpdateAsync([Required] TPrimaryKey primaryKey, [FromBody] TUpdateInputDto input)
         {
-            var entity = MapToEntity(input);
-            return repository.UpdateAsync(primaryKey, entity);
+            var item = await repository.GetAsync(primaryKey);
+
+            if (item is null) throw new FriendlyException("更新失败, 数据不存在");
+
+            MapToEntity(input, ref item);
+            return await repository.UpdateAsync(primaryKey, item);
         }
 
         /// <summary>
@@ -303,6 +308,18 @@ namespace Aspire
         protected TEntity MapToEntity(TUpdateInputDto updateInputDto)
         {
             return aspireMapper.MapTo<TEntity>(updateInputDto ?? throw new ArgumentNullException(nameof(updateInputDto)));
+        }
+
+        /// <summary>
+        ///     更新dto映射到实体.
+        /// </summary>
+        /// <param name="updateInputDto">更新dto.</param>
+        /// <param name="outEntity"></param>
+        /// <returns>实体.</returns>
+        protected void MapToEntity(TUpdateInputDto updateInputDto, ref TEntity outEntity)
+        {
+            if (updateInputDto is null) throw new ArgumentNullException(nameof(updateInputDto));
+            aspireMapper.MapTo<TUpdateInputDto, TEntity>(updateInputDto, ref outEntity);
         }
     }
 }

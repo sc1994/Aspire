@@ -23,27 +23,10 @@ namespace Microsoft.Extensions.DependencyInjection
             this IAspireBuilder aspireBuilder,
             DataType dataType,
             string connectionString,
-            Action<object, CurdAfterEventArgs>? curdAfterEvent = null)
+            Action<IServiceProvider, object, CurdAfterEventArgs>? curdAfterEvent = null)
         {
-            var freeSql = new FreeSqlBuilder()
-                .UseConnectionString(dataType, connectionString)
-#if DEBUG
-                .UseAutoSyncStructure(true) // automatically synchronize the entity structure to the database
-#endif
-                .Build();
-
-            if (curdAfterEvent != null)
-            {
-                freeSql.Aop.CurdAfter += (sender, args) =>
-                {
-                    if (sender == null)
-                        throw new ArgumentNullException(nameof(sender));
-
-                    curdAfterEvent(sender, args);
-                };
-            }
-
-            aspireBuilder.ServiceCollection.AddSingleton(freeSql);
+            aspireBuilder.ServiceCollection.AddSingleton(provider =>
+                GetFreeSql(dataType, connectionString, provider, curdAfterEvent));
             aspireBuilder.ServiceCollection.AddScoped(typeof(IRepository<,,>), typeof(RepositoryFreeSql<,,>));
             aspireBuilder.ServiceCollection.AddScoped(typeof(IRepository<,>), typeof(RepositoryFreeSql<,>));
             aspireBuilder.ServiceCollection.AddScoped(typeof(IRepository<>), typeof(RepositoryFreeSql<>));
@@ -64,7 +47,46 @@ namespace Microsoft.Extensions.DependencyInjection
             this IAspireBuilder aspireBuilder,
             DataType dataType,
             string connectionString,
-            Action<object, CurdAfterEventArgs>? curdAfterEvent = null)
+            Action<IServiceProvider, object, CurdAfterEventArgs>? curdAfterEvent = null)
+        {
+            aspireBuilder.ServiceCollection.AddSingleton(provider =>
+                GetFreeSql<TDatabase>(dataType, connectionString, provider, curdAfterEvent));
+            aspireBuilder.ServiceCollection.AddScoped(typeof(IRepository<,,>), typeof(RepositoryFreeSql<,,>));
+            return aspireBuilder;
+        }
+
+        private static IFreeSql GetFreeSql(
+            DataType dataType,
+            string connectionString,
+            IServiceProvider provider,
+            Action<IServiceProvider, object, CurdAfterEventArgs>? curdAfterEvent = null)
+        {
+            var freeSql = new FreeSqlBuilder()
+                .UseConnectionString(dataType, connectionString)
+#if DEBUG
+                .UseAutoSyncStructure(true) // automatically synchronize the entity structure to the database
+#endif
+                .Build();
+
+            if (curdAfterEvent != null)
+            {
+                freeSql.Aop.CurdAfter += (sender, args) =>
+                {
+                    if (sender == null)
+                        throw new ArgumentNullException(nameof(sender));
+
+                    curdAfterEvent(provider, sender, args);
+                };
+            }
+
+            return freeSql;
+        }
+
+        private static IFreeSql<TDatabase> GetFreeSql<TDatabase>(
+            DataType dataType,
+            string connectionString,
+            IServiceProvider provider,
+            Action<IServiceProvider, object, CurdAfterEventArgs>? curdAfterEvent = null)
         {
             var freeSql = new FreeSqlBuilder()
                 .UseConnectionString(dataType, connectionString)
@@ -80,13 +102,11 @@ namespace Microsoft.Extensions.DependencyInjection
                     if (sender == null)
                         throw new ArgumentNullException(nameof(sender));
 
-                    curdAfterEvent(sender, args);
+                    curdAfterEvent(provider, sender, args);
                 };
             }
 
-            aspireBuilder.ServiceCollection.AddSingleton(freeSql);
-            aspireBuilder.ServiceCollection.AddScoped(typeof(IRepository<,,>), typeof(RepositoryFreeSql<,,>));
-            return aspireBuilder;
+            return freeSql;
         }
     }
 }
