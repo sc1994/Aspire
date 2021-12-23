@@ -31,7 +31,7 @@ public static class FreeSqlRepositoryExtensions
         return free.DeleteBatchAsync(exp);
     }
 
-    public static Task<IEnumerable<TEntity>> UpdateBatchAsync<TEntity, TPrimaryKey>(this IRepository<TEntity, TPrimaryKey> repository, Action<IUpdate<TEntity>> updateExp, Expression<Func<TEntity, bool>> exp)
+    public static Task<int> UpdateBatchAsync<TEntity, TPrimaryKey>(this IRepository<TEntity, TPrimaryKey> repository, Action<IUpdate<TEntity>> updateExp, Expression<Func<TEntity, bool>> exp)
         where TEntity : class, IPrimaryKey<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
@@ -109,7 +109,7 @@ public class FreeSqlRepository<TEntity, TPrimaryKey> : Repository<TEntity, TPrim
             updater.Set(x => ((IDeleted) x).DeletedBy, CurrentUser.UserName);
             updater.Set(x => ((IDeleted) x).IsDeleted, true);
         }, exp);
-        return res.Count();
+        return res;
     }
 
     public override async Task<int> DeleteBatchAsync(IEnumerable<TPrimaryKey> ids)
@@ -119,12 +119,12 @@ public class FreeSqlRepository<TEntity, TPrimaryKey> : Repository<TEntity, TPrim
         return await DeleteBatchAsync(x => ids.Contains(x.Id));
     }
 
-    internal async Task<IEnumerable<TEntity>> UpdateBatchAsync(Action<IUpdate<TEntity>> updateExp, Expression<Func<TEntity, bool>> exp)
+    internal async Task<int> UpdateBatchAsync(Action<IUpdate<TEntity>> updateExp, Expression<Func<TEntity, bool>> exp)
     {
         var updater = FreeSqlInstance.Update<TEntity>();
         updateExp(updater);
 
-        return await updater.Where(exp).ExecuteUpdatedAsync();
+        return await updater.Where(exp).ExecuteAffrowsAsync();
     }
 
     public override async Task<IEnumerable<TEntity>> UpdateBatchAsync(IEnumerable<TEntity> inputs)
@@ -132,8 +132,10 @@ public class FreeSqlRepository<TEntity, TPrimaryKey> : Repository<TEntity, TPrim
         if (inputs.Any() != true) return new List<TEntity>();
 
         TrySetUpdated(inputs);
+        var rows = await FreeSqlInstance.Update<TEntity>().SetSource(inputs).ExecuteAffrowsAsync();
+        if (rows != inputs.Count()) throw new Exception("更新失败");
 
-        return await FreeSqlInstance.Update<TEntity>().SetSource(inputs).ExecuteUpdatedAsync();
+        return await GetListAsync(inputs.Select(x => x.Id));
     }
 
     internal async Task<IEnumerable<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> exp, string orderBy = "", int limit = 0)
