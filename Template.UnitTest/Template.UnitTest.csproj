@@ -23,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Template.Entity\Template.Entity.csproj" />
       <ProjectReference Include="..\Template.Util\Template.Util.csproj" />
     </ItemGroup>
 

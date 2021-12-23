@@ -1,8 +1,6 @@
-﻿using Template.Entity;
+﻿namespace Template.Core.Share;
 
-namespace Template.Core.Share;
-
-public interface IDemo : ICore<Demo, Guid, DemoPo, DemoPo, DemoPo>
+public interface IDemoCore : ICore<DemoPo, Guid>
 {
     IEnumerable<DemoPo> GetHello();
 }

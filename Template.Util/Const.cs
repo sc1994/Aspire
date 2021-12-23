@@ -1,4 +1,4 @@
-namespace Template.Entity;
+namespace Template.Util;
 
 public static class Const
 {

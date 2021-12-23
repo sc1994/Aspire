@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Template.Application.Share\Template.Application.Share.csproj" />
     <ProjectReference Include="..\Template.Core.Share\Template.Core.Share.csproj" />
+    <ProjectReference Include="..\Template.Util\Template.Util.csproj" />
   </ItemGroup>
 
 </Project>

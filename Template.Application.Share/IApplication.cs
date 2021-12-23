@@ -1,6 +1,12 @@
-﻿namespace Template.Application.Share;
+﻿using Template.Util;
 
-public class IApplication
+namespace Template.Application.Share;
+
+public interface IApplication<in TPrimaryKey, TOutput, in TCreate, in TUpdate>
+    : ICrud<TPrimaryKey, TOutput, TCreate, TUpdate>
+    where TPrimaryKey : IEquatable<TPrimaryKey>
+    where TOutput : IPrimaryKey<TPrimaryKey>
+    where TUpdate : IPrimaryKey<TPrimaryKey>
 {
     
 }

@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Template.Application.BizA\Template.Application.BizA.csproj" />
-    <ProjectReference Include="..\Template.Application.BizB\Template.Application.BizB.csproj" />
     <ProjectReference Include="..\Template.Application.Share.Mapper\Template.Application.Share.Mapper.csproj" />
     <ProjectReference Include="..\Template.Core\Template.Core.csproj" />
   </ItemGroup>

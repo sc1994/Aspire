@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F28075A9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.UnitTest", "Template.UnitTest\Template.UnitTest.csproj", "{F684F97B-F0A2-4124-BF99-29428250E9F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Core.Share.Mapper", "Template.Core.Share.Mapper\Template.Core.Share.Mapper.csproj", "{582AD5F2-790C-40C6-8AFD-D97F8053ADE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{F684F97B-F0A2-4124-BF99-29428250E9F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F684F97B-F0A2-4124-BF99-29428250E9F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F684F97B-F0A2-4124-BF99-29428250E9F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{582AD5F2-790C-40C6-8AFD-D97F8053ADE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{582AD5F2-790C-40C6-8AFD-D97F8053ADE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{582AD5F2-790C-40C6-8AFD-D97F8053ADE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{582AD5F2-790C-40C6-8AFD-D97F8053ADE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F684F97B-F0A2-4124-BF99-29428250E9F9} = {F28075A9-6693-4F1D-A46C-E163CA1A054B}

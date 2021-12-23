@@ -1,6 +1,5 @@
 ﻿namespace Template.Application.Share;
 
-public class IDemoApplication
+public interface IDemoApplication : IApplication<Guid, DemoDto, DemoDto, DemoDto>
 {
-    
 }

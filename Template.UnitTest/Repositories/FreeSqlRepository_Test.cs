@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using FreeSql.DataAnnotations;
-using Moq;
+using Template.Entity;
 using Template.Util;
 using Xunit;
 using Xunit.Abstractions;
@@ -51,23 +51,15 @@ public class FreeSqlRepository_Test : Base_Test
 
     private IEnumerable<Test_Guid_Entity> MockExistedEntities(int count)
     {
-        return GetRepository<Test_Guid_Entity, Guid>()
+        return GetRepositoryGuid<Test_Guid_Entity, Guid>()
             .GetListAsync(x => !string.IsNullOrWhiteSpace(x.Name), limit: count).Result;
     }
 
-    private IRepository<TEntity, TPrimaryKey> GetRepository<TEntity, TPrimaryKey>()
+    private IRepository<TEntity, TPrimaryKey> GetRepositoryGuid<TEntity, TPrimaryKey>()
         where TEntity : class, IPrimaryKey<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
-        return typeof(TPrimaryKey).Name switch
-        {
-            nameof(Int64) => (IRepository<TEntity, TPrimaryKey>) new FreeSqlRepository<Test_Long_Entity, long>(
-                Container),
-            nameof(Int32) => (IRepository<TEntity, TPrimaryKey>) new FreeSqlRepository<Test_Int_Entity, int>(Container),
-            nameof(Guid) =>
-                (IRepository<TEntity, TPrimaryKey>) new FreeSqlRepository<Test_Guid_Entity, Guid>(Container),
-            _ => null
-        } ?? throw new NullReferenceException();
+        return (IRepository<TEntity, TPrimaryKey>) new FreeSqlRepository<Test_Guid_Entity, Guid>(Container);
     }
 
     [Theory]
@@ -76,16 +68,16 @@ public class FreeSqlRepository_Test : Base_Test
     [InlineData("Db2")]
     public void Construct_Test(string db)
     {
-        object? repo = db switch
+        object repo = db switch
         {
             "Db0" => new FreeSqlRepository<Test_Guid_Entity, Guid>(Container),
             "Db1" => new FreeSqlRepository<Test_Int_Entity, int>(Container),
             "Db2" => new FreeSqlRepository<Test_Long_Entity, long>(Container),
-            _ => null
+            _ => throw new ArgumentOutOfRangeException(nameof(db), db, null)
         };
 
         Assert.NotNull(repo);
-        var freeSqlInstance = repo?.GetType().GetField("FreeSqlInstance")?.GetValue(repo);
+        var freeSqlInstance = repo.GetType().GetField("FreeSqlInstance")?.GetValue(repo);
 
         Assert.NotNull(freeSqlInstance);
         Assert.IsAssignableFrom<IFreeSql>(freeSqlInstance);
@@ -97,7 +89,7 @@ public class FreeSqlRepository_Test : Base_Test
     [InlineData(3)]
     public async Task CreateBatchAsync_Test(int count)
     {
-        var repo = GetRepository<Test_Guid_Entity, Guid>();
+        var repo = GetRepositoryGuid<Test_Guid_Entity, Guid>();
 
         var array = MockEntities(count).ToArray();
         var res = await repo.CreateBatchAsync(array);
@@ -120,46 +112,52 @@ public class FreeSqlRepository_Test : Base_Test
         await CreateBatchAsync_Test(count);
         var array = count == 0 ? Array.Empty<Guid>() : MockExistedEntities(count).Select(x => x.Id).ToArray();
 
-        var repo = GetRepository<Test_Guid_Entity, Guid>();
-
+        var repo = GetRepositoryGuid<Test_Guid_Entity, Guid>();
         var res = await repo.DeleteBatchAsync(array);
 
         Assert.Equal(res, count);
     }
 
-    public async Task<IEnumerable<Test_Int_Entity>> UpdateBatchAsync_Test()
+    [Theory]
+    [InlineData(0)]
+    [InlineData(3)]
+    public async Task UpdateBatchAsync_Test(int count)
     {
-        throw new NotImplementedException();
+        // 确保有数据
+        await CreateBatchAsync_Test(count);
+
+        var array = MockExistedEntities(count).ToArray();
+        var repo = GetRepositoryGuid<Test_Guid_Entity, Guid>();
+
+        var updated = array.Select(x =>
+        {
+            x.Name = string.Empty;
+            return x;
+        });
+        var res = await repo.UpdateBatchAsync(updated);
+        Assert.True(res.All(x => x.Name == string.Empty));
+
+        var ids = array.Select(x => x.Id);
+        var res2 = await repo.UpdateBatchAsync(
+            updater => updater.Set(x => x.Name, "996"),
+            x => ids.Contains(x.Id));
+        Assert.Equal(res.Count(), res2);
     }
 
-    public async Task<IEnumerable<Test_Int_Entity>> GetListAsync_Test()
+    [Theory]
+    [InlineData(3)]
+    [InlineData(10)]
+    public async Task GetListAsync_Test(int count)
     {
-        throw new NotImplementedException();
-    }
+        // 确保有数据
+        await CreateBatchAsync_Test(count);
 
-    public async Task<Test_Int_Entity> CreateAsync_Test()
-    {
-        throw new NotImplementedException();
-    }
+        var repo = GetRepositoryGuid<Test_Guid_Entity, Guid>();
+        var res1 = await repo.GetListAsync(x => x.Id != default, limit: count);
+        Assert.Equal(count, res1.Count());
 
-    public async Task<bool> DeleteAsync_Test()
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<Test_Int_Entity> UpdateAsync_Test()
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<Test_Int_Entity> GetAsync_Test()
-    {
-        throw new NotImplementedException();
-    }
-
-    public class Test_Guid_FullEntity : FullEntity<Guid>
-    {
-        public string Name { get; set; } = string.Empty;
+        var res2 = await repo.GetListAsync(res1.Select(x => x.Id));
+        Assert.Equal(res1.Count(), res2.Count());
     }
 
     public class Test_Guid_Entity : IPrimaryKey<Guid>

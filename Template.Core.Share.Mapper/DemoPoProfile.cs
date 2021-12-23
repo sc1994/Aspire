@@ -3,9 +3,9 @@ using Template.Entity;
 
 namespace Template.Core.Share.Mapper;
 
-public class DemoProfile : Profile
+public class DemoPoProfile : Profile
 {
-    public DemoProfile()
+    public DemoPoProfile()
     {
         CreateMap<Demo, DemoPo>().ReverseMap();
     }

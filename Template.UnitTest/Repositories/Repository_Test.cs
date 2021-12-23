@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Moq;
-using Template.Util;
+using Template.Entity;
 using Xunit;
 using Xunit.Abstractions;
+using Template.Util;
 
 namespace Template.UnitTest.Repositories;
 
@@ -20,100 +21,61 @@ public class Repository_Test : Base_Test
     {
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public async Task GetAsync_Test(bool hasData)
+    [Fact]
+    public async Task GetAsync_Test()
     {
         var mock = new Mock<Repository<Test_Entity, long>>(Container);
 
         mock.Setup(x => x.GetListAsync(It.IsAny<IEnumerable<long>>()))
-            .Returns(async () =>
+            .Returns(async () => await Task.FromResult(new List<Test_Entity>
             {
-                if (hasData)
+                new()
                 {
-                    return await Task.FromResult(new List<Test_Entity>
-                    {
-                        new()
-                        {
-                            Id = 1
-                        }
-                    });
+                    Id = 1
                 }
-
-                return await Task.FromResult(new List<Test_Entity>());
-            });
+            }));
 
         var item = await mock.Object.GetAsync(It.IsAny<long>());
 
-        if (hasData)
-            Assert.NotNull(item);
-        else
-            Assert.Null(item);
+        Assert.Equal(1, item?.Id);
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public async Task CreateAsync_Test(bool hasData)
+    [Fact]
+    public async Task CreateAsync_Test()
     {
         var mock = new Mock<Repository<Test_Entity, long>>(Container);
 
         mock.Setup(x => x.CreateBatchAsync(It.IsAny<IEnumerable<Test_Entity>>()))
-            .Returns(async () =>
+            .Returns(async () => await Task.FromResult(new List<Test_Entity>
             {
-                if (hasData)
+                new()
                 {
-                    return await Task.FromResult(new List<Test_Entity>
-                    {
-                        new()
-                        {
-                            Id = 1
-                        }
-                    });
+                    Id = 1
                 }
-
-                return await Task.FromResult(new List<Test_Entity>());
-            });
+            }));
 
         var item = await mock.Object.CreateAsync(new Test_Entity());
 
-        if (hasData)
-            Assert.NotNull(item);
-        else
-            Assert.Null(item);
+        Assert.Equal(1, item.Id);
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public async Task UpdateAsync_Test(bool hasData)
+    [Fact]
+    public async Task UpdateAsync_Test()
     {
         var mock = new Mock<Repository<Test_Entity, long>>(Container);
 
         mock.Setup(x => x.UpdateBatchAsync(It.IsAny<IEnumerable<Test_Entity>>()))
-            .Returns(async () =>
+            .Returns(async () => await Task.FromResult(new List<Test_Entity>
             {
-                if (hasData)
+                new()
                 {
-                    return await Task.FromResult(new List<Test_Entity>
-                    {
-                        new()
-                        {
-                            Id = 1
-                        }
-                    });
+                    Id = 1
                 }
-
-                return await Task.FromResult(new List<Test_Entity>());
-            });
+            }));
 
         var item = await mock.Object.UpdateAsync(new Test_Entity());
 
-        if (hasData)
-            Assert.NotNull(item);
-        else
-            Assert.Null(item);
+        Assert.NotNull(item);
     }
 
     [Theory]
@@ -153,7 +115,6 @@ public class Repository_Test : Base_Test
         return (repo.Object, new T[] {new()});
     }
 
-
     [Theory]
     [InlineData(true, false)]
     [InlineData(true, true)]
@@ -188,7 +149,7 @@ public class Repository_Test : Base_Test
             var (repo, list) = MockEntities<Test_Full_Entity>(isEmpty);
             repo.TrySetUpdated(list);
             Assert.True(list.All(x => !string.IsNullOrWhiteSpace(x.UpdatedBy)));
-            Assert.True(list.All( x => x.UpdatedAt > Const.DefaultDateTime));
+            Assert.True(list.All(x => x.UpdatedAt > Const.DefaultDateTime));
         }
         else
         {
@@ -209,9 +170,9 @@ public class Repository_Test : Base_Test
         {
             var (repo, list) = MockEntities<Test_Full_Entity>(isEmpty);
             repo.TrySetDeleted(list);
-            Assert.True(list.All( x => !string.IsNullOrWhiteSpace(x.DeletedBy)));
-            Assert.True(list.All( x => x.DeletedAt > Const.DefaultDateTime));
-            Assert.True(list.All( x => x.IsDeleted));
+            Assert.True(list.All(x => !string.IsNullOrWhiteSpace(x.DeletedBy)));
+            Assert.True(list.All(x => x.DeletedAt > Const.DefaultDateTime));
+            Assert.True(list.All(x => x.IsDeleted));
         }
         else
         {

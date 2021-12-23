@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
-    <PackageReference Include="FreeSql" Version="2.6.100" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
   </ItemGroup>
 
 </Project>

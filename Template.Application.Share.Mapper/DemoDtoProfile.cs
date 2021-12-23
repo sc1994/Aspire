@@ -1,6 +1,12 @@
-﻿namespace Template.Application.Share.Mapper;
+﻿using AutoMapper;
+using Template.Core.Share;
 
-public class DemoDtoProfile
+namespace Template.Application.Share.Mapper;
+
+public class DemoDtoProfile : Profile
 {
-    
+    public DemoDtoProfile()
+    {
+        CreateMap<DemoPo, DemoDto>().ReverseMap();
+    }
 }

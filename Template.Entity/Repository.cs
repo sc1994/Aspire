@@ -2,10 +2,11 @@
 using Autofac;
 using FreeSql;
 using FreeSql.DataAnnotations;
+using Template.Util;
 
 // ReSharper disable PossibleMultipleEnumeration
 
-namespace Template.Util;
+namespace Template.Entity;
 
 public static class FreeSqlRepositoryExtensions
 {
@@ -39,31 +40,33 @@ public static class FreeSqlRepositoryExtensions
         return free.UpdateBatchAsync(updateExp, exp);
     }
 
-    public static Task<IEnumerable<TEntity>> GetListAsync<TEntity, TPrimaryKey>(this IRepository<TEntity, TPrimaryKey> repository, Expression<Func<TEntity, bool>> exp, string orderBy = "", int limit = 0)
+    public static Task<IEnumerable<TEntity>> GetListAsync<TEntity, TPrimaryKey>(this IRepository<TEntity, TPrimaryKey> repository, Expression<Func<TEntity, bool>> exp, string orderBy = "", int limit = 0, int skip = 0)
         where TEntity : class, IPrimaryKey<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
         var free = repository.GetFreeSqlRepository();
-        return free.GetListAsync(exp, orderBy, limit);
+        return free.GetListAsync(exp, orderBy, limit, skip);
     }
 
     private static FreeSqlRepository<TEntity, TPrimaryKey> GetFreeSqlRepository<TEntity, TPrimaryKey>(this IRepository<TEntity, TPrimaryKey> repository)
         where TEntity : class, IPrimaryKey<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
     {
-        return (FreeSqlRepository<TEntity, TPrimaryKey>) repository;
+        if (repository is FreeSqlRepository<TEntity, TPrimaryKey> freeSqlRepository)
+            return freeSqlRepository;
+        throw new Exception("repository is not FreeSqlRepository");
     }
 }
 
-public class FreeSqlRepository<TEntity, TPrimaryKey> : Repository<TEntity, TPrimaryKey>
+public class FreeSqlRepository<TEntity, TPrimaryKey> : Repository<TEntity, TPrimaryKey>, IFreeSqlExtensions<TEntity, TPrimaryKey>
     where TEntity : class, IPrimaryKey<TPrimaryKey>
     where TPrimaryKey : IEquatable<TPrimaryKey>
 {
     public readonly IFreeSql FreeSqlInstance;
 
-    public FreeSqlRepository(IContainer container) : base(container)
+    public FreeSqlRepository(IComponentContext iocContext) : base(iocContext)
     {
-        var dbs = container.Resolve<IEnumerable<IFreeSql>>();
+        var dbs = iocContext.Resolve<IEnumerable<IFreeSql>>();
         var type = typeof(TEntity);
         var dbName = typeof(IDatabase<>).Name;
         var dbConfig = type.GetInterface(dbName)?.GetGenericArguments().FirstOrDefault();
@@ -99,7 +102,7 @@ public class FreeSqlRepository<TEntity, TPrimaryKey> : Repository<TEntity, TPrim
         return await FreeSqlInstance.Insert(inputs).ExecuteInsertedAsync();
     }
 
-    internal async Task<int> DeleteBatchAsync(Expression<Func<TEntity, bool>> exp)
+    public async Task<int> DeleteBatchAsync(Expression<Func<TEntity, bool>> exp)
     {
         if (!IsDeleted()) return await FreeSqlInstance.Delete<TEntity>().Where(exp).ExecuteAffrowsAsync();
 
@@ -119,7 +122,7 @@ public class FreeSqlRepository<TEntity, TPrimaryKey> : Repository<TEntity, TPrim
         return await DeleteBatchAsync(x => ids.Contains(x.Id));
     }
 
-    internal async Task<int> UpdateBatchAsync(Action<IUpdate<TEntity>> updateExp, Expression<Func<TEntity, bool>> exp)
+    public async Task<int> UpdateBatchAsync(Action<IUpdate<TEntity>> updateExp, Expression<Func<TEntity, bool>> exp)
     {
         var updater = FreeSqlInstance.Update<TEntity>();
         updateExp(updater);
@@ -138,7 +141,7 @@ public class FreeSqlRepository<TEntity, TPrimaryKey> : Repository<TEntity, TPrim
         return await GetListAsync(inputs.Select(x => x.Id));
     }
 
-    internal async Task<IEnumerable<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> exp, string orderBy = "", int limit = 0)
+    public async Task<IEnumerable<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> exp, string orderBy = "", int limit = 0, int skip = 0)
     {
         var sql = FreeSqlInstance.Select<TEntity>().Where(exp);
 
@@ -152,6 +155,11 @@ public class FreeSqlRepository<TEntity, TPrimaryKey> : Repository<TEntity, TPrim
             sql.Take(limit);
         }
 
+        if (skip > 0)
+        {
+            sql.Skip(skip);
+        }
+
         return await sql.ToListAsync();
     }
 
@@ -161,6 +169,17 @@ public class FreeSqlRepository<TEntity, TPrimaryKey> : Repository<TEntity, TPrim
 
         return await GetListAsync(x => ids.Contains(x.Id));
     }
+}
+
+public interface IFreeSqlExtensions<TEntity, TPrimaryKey>
+    where TEntity : class, IPrimaryKey<TPrimaryKey>
+    where TPrimaryKey : IEquatable<TPrimaryKey>
+{
+    Task<int> DeleteBatchAsync(Expression<Func<TEntity, bool>> exp);
+
+    Task<int> UpdateBatchAsync(Action<IUpdate<TEntity>> updateExp, Expression<Func<TEntity, bool>> exp);
+
+    Task<IEnumerable<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> exp, string orderBy = "", int limit = 0, int skip = 0);
 }
 
 public abstract class FullEntity<TPrimaryKey> : IPrimaryKey<TPrimaryKey>, ICreated, IUpdated, IDeleted
@@ -184,11 +203,6 @@ public abstract class FullEntity<TPrimaryKey> : IPrimaryKey<TPrimaryKey>, ICreat
     public string DeletedBy { get; set; } = string.Empty;
 }
 
-public static class Const
-{
-    public static readonly DateTime DefaultDateTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-}
-
 // ReSharper disable once UnusedTypeParameter
 public interface IDatabase<TDatabase>
 {
@@ -200,13 +214,13 @@ public abstract class Repository<TEntity, TPrimaryKey> : IRepository<TEntity, TP
 {
     protected readonly ICurrentUser CurrentUser;
 
-    protected Repository(IContainer container)
+    protected Repository(IComponentContext iocContext)
     {
-        Container = container;
-        CurrentUser = container.Resolve<ICurrentUser>();
+        IocContext = iocContext;
+        CurrentUser = iocContext.Resolve<ICurrentUser>();
     }
 
-    public IContainer Container { get; }
+    public IComponentContext IocContext { get; }
 
     public abstract Task<IEnumerable<TEntity>> CreateBatchAsync(IEnumerable<TEntity> inputs);
 
@@ -216,11 +230,11 @@ public abstract class Repository<TEntity, TPrimaryKey> : IRepository<TEntity, TP
 
     public abstract Task<IEnumerable<TEntity>> GetListAsync(IEnumerable<TPrimaryKey> ids);
 
-    public async Task<TEntity?> CreateAsync(TEntity input)
+    public async Task<TEntity> CreateAsync(TEntity input)
     {
         var res = await CreateBatchAsync(new[] {input});
 
-        return res.FirstOrDefault();
+        return res.FirstOrDefault() ?? throw new Exception("创建失败");
     }
 
     public async Task<bool> DeleteAsync(TPrimaryKey id)
@@ -230,18 +244,18 @@ public abstract class Repository<TEntity, TPrimaryKey> : IRepository<TEntity, TP
         return res == 1;
     }
 
-    public async Task<TEntity?> UpdateAsync(TEntity input)
+    public async Task<TEntity> UpdateAsync(TEntity input)
     {
         var res = await UpdateBatchAsync(new[] {input});
 
-        return res.FirstOrDefault();
+        return res.FirstOrDefault() ?? throw new Exception("更新失败");
     }
 
     public async Task<TEntity?> GetAsync(TPrimaryKey id)
     {
         var res = await GetListAsync(new[] {id});
 
-        return res.FirstOrDefault();
+        return res.FirstOrDefault() ?? throw new Exception("查询失败");
     }
 
     public void TrySetCreated(IEnumerable<TEntity> inputs)
@@ -297,7 +311,7 @@ public interface IRepository<TEntity, in TPrimaryKey> : ICrudBatch<TPrimaryKey, 
     where TEntity : IPrimaryKey<TPrimaryKey>
     where TPrimaryKey : IEquatable<TPrimaryKey>
 {
-    IContainer Container { get; }
+    IComponentContext IocContext { get; }
 
     void TrySetCreated(IEnumerable<TEntity> inputs);
 
@@ -306,64 +320,4 @@ public interface IRepository<TEntity, in TPrimaryKey> : ICrudBatch<TPrimaryKey, 
     bool IsDeleted();
 
     void TrySetDeleted(IEnumerable<TEntity> inputs);
-}
-
-public interface ICrudBatch<in TPrimaryKey, TOutput, in TCreate, in TUpdate>
-    where TPrimaryKey : IEquatable<TPrimaryKey>
-    where TOutput : IPrimaryKey<TPrimaryKey>
-{
-    Task<IEnumerable<TOutput>> CreateBatchAsync(IEnumerable<TCreate> inputs);
-
-    Task<int> DeleteBatchAsync(IEnumerable<TPrimaryKey> ids);
-
-    Task<IEnumerable<TOutput>> UpdateBatchAsync(IEnumerable<TUpdate> inputs);
-
-    Task<IEnumerable<TOutput>> GetListAsync(IEnumerable<TPrimaryKey> ids);
-}
-
-public interface ICrud<in TPrimaryKey, TOutput, in TCreate, in TUpdate>
-    where TPrimaryKey : IEquatable<TPrimaryKey>
-    where TOutput : IPrimaryKey<TPrimaryKey>
-{
-    Task<TOutput?> CreateAsync(TCreate input);
-
-    Task<bool> DeleteAsync(TPrimaryKey id);
-
-    Task<TOutput?> UpdateAsync(TUpdate input);
-
-    Task<TOutput?> GetAsync(TPrimaryKey id);
-}
-
-public interface ICreated
-{
-    DateTime CreatedAt { get; set; }
-
-    string CreatedBy { get; set; }
-}
-
-public interface IUpdated
-{
-    DateTime UpdatedAt { get; set; }
-
-    string UpdatedBy { get; set; }
-}
-
-public interface IDeleted
-{
-    bool IsDeleted { get; set; }
-
-    DateTime DeletedAt { get; set; }
-
-    string DeletedBy { get; set; }
-}
-
-public interface IPrimaryKey<TPrimaryKey>
-    where TPrimaryKey : IEquatable<TPrimaryKey>
-{
-    public TPrimaryKey Id { get; set; }
-}
-
-public interface ICurrentUser
-{
-    public string UserName { get; set; }
 }

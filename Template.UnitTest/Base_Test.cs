@@ -1,8 +1,7 @@
 ﻿using System;
 using Autofac;
-using Moq;
-using Template.Util;
 using Xunit.Abstractions;
+using Template.Util;
 
 namespace Template.UnitTest;
 

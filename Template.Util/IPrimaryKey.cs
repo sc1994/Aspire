@@ -1,4 +1,4 @@
-namespace Template.Entity;
+namespace Template.Util;
 
 public interface IPrimaryKey<TPrimaryKey>
     where TPrimaryKey : IEquatable<TPrimaryKey>

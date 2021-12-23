@@ -1,6 +1,8 @@
-﻿namespace Template.Application.Share;
+﻿using Template.Util;
 
-public class DemoDto
+namespace Template.Application.Share;
+
+public class DemoDto : IPrimaryKey<Guid>
 {
-    
+    public Guid Id { get; set; }
 }
