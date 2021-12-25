@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Template.Application;
+namespace Aspire.Application;
 
 public interface IApplication<in TPrimaryKey, in TPageParam, TOutput, in TCreate, in TUpdate>
     where TPrimaryKey : IEquatable<TPrimaryKey>

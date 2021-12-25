@@ -1,4 +1,4 @@
-namespace Template.Application;
+namespace Aspire.Application;
 
 public class PageOut<T>
 {

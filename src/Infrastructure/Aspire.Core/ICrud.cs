@@ -1,4 +1,4 @@
-namespace Aspire;
+namespace Aspire.Core;
 
 public interface ICrud<in TPrimaryKey, TOutput, in TCreate, in TUpdate>
     where TPrimaryKey : IEquatable<TPrimaryKey>

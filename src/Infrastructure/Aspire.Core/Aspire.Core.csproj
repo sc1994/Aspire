@@ -7,8 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
-        <PackageReference Include="AutoMapper" Version="10.1.1" />
+      <ProjectReference Include="..\Aspire\Aspire.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-namespace Aspire;
+namespace Aspire.Core;
 
 public static class Const
 {
