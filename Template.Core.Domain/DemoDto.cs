@@ -2,7 +2,7 @@
 
 namespace Template.Core.Share;
 
-public class DemoPo : IPrimaryKey<Guid>
+public class DemoDto : IPrimaryKey<Guid>
 {
     public Guid Id { get; set; }
 }

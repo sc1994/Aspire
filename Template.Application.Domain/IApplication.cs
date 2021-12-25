@@ -1,6 +1,6 @@
 ﻿using Template.Util;
 
-namespace Template.Application.Share;
+namespace Template.Application.Domain;
 
 public interface IApplication<in TPrimaryKey, TOutput, in TCreate, in TUpdate>
     : ICrud<TPrimaryKey, TOutput, TCreate, TUpdate>

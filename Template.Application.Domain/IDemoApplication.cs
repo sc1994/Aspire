@@ -1,4 +1,4 @@
-﻿namespace Template.Application.Share;
+﻿namespace Template.Application.Domain;
 
 public interface IDemoApplication : IApplication<Guid, DemoDto, DemoDto, DemoDto>
 {

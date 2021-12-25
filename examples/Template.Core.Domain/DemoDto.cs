@@ -1,6 +1,6 @@
 ﻿using Template.Util;
 
-namespace Template.Application.Share;
+namespace Template.Core;
 
 public class DemoDto : IPrimaryKey<Guid>
 {

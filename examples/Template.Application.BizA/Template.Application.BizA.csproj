@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Template.Application.Domain\Template.Application.Domain.csproj"/>
+        <ProjectReference Include="..\Template.Core.Domain\Template.Core.Domain.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Panda.DynamicWebApi" Version="1.1.2"/>
+    </ItemGroup>
+
+</Project>
