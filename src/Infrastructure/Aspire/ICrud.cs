@@ -1,4 +1,4 @@
-namespace Template.Util;
+namespace Aspire;
 
 public interface ICrud<in TPrimaryKey, TOutput, in TCreate, in TUpdate>
     where TPrimaryKey : IEquatable<TPrimaryKey>
