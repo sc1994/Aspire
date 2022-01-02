@@ -4,11 +4,11 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>Template.Core</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Aspire.Core.Domain\Aspire.Core.Domain.csproj"/>
+        <ProjectReference Include="..\..\Aspire.Repository\Aspire.Repository.csproj"/>
+        <ProjectReference Include="..\Aspire.FreeSql.Entity\Aspire.FreeSql.Entity.csproj"/>
     </ItemGroup>
 
 </Project>

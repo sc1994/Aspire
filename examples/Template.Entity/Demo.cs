@@ -1,4 +1,6 @@
-﻿namespace Template.Entity;
+﻿using Aspire.FreeSql.Entity;
+
+namespace Template.Entity;
 
 public class Demo : FullEntity<Guid>
 {

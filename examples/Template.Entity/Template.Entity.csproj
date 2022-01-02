@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FreeSql" Version="2.6.100" />
+        <PackageReference Include="FreeSql" Version="2.6.100"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Template.Util\Template.Util.csproj" />
+        <ProjectReference Include="..\..\src\Repositories\Aspire.FreeSql.Entity\Aspire.FreeSql.Entity.csproj"/>
     </ItemGroup>
 
 </Project>

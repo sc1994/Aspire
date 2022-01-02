@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Aspire.Application;
+namespace Aspire.Application.Domain;
 
 public interface IApplication<in TPrimaryKey, in TPageParam, TOutput, in TCreate, in TUpdate>
     where TPrimaryKey : IEquatable<TPrimaryKey>
@@ -14,5 +14,5 @@ public interface IApplication<in TPrimaryKey, in TPageParam, TOutput, in TCreate
 
     Task<TOutput?> GetAsync([Required] TPrimaryKey id);
 
-    Task<PageOut<TOutput>> PagingAsync([Required] int index, [Required] int size, TPageParam input);
+    Task<PageOutVm<TOutput>> PagingAsync([Required] int index, [Required] int size, TPageParam input);
 }

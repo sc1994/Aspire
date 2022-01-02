@@ -7,4 +7,8 @@
         <RootNamespace>Template.Application</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Aspire.Application.Domain\Aspire.Application.Domain.csproj"/>
+    </ItemGroup>
+
 </Project>

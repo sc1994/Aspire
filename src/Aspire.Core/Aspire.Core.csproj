@@ -7,6 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Aspire.Core.Domain\Aspire.Core.Domain.csproj"/>
+        <ProjectReference Include="..\Aspire.Repository\Aspire.Repository.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="AutoMapper" Version="10.1.1"/>
     </ItemGroup>
 

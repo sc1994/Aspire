@@ -1,4 +1,4 @@
-﻿using Template.Util;
+﻿using Aspire;
 
 namespace Template.Core;
 

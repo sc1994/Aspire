@@ -1,4 +1,6 @@
-﻿namespace Template.Application;
+﻿using Aspire;
+
+namespace Template.Application;
 
 public class DemoVo : IPrimaryKey<Guid>
 {

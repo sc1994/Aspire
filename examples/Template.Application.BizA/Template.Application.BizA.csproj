@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\src\Aspire.Application\Aspire.Application.csproj"/>
         <ProjectReference Include="..\Template.Application.Domain\Template.Application.Domain.csproj"/>
         <ProjectReference Include="..\Template.Core.Domain\Template.Core.Domain.csproj"/>
     </ItemGroup>
