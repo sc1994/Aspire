@@ -1,18 +1,11 @@
 namespace Aspire.Core.Domain;
 
-public class PageOutDto<TDto>
+public static class PageOutDto
 {
-    public PageOutDto() : this(0, Array.Empty<TDto>())
+    public static PageOutDto<TDto> Create<TDto>(long total, IEnumerable<TDto> list)
     {
+        return new PageOutDto<TDto>(total, list);
     }
-
-    public PageOutDto(long totalCount, IEnumerable<TDto> items)
-    {
-        TotalCount = totalCount;
-        Items = items;
-    }
-
-    public long TotalCount { get; set; }
-
-    public IEnumerable<TDto> Items { get; set; }
 }
+
+public record PageOutDto<TDto>(long TotalCount, IEnumerable<TDto> Items);

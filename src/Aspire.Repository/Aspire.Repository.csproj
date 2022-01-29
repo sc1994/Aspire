@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Aspire.Entity\Aspire.Entity.csproj"/>
-        <ProjectReference Include="..\Aspire\Aspire.csproj"/>
+        <ProjectReference Include="..\Aspire.Entity\Aspire.Entity.csproj" />
+        <ProjectReference Include="..\Aspire\Aspire.csproj" />
     </ItemGroup>
 
 </Project>

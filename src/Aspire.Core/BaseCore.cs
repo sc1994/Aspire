@@ -21,7 +21,7 @@ public abstract class BaseCore<TEntity, TDto, TPrimaryKey, TPageParam> : ICore<T
         Mapper = IocContext.Resolve<IMapper>();
     }
 
-    public async Task<IEnumerable<TDto>> CreateBatchAsync(IEnumerable<TDto> inputs)
+    public virtual async Task<IEnumerable<TDto>> CreateBatchAsync(IEnumerable<TDto> inputs)
     {
         var entities = ToEntities(inputs);
         var ids = await Repository.CreateBatchAsync(entities);
@@ -29,12 +29,12 @@ public abstract class BaseCore<TEntity, TDto, TPrimaryKey, TPageParam> : ICore<T
         return await GetListAsync(ids);
     }
 
-    public async Task<int> DeleteBatchAsync(IEnumerable<TPrimaryKey> ids)
+    public virtual async Task<int> DeleteBatchAsync(IEnumerable<TPrimaryKey> ids)
     {
         return await Repository.DeleteBatchAsync(ids);
     }
 
-    public async Task<IEnumerable<TDto>> UpdateBatchAsync(IEnumerable<TDto> inputs)
+    public virtual async Task<IEnumerable<TDto>> UpdateBatchAsync(IEnumerable<TDto> inputs)
     {
         var oldEntities = await Repository.GetListAsync(inputs.Select(x => x.Id));
 
@@ -46,7 +46,7 @@ public abstract class BaseCore<TEntity, TDto, TPrimaryKey, TPageParam> : ICore<T
         return await GetListAsync(inputs.Select(x => x.Id));
     }
 
-    public async Task<IEnumerable<TDto>> GetListAsync(IEnumerable<TPrimaryKey> ids)
+    public virtual async Task<IEnumerable<TDto>> GetListAsync(IEnumerable<TPrimaryKey> ids)
     {
         var entities = await Repository.GetListAsync(ids);
 
@@ -55,32 +55,32 @@ public abstract class BaseCore<TEntity, TDto, TPrimaryKey, TPageParam> : ICore<T
 
     public abstract Task<PageOutDto<TDto>> PagingAsync(int index, int size, TPageParam input);
 
-    protected IEnumerable<TDto> ToDtos(IEnumerable<TEntity> entities)
+    protected virtual IEnumerable<TDto> ToDtos(IEnumerable<TEntity> entities)
     {
         foreach (var entity in entities) yield return ToDto(entity);
     }
 
-    protected TDto ToDto(TEntity entity)
+    protected virtual TDto ToDto(TEntity entity)
     {
         return Mapper.Map<TDto>(entity);
     }
 
-    protected IEnumerable<TEntity> ToEntities(IEnumerable<TDto> dtos)
+    protected virtual IEnumerable<TEntity> ToEntities(IEnumerable<TDto> dtos)
     {
         return dtos.Select(ToEntity);
     }
 
-    protected TEntity ToEntity(TDto dto)
+    protected virtual TEntity ToEntity(TDto dto)
     {
         return Mapper.Map<TEntity>(dto);
     }
 
-    protected IEnumerable<TEntity> ToEntities(IEnumerable<(TDto dto, TEntity entity)> inputs)
+    protected virtual IEnumerable<TEntity> ToEntities(IEnumerable<(TDto dto, TEntity entity)> inputs)
     {
         return inputs.Select(input => ToEntity(input.dto, input.entity));
     }
 
-    protected TEntity ToEntity(TDto dto, TEntity entity)
+    protected virtual TEntity ToEntity(TDto dto, TEntity entity)
     {
         return Mapper.Map(dto, entity);
     }

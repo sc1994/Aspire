@@ -7,10 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Aspire.Core.Domain\Aspire.Core.Domain.csproj"/>
-        <ProjectReference Include="..\..\src\Aspire.Core\Aspire.Core.csproj"/>
-        <ProjectReference Include="..\Template.Core.Domain\Template.Core.Domain.csproj"/>
-        <ProjectReference Include="..\Template.Entity\Template.Entity.csproj"/>
+        <ProjectReference Include="..\..\src\Aspire.Core.Domain\Aspire.Core.Domain.csproj" />
+        <ProjectReference Include="..\..\src\Aspire.Core\Aspire.Core.csproj" />
+        <ProjectReference Include="..\..\src\Repositories\Aspire.FreeSql.Extension\Aspire.FreeSql.Extension.csproj" />
+        <ProjectReference Include="..\Template.Core.Domain\Template.Core.Domain.csproj" />
+        <ProjectReference Include="..\Template.Entity\Template.Entity.csproj" />
     </ItemGroup>
 
 </Project>

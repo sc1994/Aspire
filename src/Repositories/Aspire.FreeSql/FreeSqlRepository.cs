@@ -31,13 +31,15 @@ public class FreeSqlRepository<TEntity, TPrimaryKey> : BaseRepository<TEntity, T
         var select = FreeSqlInstance.Select<TEntity>();
 
         if (IsSoftDeleted) select.Where(x => ((IDeleted) x).IsDeleted == false);
+        if (IsTenement) select.Where(x => ((ITenement) x).TenementCode == CurrentUser.TenementCode);
 
         return select;
     }
 
     public async Task<int> DeleteBatchAsync(Expression<Func<TEntity, bool>> exp)
     {
-        if (IsSoftDeleted) return await FreeSqlInstance.Delete<TEntity>().Where(exp).ExecuteAffrowsAsync();
+        if (IsSoftDeleted)
+            return await FreeSqlInstance.Delete<TEntity>().Where(exp).ExecuteAffrowsAsync();
 
         var res = await UpdateBatchAsync(updater =>
         {

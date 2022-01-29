@@ -1,5 +1,6 @@
 ﻿using Aspire.Core;
 using Aspire.Core.Domain;
+using Aspire.FreeSql.Extension;
 using Autofac;
 using Template.Entity;
 
@@ -11,13 +12,15 @@ public class DemoCoreCore : BaseCore<Demo, DemoDto, Guid, DemoDto>, IDemoCore
     {
     }
 
-    public IEnumerable<DemoDto> GetHello()
+    public string GetHello()
     {
-        throw new NotImplementedException();
+        return "Hello " + DateTime.Now;
     }
 
     public override async Task<PageOutDto<DemoDto>> PagingAsync(int index, int size, DemoDto input)
     {
-        throw new NotImplementedException();
+        var (total, list) = await Repository.Select().PagingAsync<Demo, Guid>(index, size);
+
+        return new PageOutDto<DemoDto>(total, Mapper.Map<IEnumerable<DemoDto>>(list));
     }
 }

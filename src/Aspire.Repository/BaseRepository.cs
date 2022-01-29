@@ -7,13 +7,18 @@ public abstract class BaseRepository<TEntity, TPrimaryKey> : IRepository<TEntity
     where TEntity : IPrimaryKey<TPrimaryKey>
     where TPrimaryKey : IEquatable<TPrimaryKey>
 {
+    private readonly IComponentContext _iocContext;
+
     protected BaseRepository(IComponentContext iocContext)
     {
+        _iocContext = iocContext;
         CurrentUser = iocContext.Resolve<ICurrentUser>();
     }
 
     protected ICurrentUser CurrentUser { get; }
+
     public virtual bool IsSoftDeleted => typeof(TEntity).GetInterface(nameof(IDeleted)) is not null;
+    public virtual bool IsTenement => typeof(TEntity).GetInterface(nameof(ITenement)) is not null && !string.IsNullOrWhiteSpace(CurrentUser.TenementCode);
 
     public abstract Task<IEnumerable<TPrimaryKey>> CreateBatchAsync(IEnumerable<TEntity> inputs);
 
@@ -84,6 +89,19 @@ public abstract class BaseRepository<TEntity, TPrimaryKey> : IRepository<TEntity
             deleted.IsDeleted = true;
             deleted.DeletedAt = DateTime.Now;
             deleted.DeletedBy = CurrentUser.UserName;
+        }
+    }
+
+    protected virtual void TrySetTenement(IEnumerable<TEntity> inputs)
+    {
+        if (inputs.Any() != true) return;
+        if (!IsTenement) return;
+
+        foreach (var input in inputs)
+        {
+            var tenement = (ITenement) input;
+
+            tenement.TenementCode = CurrentUser.TenementCode;
         }
     }
 }

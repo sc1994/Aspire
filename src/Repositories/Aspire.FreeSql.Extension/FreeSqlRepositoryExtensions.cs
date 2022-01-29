@@ -44,6 +44,15 @@ public static class FreeSqlRepositoryExtensions
         return free.GetListAsync(exp, orderBy, limit, skip);
     }
 
+    public static async Task<(long total, IEnumerable<TEntity> list)> PagingAsync<TEntity, TPrimaryKey>(this ISelect<TEntity> select, int index, int size)
+        where TEntity : class, IPrimaryKey<TPrimaryKey>
+        where TPrimaryKey : IEquatable<TPrimaryKey>
+    {
+        var task = select.Page(index, size);
+
+        return (await task.CountAsync(), await task.ToListAsync());
+    }
+
     private static FreeSqlRepository<TEntity, TPrimaryKey> GetFreeSqlRepository<TEntity, TPrimaryKey>(this IRepository<TEntity, TPrimaryKey> repository)
         where TEntity : class, IPrimaryKey<TPrimaryKey>
         where TPrimaryKey : IEquatable<TPrimaryKey>
