@@ -54,12 +54,13 @@ namespace Microsoft.AspNetCore.Builder
             await cxt.Response.WriteAsync(new
             {
                 success = false,
-                code = code,
+                code,
                 title = title ?? exception.GetType().Name,
                 messages = exception.Message.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries),
 #if DEBUG
                 stackTrace = exception.StackTrace?.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries),
 #endif
+                requestId = cxt.RequestServices.GetRequiredService<ILogTracer>().TraceId
             }.ToJsonString());
         }
 

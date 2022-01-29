@@ -1,4 +1,5 @@
 ﻿using System;
+using Aspire;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -29,6 +30,13 @@ namespace Microsoft.Extensions.DependencyInjection
         // ReSharper disable once ClassNeverInstantiated.Local
         private class ResponseFormatFilterAttribute : ActionFilterAttribute
         {
+            private readonly ILogTracer logTracer;
+
+            public ResponseFormatFilterAttribute(ILogTracer logTracer)
+            {
+                this.logTracer = logTracer;
+            }
+
             public override void OnActionExecuted(ActionExecutedContext context)
             {
                 if (context == null) throw new ArgumentNullException(nameof(context));
@@ -38,7 +46,8 @@ namespace Microsoft.Extensions.DependencyInjection
                     context.Result = new ObjectResult(new
                     {
                         success = true,
-                        Result = result.Value
+                        result = result.Value,
+                        requestId = logTracer.TraceId
                     });
 
                 base.OnActionExecuted(context);
