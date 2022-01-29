@@ -7,11 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.2-dev-00890" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
     <PackageReference Include="FreeSql.Provider.Sqlite" Version="2.6.100" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Logger\Aspire.Logger.Serilog\Aspire.Logger.Serilog.csproj" />
     <ProjectReference Include="..\..\src\Repository\Aspire.Repository.FreeSql\Aspire.Repository.FreeSql.csproj" />
   </ItemGroup>
 
